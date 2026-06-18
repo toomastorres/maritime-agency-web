@@ -18,6 +18,8 @@
 > ejemplo (`database/seed_employees.sql`) no corresponden a personas reales. Se
 > eliminaron `.env`, documentos comerciales y logos de la empresa original.
 
+![Vista previa del sitio](docs/home-preview.svg)
+
 ---
 
 ## Funcionalidades
