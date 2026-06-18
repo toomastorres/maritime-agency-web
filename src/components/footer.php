@@ -8,7 +8,7 @@
 
             <!-- Column 1: Brand & Contact -->
             <div class="footer-brand">
-                <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-bianco.png" alt="AMA Agencies Argentina" width="160"
+                <img src="<?php echo ASSETS_URL; ?>/img/logo-white.svg" alt="AMA Agencies Argentina" width="160"
                     height="36" loading="lazy">
                 <p data-i18n="footer.company_name">AMA Agencies Argentina S.A.</p>
                 <div class="footer-contact-item">
@@ -85,7 +85,7 @@
             <span data-i18n="footer.copyright">© 2026 AMA Agencies Argentina S.A. Todos los derechos
                 reservados.</span>
             <a href="https://www.AMA.napoli.it" target="_blank" rel="noopener noreferrer">
-                <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Bianco.png" alt="AMA Agencies Argentina" width="40" height="40"
+                <img src="<?php echo ASSETS_URL; ?>/img/logo-white.svg" alt="AMA Agencies Argentina" width="40" height="40"
                     loading="lazy">
             </a>
         </div>

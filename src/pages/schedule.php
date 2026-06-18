@@ -22,13 +22,13 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Schedules | AMA Agencies Argentina">
     <meta property="og:description" content="Fechas estimadas de arribo y salida de buques AMA.">
-    <meta property="og:image" content="<?php echo ASSETS_URL; ?>/img/GGroupCMYK.png">
+    <meta property="og:image" content="<?php echo ASSETS_URL; ?>/img/logo-blue.svg">
     <meta property="og:url" content="https://ama-demo.example/schedule">
     <meta property="og:site_name" content="AMA Agencies Argentina">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/AMA_bandera_azul.png">
-    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/G-blu-scaled.png">
+    <link rel="icon" type="image/svg+xml" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ama-demo.example/schedule">

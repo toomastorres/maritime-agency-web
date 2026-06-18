@@ -23,7 +23,7 @@ require_once __DIR__ . '/src/config/config.php';
     <div class="error-container">
         <!-- Brand Logo Header -->
         <div class="logo-header">
-            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
         </div>
 
         <!-- Maritime Radar Sweep & Floating Ship Illustration -->

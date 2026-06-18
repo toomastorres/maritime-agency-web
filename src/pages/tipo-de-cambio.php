@@ -21,13 +21,13 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Tipo de Cambio | AMA Agencies Argentina">
     <meta property="og:description" content="Cotización diaria oficial y datos bancarios para pagos.">
-    <meta property="og:image" content="<?php echo ASSETS_URL; ?>/img/GGroupCMYK.png">
+    <meta property="og:image" content="<?php echo ASSETS_URL; ?>/img/logo-blue.svg">
     <meta property="og:url" content="https://ama-demo.example/tipo-de-cambio">
     <meta property="og:site_name" content="AMA Agencies Argentina">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/AMA_bandera_azul.png">
-    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/G-blu-scaled.png">
+    <link rel="icon" type="image/svg+xml" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ama-demo.example/tipo-de-cambio">

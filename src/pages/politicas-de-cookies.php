@@ -17,8 +17,8 @@
     <meta name="robots" content="index, follow">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/AMA_bandera_azul.png">
-    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/G-blu-scaled.png">
+    <link rel="icon" type="image/svg+xml" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ama-demo.example/politicas-de-cookies">
@@ -69,7 +69,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Política de Cookies</h1>
@@ -126,7 +126,7 @@
                         <p>Nos reservamos el derecho de modificar la presente Política de Cookies para adaptarla a novedades normativas o técnicas. Toda modificación será publicada en esta misma página, indicando su fecha de última actualización.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -170,7 +170,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Cookie Policy</h1>
@@ -227,7 +227,7 @@
                         <p>We reserve the right to amend this Cookie Policy to adapt it to regulatory or technical developments. Any changes will be published on this same page, indicating the date of the latest update.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -271,7 +271,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Informativa sui Cookie</h1>
@@ -328,7 +328,7 @@
                         <p>Ci riserviamo il diritto di modificare la presente Informativa sui Cookie per adeguarla a novità normative o tecniche. Ogni modifica sarà pubblicata su questa stessa pagina, indicandone la data di ultimo aggiornamento.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -372,7 +372,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Política de Cookies</h1>
@@ -429,7 +429,7 @@
                         <p>Reservamo-nos o direito de modificar a presente Política de Cookies para a adaptar a novidades normativas ou técnicas. Qualquer modificação será publicada nesta mesma página, indicando a sua data de última atualização.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>

@@ -67,7 +67,7 @@ function navActive(string|array $slugs): string {
 
           <div class="header-logo-icon" aria-hidden="true">
             <!-- AMA flag brand mark -->
-            <img src="<?php echo ASSETS_URL; ?>/img/cropped-AMA_bandera_azul.png"
+            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg"
                  alt="" width="27" height="27" decoding="async">
           </div>
 
@@ -181,7 +181,7 @@ function navActive(string|array $slugs): string {
     <div class="mobile-drawer-logo">
       <div class="mobile-drawer-icon" aria-hidden="true">
         <!-- AMA flag brand mark -->
-        <img src="<?php echo ASSETS_URL; ?>/img/cropped-AMA_bandera_azul.png"
+        <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg"
              alt="" width="24" height="24" decoding="async">
       </div>
       <div>

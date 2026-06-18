@@ -23,8 +23,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AMA Agencies Argentina">
     <meta name="twitter:description" content="Soluciones de transporte marítimo y logística internacional desde Terminal Zárate.">
-    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/AMA_bandera_azul.png">
-    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/G-blu-scaled.png">
+    <link rel="icon" type="image/svg+xml" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
     <link rel="canonical" href="https://ama-demo.example">
     <link rel="preload" as="image" href="<?php echo ASSETS_URL; ?>/img/grande_amburgo.png">
     <link rel="stylesheet" href="<?php echo assetUrl('css/index.css'); ?>">

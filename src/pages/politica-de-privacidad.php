@@ -17,8 +17,8 @@
     <meta name="robots" content="index, follow">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/AMA_bandera_azul.png">
-    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/G-blu-scaled.png">
+    <link rel="icon" type="image/svg+xml" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ama-demo.example/politica-de-privacidad">
@@ -72,7 +72,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Política de Privacidad</h1>
@@ -149,7 +149,7 @@
                         <p>Nos reservamos el derecho de modificar la presente Política de Privacidad para adaptarla a novedades normativas, operativas o jurisprudenciales. Toda modificación será publicada en esta misma página, indicando su fecha de última actualización.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -196,7 +196,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Privacy Policy</h1>
@@ -273,7 +273,7 @@
                         <p>We reserve the right to amend this Privacy Policy to adapt it to regulatory, operational or case-law developments. Any changes will be published on this same page, indicating the date of the latest update.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -320,7 +320,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Informativa sulla Privacy</h1>
@@ -397,7 +397,7 @@
                         <p>Ci riserviamo il diritto di modificare la presente Informativa sulla Privacy per adeguarla a novità normative, operative o giurisprudenziali. Ogni modifica sarà pubblicata su questa stessa pagina, indicandone la data di ultimo aggiornamento.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -444,7 +444,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Política de Privacidade</h1>
@@ -521,7 +521,7 @@
                         <p>Reservamo-nos o direito de modificar a presente Política de Privacidade para a adaptar a novidades normativas, operacionais ou jurisprudenciais. Qualquer modificação será publicada nesta mesma página, indicando a sua data de última atualização.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>

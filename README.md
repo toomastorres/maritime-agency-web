@@ -11,6 +11,7 @@
 ![JS](https://img.shields.io/badge/JS-Vanilla-F7DF1E?logo=javascript&logoColor=black)
 ![Docker](https://img.shields.io/badge/Demo-Docker%20Compose-2496ED?logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
+[![CI](https://github.com/toomastorres/maritime-agency-web/actions/workflows/ci.yml/badge.svg)](https://github.com/toomastorres/maritime-agency-web/actions/workflows/ci.yml)
 
 > ℹ️ Versión **anonimizada para portafolio**: marca, dominios, emails y empleados
 > son ficticios (empresa de ejemplo *Atlantic Maritime Agency / AMA*); los datos de
@@ -52,6 +53,19 @@
 │   └── views/                # Módulos del panel (RRHH, caja, CS, usuarios, auditoría)
 ├── database/                 # install.sql (schema) + seed (datos ficticios) + reset
 └── docs/                     # Documentación técnica (BACKEND, FRONTEND, ADMIN_PORTAL, ...)
+```
+
+### Flujo de una petición
+
+```mermaid
+flowchart LR
+    REQ[Request] --> HT[.htaccess<br/>rewrite] --> FC[index.php<br/>front controller]
+    FC -->|ruta pública| PG[src/pages + API JSON]
+    FC -->|/gestion-interna-agencia| AUTH{auth.php<br/>sesión + CSRF + RBAC}
+    AUTH -->|ok| ADM[Vistas del panel]
+    AUTH -->|no| LOGIN[Login]
+    PG --> DB[(MySQL · PDO)]
+    ADM --> DB
 ```
 
 Decisiones destacadas: prepared statements en todo el acceso a datos (PDO),

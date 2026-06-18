@@ -17,8 +17,8 @@
     <meta name="robots" content="index, follow">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/AMA_bandera_azul.png">
-    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/G-blu-scaled.png">
+    <link rel="icon" type="image/svg+xml" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ama-demo.example/terminos-y-condiciones">
@@ -72,7 +72,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Términos y Condiciones de Uso</h1>
@@ -131,7 +131,7 @@
                         <p>Los presentes Términos y Condiciones se rigen por las leyes de la República Argentina. Para la resolución de cualquier controversia derivada del acceso o uso del sitio, las partes se someten a la jurisdicción de los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -178,7 +178,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Terms and Conditions of Use</h1>
@@ -237,7 +237,7 @@
                         <p>These Terms and Conditions are governed by the laws of the Argentine Republic. For the resolution of any dispute arising from access to or use of the site, the parties submit to the jurisdiction of the ordinary courts of the Autonomous City of Buenos Aires, expressly waiving any other jurisdiction that may correspond to them.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -284,7 +284,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Termini e Condizioni d'Uso</h1>
@@ -343,7 +343,7 @@
                         <p>I presenti Termini e Condizioni sono regolati dalle leggi della Repubblica Argentina. Per la risoluzione di qualsiasi controversia derivante dall'accesso o dall'uso del sito, le parti si sottopongono alla giurisdizione dei tribunali ordinari della Città Autonoma di Buenos Aires, con rinuncia espressa a qualsiasi altro foro che potrebbe spettare loro.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -390,7 +390,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroup-orizzontale-blu.png" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
                         </div>
 
                         <h1>Termos e Condições de Uso</h1>
@@ -449,7 +449,7 @@
                         <p>Os presentes Termos e Condições regem-se pelas leis da República Argentina. Para a resolução de qualquer controvérsia derivada do acesso ou uso do site, as partes submetem-se à jurisdição dos tribunais ordinários da Cidade Autónoma de Buenos Aires, com renúncia expressa a qualquer outro foro que lhes pudesse corresponder.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
                         </div>
                     </article>
                 </div>

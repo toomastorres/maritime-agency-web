@@ -125,7 +125,7 @@ $csrfToken = generate_csrf_token();
 <div class="login-wrapper">
     <div class="login-card">
         <div class="brand-logo">
-            <img src="../../public/assets/img/GGroupFlat-Blu.png" alt="AMA Agencies Argentina">
+            <img src="../../public/assets/img/logo-blue.svg" alt="AMA Agencies Argentina">
         </div>
         
         <h1 class="login-title">Establecer Nueva Contraseña</h1>
