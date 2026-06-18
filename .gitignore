@@ -1,0 +1,50 @@
+# ============================================================
+#  Maritime Agency Web — .gitignore
+# ============================================================
+
+# ─── Credenciales y configuración sensible ──────────────────
+.env
+*.env
+!*.env.example
+src/infrastructure/.env
+src/api/.env
+
+# ─── Dependencias ───────────────────────────────────────────
+node_modules/
+# vendor/ se instala con `composer install` (lo hace el Dockerfile); no se versiona.
+vendor/
+
+# ─── IDE / Editores ─────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ─── Sistema operativo ─────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ─── Logs y temporales ─────────────────────────────────────
+*.log
+*.tmp
+*.cache
+/tmp/
+src/data/*.json
+src/data/schedules/*.xlsx
+src/data/schedules/*.xls
+
+# ─── Build artifacts ───────────────────────────────────────
+dist/
+build/
+*.min.js
+*.min.css
+
+# ─── Gemini / Antigravity internals ────────────────────────
+.gemini/
+.claude/

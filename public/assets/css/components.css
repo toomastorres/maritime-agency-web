@@ -1,0 +1,552 @@
+/* ═══════════════════════════════════════════════════════════ */
+/* AMA — components.css                                 */
+/* Componentes reutilizables de interfaz                     */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* ─── Title Components ─── */
+
+.titulo-principal {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--AMA-blue);
+    margin-bottom: var(--space-md);
+    text-align: center;
+    line-height: 1.2;
+    padding-bottom: var(--space-sm);
+    border-bottom: 3px solid var(--AMA-blue-light);
+    letter-spacing: var(--letter-spacing-heading);
+}
+
+.titulo-contenido {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: var(--AMA-blue);
+    margin-bottom: 0.75rem;
+    text-align: left;
+    line-height: 1.3;
+    letter-spacing: var(--letter-spacing-base);
+}
+
+/* ─── Text Components ─── */
+
+.cuerpo-principal {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--AMA-text);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: var(--letter-spacing-base);
+}
+
+.cuerpo-contenido {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--AMA-text);
+    text-align: left;
+    margin-bottom: var(--space-md);
+    letter-spacing: var(--letter-spacing-base);
+}
+
+.texto-info {
+    font-size: 0.95rem;
+    color: var(--AMA-text-light);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.texto-destacado {
+    font-weight: 600;
+    color: var(--AMA-blue);
+    background-color: var(--AMA-blue-light);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    display: inline-block;
+}
+
+.subtitulo-seccion {
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ─── Button Components ─── */
+
+.boton-primario,
+.boton-secundario {
+    background-color: var(--AMA-blue);
+    color: var(--AMA-white);
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: var(--font-primary);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--AMA-blue);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    min-height: 44px;
+    min-width: 120px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+}
+
+.boton-secundario {
+    background-color: transparent;
+    color: var(--AMA-blue);
+    border-color: var(--AMA-blue);
+}
+
+.boton-primario:hover,
+.boton-secundario:hover {
+    background-color: var(--AMA-blue-dark);
+    color: var(--AMA-white);
+    transform: translateY(-2px);
+    box-shadow: var(--AMA-shadow);
+    text-decoration: none;
+}
+
+.boton-primario:focus-visible,
+.boton-secundario:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 66, 122, 0.3);
+}
+
+.boton-primario:active,
+.boton-secundario:active {
+    transform: translateY(0);
+}
+
+/* ─── Card Components ─── */
+
+.cards-contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    padding: var(--space-md);
+}
+
+.card-info {
+    background-color: var(--AMA-white);
+    width: 100%;
+    max-width: 800px;
+    min-height: 200px;
+    margin: 0 auto;
+    box-shadow: var(--AMA-shadow);
+    box-sizing: border-box;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--radius-lg);
+    border: none;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-info:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--AMA-shadow-lg);
+}
+
+.card-AMA {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    max-width: 340px;
+    flex: 1 1 280px;
+    padding: var(--space-xl);
+    background-color: var(--AMA-white);
+    border: none;
+    /* FIX: consolidated from duplicate block at bottom of file — uses radius-xl */
+    border-radius: var(--radius-xl);
+    box-shadow: var(--AMA-shadow);
+    transition: all var(--transition-normal);
+}
+
+.card-AMA:hover {
+    /* FIX: removed conflicting duplicate — kept clean translateY(-8px) without scale() */
+    transform: translateY(-8px);
+    box-shadow: var(--AMA-shadow-xl);
+}
+
+.card-panel {
+    background-color: var(--AMA-gray-light);
+    border: 2px solid var(--AMA-blue);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--AMA-shadow);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-xl);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    justify-content: center;
+}
+
+.card-cuerpo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+    justify-content: center;
+}
+
+.card-footer {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 2px solid var(--AMA-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    color: var(--AMA-text-light);
+}
+
+.info-item {
+    background-color: var(--AMA-white);
+    box-shadow: var(--AMA-shadow);
+    border: 1px solid var(--AMA-blue);
+    padding: var(--space-lg);
+    width: 280px;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    transition: transform var(--transition-normal);
+}
+
+.info-item:hover {
+    transform: translateY(-3px);
+}
+
+/* ─── Alert Components ─── */
+
+.alerta-exito {
+    background-color: var(--AMA-success-bg);
+    color: var(--AMA-success);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    border-left: 4px solid var(--AMA-success);
+    font-weight: 500;
+}
+
+.alerta-error {
+    background-color: var(--AMA-error-bg);
+    color: var(--AMA-error);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    border-left: 4px solid var(--AMA-error);
+    font-weight: 500;
+}
+
+.alerta-estado {
+    background-color: var(--AMA-warning-bg);
+    color: var(--AMA-warning);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    border-left: 4px solid var(--AMA-warning);
+    font-weight: 500;
+}
+
+/* Alerta con icono SVG inline alineado al texto */
+.alerta-con-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.alerta-con-icono .alerta-icono {
+    display: inline-flex;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+/* Spinner SVG (reemplaza fa-spin; el proyecto no carga FontAwesome) */
+.svg-spin {
+    animation: svg-spin 0.8s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes svg-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ─── Form Components ─── */
+
+.formulario-AMA input,
+.formulario-AMA select,
+.formulario-AMA textarea {
+    padding: 0.75rem var(--space-md);
+    border: 2px solid var(--AMA-border);
+    border-radius: var(--radius-md);
+    background-color: var(--AMA-white);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    width: 100%;
+    transition: all var(--transition-normal);
+    box-sizing: border-box;
+}
+
+.formulario-AMA input:focus,
+.formulario-AMA select:focus,
+.formulario-AMA textarea:focus {
+    border-color: var(--AMA-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 66, 122, 0.12);
+}
+
+.formulario-AMA label {
+    color: var(--AMA-blue);
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    font-size: 0.95rem;
+}
+
+/* ─── List Components ─── */
+
+.lista-institucional {
+    list-style: none;
+    padding-left: 0;
+    margin-top: var(--space-lg);
+}
+
+.lista-institucional li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+}
+
+.lista-institucional li::before {
+    content: '\2713';
+    color: var(--AMA-blue);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 768px) {
+    .titulo-principal {
+        font-size: 2rem;
+        padding: 0 var(--space-md);
+    }
+
+    .boton-primario,
+    .boton-secundario {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cards-contenedor {
+        gap: var(--space-lg);
+    }
+
+    .card-AMA {
+        max-width: 100%;
+        margin: 0 var(--space-md);
+    }
+
+    .card-panel {
+        padding: var(--space-lg);
+    }
+}
+
+/* ─── Gold & Ghost Button Variants ─── */
+
+/* Gold button — primary CTA on dark backgrounds */
+.boton-oro {
+    background-color: var(--AMA-gold);
+    color: #1a1a1a;
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--AMA-gold);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    min-height: 48px;
+    letter-spacing: 0.3px;
+}
+
+.boton-oro:hover {
+    background-color: var(--AMA-gold-dark);
+    border-color: var(--AMA-gold-dark);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(197, 160, 89, 0.4);
+    text-decoration: none;
+}
+
+.boton-oro:active {
+    transform: translateY(0);
+}
+
+/* Ghost button — secondary CTA on dark backgrounds */
+.boton-ghost {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    border-radius: var(--radius-full);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    min-height: 48px;
+    letter-spacing: 0.3px;
+}
+
+.boton-ghost:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.boton-ghost:active {
+    transform: translateY(0);
+}
+
+/* ─── Badge Components ─── */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    line-height: 1;
+}
+
+.badge-gold {
+    background-color: var(--AMA-gold);
+    color: #1a1a1a;
+}
+
+.badge-white {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+.badge-blue {
+    background-color: var(--AMA-blue);
+    color: #ffffff;
+}
+
+.badge-categoria {
+    background-color: rgba(0, 66, 122, 0.1);
+    color: var(--AMA-blue);
+    border: 1px solid rgba(0, 66, 122, 0.2);
+}
+
+/* Category-specific badge colors */
+.badge-servicios    { background: #dbeafe; color: #1e40af; }
+.badge-tecnologia   { background: #f3e8ff; color: #6b21a8; }
+.badge-sustentabilidad { background: #dcfce7; color: #166534; }
+.badge-informacion  { background: #fef9c3; color: #854d0e; }
+.badge-eventos      { background: #ffe4e6; color: #9f1239; }
+.badge-comunicados  { background: #f1f5f9; color: #475569; }
+.badge-logistica    { background: #ecfdf5; color: #065f46; }
+
+/* ─── Utilities and Animations ─── */
+
+@keyframes softFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: softFadeIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ─── Canonical Gold Section Label & Divider ─── */
+.section-label-gold {
+    display: block;
+    color: var(--AMA-gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+}
+
+.section-divider-gold {
+    width: 96px;
+    height: 6px;
+    background: var(--AMA-gold);
+    border-radius: var(--radius-full);
+    margin: 1.5rem auto 0;
+}
+
+/* ─── Spinner Icon ─── */
+
+@keyframes spinnerRotate {
+    to { transform: rotate(360deg); }
+}
+
+.spinner-icon {
+    display: inline-block;
+    vertical-align: middle;
+    animation: spinnerRotate 0.8s linear infinite;
+}
+
+/* ─── Legal Page Content ─── */
+
+.legal-page-content {
+    padding-top: 100px;
+}
+
+/* i18n Declarative Legal / Cookie / Terms Pages Display */
+.legal-page-content .lang-content { display: none !important; }
+html[lang="es"] .legal-page-content .lang-content[data-lang="es"],
+html[lang="en"] .legal-page-content .lang-content[data-lang="en"],
+html[lang="it"] .legal-page-content .lang-content[data-lang="it"],
+html[lang="pt"] .legal-page-content .lang-content[data-lang="pt"] { display: block !important; }

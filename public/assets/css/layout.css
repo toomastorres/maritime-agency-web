@@ -1,0 +1,141 @@
+/* ═══════════════════════════════════════════════════════════ */
+/* AMA — layout.css                                     */
+/* Contenedores, grids y sistemas de layout                  */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* ─── Main Container ─── */
+.contenedor-principal {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg);
+}
+
+/* ─── Section Wrapper ─── */
+.section-wrapper {
+    padding: var(--space-3xl) 0;
+}
+
+.section-wrapper--alt {
+    background-color: var(--AMA-gray-light);
+}
+
+/* ─── Grid: 33/66 ─── */
+.layout-33-66 {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.layout-izquierda,
+.layout-derecha {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* ─── Grid: 50/50 ─── */
+.layout-50-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.layout-mitad {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* ─── Grid: 3 columns ─── */
+.layout-3-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+}
+
+/* ─── Flex Layout ─── */
+.layout-flexible {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.layout-flexible--center {
+    align-items: center;
+}
+
+/* ─── Section Centered Text ─── */
+.section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-2xl);
+}
+
+/* ─── Responsive Breakpoints ─── */
+@media (max-width: 1024px) {
+    .layout-33-66 {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .layout-50-50 {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .layout-3-col {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .contenedor-principal {
+        padding: var(--space-lg) var(--space-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .layout-flexible {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .contenedor-principal {
+        padding: var(--space-md) var(--space-sm);
+    }
+}
+
+/* ─── Dark Section (stats, testimonials) ─── */
+.section-dark {
+    background: var(--AMA-blue);
+    color: #ffffff;
+}
+
+.section-dark .titulo-principal,
+.section-dark .titulo-contenido {
+    color: #ffffff;
+}
+
+.section-dark .titulo-principal {
+    border-bottom-color: rgba(197, 160, 89, 0.4);
+}
+
+/* ─── Wide Container ─── */
+.container-xl {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+}
+
+@media (max-width: 768px) {
+    .container-xl {
+        padding: 0 var(--space-md);
+    }
+}

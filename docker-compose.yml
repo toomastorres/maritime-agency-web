@@ -1,0 +1,42 @@
+# Demo local: sitio público + portal admin + MySQL con datos de ejemplo.
+#   docker compose up --build   →   http://localhost:8080
+#   Portal admin:               →   http://localhost:8080/gestion-interna-agencia/
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ama_web
+      MYSQL_USER: ama_web
+      MYSQL_PASSWORD: ama_web
+    # Los .sql se ejecutan en orden alfabético al crear el volumen:
+    # install.sql (schema) → reset_data.sql → seed_employees.sql (datos ficticios).
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d:ro
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_ENV: development
+      DB_HOST: db
+      DB_USER: ama_web
+      DB_PASS: ama_web
+      DB_NAME: ama_web
+      SMTP_HOST: smtp.example.com
+      SMTP_PORT: "465"
+      SMTP_FROM: no-reply@ama-demo.example
+      SMTP_FROM_NAME: AMA Sistemas
+
+volumes:
+  db_data:

@@ -1,0 +1,655 @@
+/* ═══════════════════════════════════════════════════════════════════ */
+/* AMA — header.css                                             */
+/* Barra de navegación corporativa — mobile-first                    */
+/* Tokens: var(--AMA-*) defined in variables.css                */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. Header container ──────────────────────────────────────── */
+
+.AMA-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+
+    /* Default: Navy glassmorphism translúcido y elegante */
+    background-color: rgba(0, 26, 61, 0.94);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    transition:
+        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color     0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow       0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrolled state: added by JS via data-scrolled="true" */
+.AMA-header[data-scrolled="true"] {
+    background-color: rgba(0, 20, 48, 0.98);   /* Navy más oscuro */
+    border-bottom-color: rgba(197, 160, 89, 0.25);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── 2. Inner layout ───────────────────────────────────────────── */
+
+.header-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    height: 76px; /* Inicial por spec */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrolled inner height */
+.AMA-header[data-scrolled="true"] .header-inner {
+    height: 64px;
+}
+
+/* ─── 3. Logo ───────────────────────────────────────────────────── */
+
+.header-logo {
+    flex-shrink: 0;
+}
+
+.header-logo a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header-logo-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    background: var(--AMA-gold);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--AMA-navy);
+    box-shadow: 0 4px 14px rgba(197, 160, 89, 0.4);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.header-logo a:hover .header-logo-icon {
+    transform: scale(1.07) rotate(-4deg);
+    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.55);
+}
+
+/* AMA flag brand mark inside the gold badge */
+.header-logo-icon img,
+.mobile-drawer-icon img {
+    width: 64%;
+    height: 64%;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.18));
+}
+
+.header-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: 4px;
+}
+
+.header-logo-brand {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--AMA-white);
+    letter-spacing: -0.2px;
+    line-height: 1;
+    /* On scroll the text stays white either way — navy bg ensures it */
+    text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+}
+
+.header-logo-country {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--AMA-gold);
+    line-height: 1;
+}
+
+/* ─── 4. Desktop Navigation ─────────────────────────────────────── */
+
+.header-nav {
+    display: none;  /* hidden on mobile, shown at breakpoint */
+    align-items: center;
+    gap: 0.125rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-link {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+
+    /* Gold underline track */
+    --underline-width: 0%;
+}
+
+/* Animated underline */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--underline-width);
+    height: 2px;
+    background: var(--AMA-gold);
+    border-radius: 2px;
+    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover {
+    color: var(--AMA-white);
+    --underline-width: 70%;
+}
+
+.nav-link:hover::after {
+    width: 70%;
+}
+
+.nav-link.active {
+    color: var(--AMA-gold);
+    --underline-width: 70%;
+}
+
+.nav-link.active::after {
+    width: 70%;
+    background: var(--AMA-gold);
+}
+
+/* ─── 5. Right controls (lang + hamburger) ──────────────────────── */
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+}
+
+/* ─── 6. Language Dropdown (Globe) ──────────────────────────────── */
+
+.lang-dropdown {
+    position: relative;
+}
+
+.lang-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    padding: 0.45rem 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    letter-spacing: 0.03em;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    min-height: 44px;
+    min-width: 44px;
+    white-space: nowrap;
+}
+
+.lang-trigger:hover {
+    background: rgba(197, 160, 89, 0.2);
+    border-color: rgba(197, 160, 89, 0.5);
+    color: var(--AMA-gold);
+}
+
+.lang-dropdown.open .lang-trigger {
+    background: rgba(197, 160, 89, 0.2);
+    border-color: rgba(197, 160, 89, 0.5);
+    color: var(--AMA-gold);
+}
+
+.globe-icon,
+.chevron-icon {
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+.lang-current {
+    font-size: 0.78rem;
+}
+
+.lang-dropdown.open .chevron-icon {
+    transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.lang-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: rgba(0, 26, 61, 0.97);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    min-width: 160px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+    pointer-events: none;
+    transition:
+        opacity 0.22s ease,
+        transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
+    z-index: calc(var(--z-header) + 10);
+}
+
+.lang-dropdown.open .lang-menu {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.lang-menu li {
+    list-style: none;
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: var(--font-primary);
+    text-align: left;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    min-height: 44px;
+}
+
+.lang-option:hover {
+    background-color: rgba(197, 160, 89, 0.12);
+    color: var(--AMA-white);
+}
+
+.lang-option.active {
+    color: var(--AMA-gold);
+    font-weight: 700;
+    background-color: rgba(197, 160, 89, 0.08);
+}
+
+.lang-flag {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+/* ─── 7. Mobile Hamburger Button ────────────────────────────────── */
+
+.nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-toggle:hover {
+    background: rgba(197, 160, 89, 0.2);
+    border-color: rgba(197, 160, 89, 0.45);
+}
+
+.hamburger-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--AMA-white);
+    border-radius: 2px;
+    transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity   0.25s ease,
+        width     0.25s ease;
+    transform-origin: center;
+}
+
+/* Hamburger → X */
+.nav-toggle.active .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+.nav-toggle.active .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── 8. Overlay ────────────────────────────────────────────────── */
+
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    z-index: calc(var(--z-header) + 5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ─── 9. Mobile Off-Canvas Drawer ───────────────────────────────── */
+
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100dvh;              /* 100dvh handles mobile browser chrome */
+    max-height: 100vh;
+    background: var(--AMA-navy, #001a3d);
+    background: linear-gradient(160deg, #001a3d 0%, #002b5c 100%);
+    border-left: 1px solid rgba(197, 160, 89, 0.2);
+    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
+    z-index: calc(var(--z-header) + 10);
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.mobile-drawer.open {
+    transform: translateX(0);
+}
+
+/* Drawer header */
+.mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    flex-shrink: 0;
+}
+
+.mobile-drawer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.mobile-drawer-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    background: var(--AMA-gold);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--AMA-navy, #001a3d);
+    box-shadow: 0 3px 10px rgba(197, 160, 89, 0.4);
+}
+
+.mobile-drawer-brand {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--AMA-white);
+    letter-spacing: -0.2px;
+    line-height: 1;
+}
+
+.mobile-drawer-country {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--AMA-gold);
+    margin-top: 3px;
+}
+
+/* Close button */
+.drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    color: rgba(255, 255, 255, 0.7);
+    flex-shrink: 0;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.drawer-close:hover {
+    background: rgba(197, 160, 89, 0.15);
+    color: var(--AMA-gold);
+    border-color: rgba(197, 160, 89, 0.35);
+}
+
+/* Drawer nav list */
+.mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.75rem 0;
+    flex: 1;
+}
+
+.mobile-nav-list li {
+    list-style: none;
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.9rem 1.5rem;
+    border-left: 3px solid transparent;
+    transition:
+        color            var(--transition-fast),
+        background-color var(--transition-fast),
+        border-color     var(--transition-fast),
+        padding-left     var(--transition-fast);
+    min-height: 52px;
+}
+
+.mobile-nav-link:hover {
+    color: var(--AMA-white);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: rgba(197, 160, 89, 0.5);
+    padding-left: calc(1.5rem + 2px);
+}
+
+.mobile-nav-link.active {
+    color: var(--AMA-gold);
+    background-color: rgba(197, 160, 89, 0.08);
+    border-left-color: var(--AMA-gold);
+    padding-left: calc(1.5rem + 2px);
+}
+
+.mobile-nav-icon {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.mobile-nav-link:hover .mobile-nav-icon,
+.mobile-nav-link.active .mobile-nav-icon {
+    opacity: 1;
+}
+
+/* Mobile language selector */
+.mobile-lang-selector {
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid rgba(197, 160, 89, 0.15);
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.mobile-lang-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 0.65rem;
+}
+
+.mobile-lang-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mobile-lang-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    padding: 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: all var(--transition-fast);
+    min-height: 44px;
+}
+
+.mobile-lang-btn:hover {
+    color: var(--AMA-white);
+    border-color: rgba(197, 160, 89, 0.4);
+    background: rgba(197, 160, 89, 0.1);
+}
+
+.mobile-lang-btn.active {
+    background: var(--AMA-gold);
+    border-color: var(--AMA-gold);
+    color: var(--AMA-navy, #001a3d);
+    box-shadow: 0 2px 10px rgba(197, 160, 89, 0.4);
+}
+
+/* ─── 10. Responsive Breakpoints ────────────────────────────────── */
+
+/* ≥ 768px: show desktop nav, hide hamburger */
+@media (min-width: 768px) {
+    .header-nav {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: none;
+    }
+
+    /* Drawer & overlay not needed on desktop */
+    .mobile-drawer,
+    .nav-overlay {
+        display: none !important;
+    }
+}
+
+/* ≤ 767px: mobile-only tweaks */
+@media (max-width: 767px) {
+    .header-inner {
+        padding: 0 1rem;
+    }
+
+    .header-logo-brand {
+        font-size: 0.85rem;
+    }
+
+    /* Globe dropdown still accessible on mobile (in drawer) */
+    .lang-dropdown {
+        display: none;
+    }
+
+    /* Ensure drawer is displayed on mobile */
+    .mobile-drawer {
+        display: flex;
+    }
+}
+
+/* ─── 11. Reduced-motion support ────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+    .AMA-header,
+    .mobile-drawer,
+    .nav-overlay,
+    .lang-menu,
+    .nav-link::after,
+    .hamburger-line,
+    .lang-trigger,
+    .header-logo-icon {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ─── 12. Body offset so content starts below fixed header ─────── */
+/* Pages that have a hero with overlay should NOT use body-offset.  */
+/* Hero sections handle the offset themselves via min-height/padding.*/
+/* Add class .has-hero to <body> to disable this rule.              */
+
+body:not(.has-hero) {
+    padding-top: 72px;
+}
+
+@media (max-width: 767px) {
+    body:not(.has-hero) {
+        padding-top: 64px;
+    }
+}

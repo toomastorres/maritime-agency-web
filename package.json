@@ -1,0 +1,17 @@
+{
+    "name": "AMA-web-project",
+    "version": "1.0.0",
+    "description": "Web institucional de AMA Agencies Argentina",
+    "private": true,
+    "scripts": {
+        "dev": "echo 'Servidor de desarrollo no configurado aun. Ver README.md'",
+        "lint": "echo 'Linter no configurado aun'"
+    },
+    "keywords": [
+        "AMA",
+        "shipping",
+        "argentina"
+    ],
+    "author": "AMA Agencies Argentina",
+    "license": "UNLICENSED"
+}

@@ -1,0 +1,22 @@
+{
+    "name": "AMA/web-bridge",
+    "description": "Bridge API para AMA Agencies Argentina — consulta READ-ONLY a la BD del hosting",
+    "version": "1.0.0",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=7.4",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "AMA\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "check": "php -l api-bridge/bridge.php"
+    }
+}

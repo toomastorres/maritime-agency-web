@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        .wrapper { width: 100%; background-color: #f0f2f5; padding: 30px 10px; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .header { background-color: #0b2b5e; padding: 24px 30px; text-align: center; border-bottom: 4px solid #c8a145; }
+        .header h1 { color: #ffffff; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: 0.5px; }
+        .content { padding: 30px; color: #333333; font-size: 15px; line-height: 1.6; }
+        .content h2 { color: #0b2b5e; font-size: 18px; margin-top: 0; margin-bottom: 20px; font-weight: 600; }
+        .content p { margin-bottom: 15px; }
+        .content ul { background-color: #f8f9fa; padding: 20px 20px 20px 40px; border-radius: 6px; border-left: 3px solid #c8a145; margin-bottom: 20px; }
+        .content li { margin-bottom: 10px; }
+        .content li:last-child { margin-bottom: 0; }
+        .content strong { color: #0b2b5e; }
+        .content blockquote { background-color: #f8f9fa; border-left: 4px solid #0b2b5e; margin: 0 0 20px 0; padding: 15px 20px; font-style: italic; color: #555; }
+        .footer { background-color: #f8f9fa; padding: 20px 30px; text-align: center; font-size: 13px; color: #666666; border-top: 1px solid #eeeeee; }
+        .footer a { color: #0b2b5e; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <h1>AMA AGENCIES</h1>
+            </div>
+            <div class="content">
+                <h2>{{title}}</h2>
+                {{content}}
+            </div>
+            <div class="footer">
+                <p>Este es un mensaje automatico del sistema web de <strong>AMA Agencies Argentina</strong>.</p>
+                <p>Si necesita responder, escribanos a info@ama-demo.example.</p>
+                <p style="margin-top: 10px; font-size: 11px; color: #999;">&copy; {{year}} AMA Agencies Argentina. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

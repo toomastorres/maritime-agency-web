@@ -1,0 +1,738 @@
+/* ═══════════════════════════════════════════════════════════ */
+/* AMA — schedule.css                                   */
+/* Estilos de la página de itinerarios                       */
+/* ═══════════════════════════════════════════════════════════ */
+
+.schedule-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* FIX: replaced hardcoded 'white' → var(--AMA-white) */
+            background: var(--AMA-white);
+            padding: var(--space-lg);
+            /* FIX: replaced hardcoded 16px → var(--radius-xl) */
+            border-radius: var(--radius-xl);
+            /* FIX: replaced raw rgba → var(--AMA-shadow-sm) */
+            box-shadow: var(--AMA-shadow-sm);
+            margin-bottom: var(--space-xl);
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .schedule-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .schedule-select-wrapper select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            color: var(--AMA-dark);
+            min-width: 250px;
+            background-color: var(--AMA-light-gray);
+            cursor: pointer;
+        }
+
+        /* Table Wrapper for horizontal scroll */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-height: 600px;
+            overflow-y: auto;
+            background: var(--AMA-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--AMA-shadow);
+            border-top: 4px solid var(--AMA-blue);
+        }
+
+        .AMA-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            min-width: 600px;
+        }
+
+        .AMA-table th,
+        .AMA-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .AMA-table th {
+            background-color: var(--AMA-blue);
+            color: var(--AMA-white);
+            font-weight: 600;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .AMA-table thead th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+
+        .AMA-table thead th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+        }
+
+        .AMA-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-fast);
+        }
+
+        .AMA-table tbody tr {
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .AMA-table tbody tr:hover td {
+            background-color: var(--AMA-blue-subtle);
+        }
+
+        .AMA-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .AMA-table td.highlight {
+            font-weight: bold;
+            color: var(--AMA-blue);
+        }
+
+        .info-panel {
+            background: var(--AMA-light-gray);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-left: 4px solid var(--AMA-yellow);
+        }
+
+/* ── Info Panel unificado (mismo diseño que tipo de cambio) ────────── */
+.tc-info-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 2.5rem;
+    background: var(--AMA-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--AMA-shadow);
+    border: 1px solid var(--AMA-border);
+    overflow: hidden;
+}
+
+.tc-info-panel__item {
+    padding: 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.tc-info-panel__item:not(:last-child) {
+    border-right: 1px solid var(--AMA-border);
+}
+
+.tc-info-panel__icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 66, 122, 0.06);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem;
+    color: var(--AMA-blue);
+}
+
+.tc-info-panel__title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--AMA-text-light);
+    margin-bottom: 0.5rem;
+}
+
+.tc-info-panel__value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--AMA-dark);
+}
+
+.tc-info-panel__value--highlight {
+    display: inline-block;
+    background: rgba(0, 66, 122, 0.06);
+    color: var(--AMA-blue);
+    font-weight: 700;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+}
+
+.tc-info-panel__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--AMA-blue);
+    border: 1.5px solid var(--AMA-blue);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    margin-top: 0.5rem;
+}
+
+.tc-info-panel__action:hover {
+    background: var(--AMA-blue);
+    color: var(--AMA-white);
+}
+
+@media (max-width: 768px) {
+    .tc-info-panel {
+        grid-template-columns: 1fr;
+    }
+    .tc-info-panel__item:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid var(--AMA-border);
+    }
+}
+
+
+/* 4-col Filter Bar */
+.schedule-filters-bar {
+    background: var(--AMA-white);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--AMA-shadow-lg);
+    border: 1px solid var(--AMA-border);
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 1.5rem;
+    align-items: end;
+}
+
+.schedule-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.schedule-filter-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--AMA-text-light);
+}
+
+.schedule-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--AMA-border);
+    border-radius: var(--radius-lg);
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    color: var(--AMA-text);
+    background: var(--AMA-white);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300427A'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 20px;
+    padding-right: 2.5rem;
+}
+
+.schedule-select:focus {
+    outline: none;
+    border-color: var(--AMA-blue);
+    box-shadow: 0 0 0 3px rgba(0, 66, 122, 0.15);
+}
+
+.schedule-filter-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.schedule-btn-apply {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    height: 46px;
+    padding: 0 1.25rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.schedule-btn-reset {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--AMA-gray-light);
+    border: 1.5px solid var(--AMA-border);
+    border-radius: var(--radius-lg);
+    color: var(--AMA-text-light);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.schedule-btn-reset:hover {
+    background: var(--AMA-blue-subtle);
+    color: var(--AMA-blue);
+    border-color: var(--AMA-blue);
+}
+
+.schedule-export-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--AMA-gray-light);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    border: 1px solid var(--AMA-border);
+    border-bottom: none;
+}
+
+.schedule-export-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.boton-excel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.boton-excel:hover {
+    background: #c8e6c9;
+}
+
+.boton-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffbcbc;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.boton-pdf:hover {
+    background: #ffcdd2;
+}
+
+@media (max-width: 900px) {
+    .schedule-filters-bar {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .schedule-filters-bar {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .schedule-filter-actions {
+        width: 100%;
+    }
+    
+    .schedule-btn-apply {
+        width: 100%;
+        height: 44px;
+    }
+}
+
+/* ── Estilos para el nuevo sistema de port calls estructurados ── */
+
+/* Fila de puerto con conexión feeder: itálica, fondo cálido */
+.AMA-table tbody tr.port-feeder td {
+    font-style: italic;
+    background-color: #f8f4e8;
+    color: #64748b;
+}
+.AMA-table tbody tr.port-feeder:hover td {
+    background-color: #f0e8cc;
+}
+
+/* Badge del código de viaje feeder (ej. "GTC0126") */
+.feeder-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+/* Etiqueta "via feeder" en la celda ETA */
+.feeder-via {
+    font-size: 0.75rem;
+    color: #a16207;
+    font-style: normal;
+}
+
+/* Fila de Zárate: fondo azul muy tenue */
+.AMA-table tbody tr.port-zarate td {
+    background-color: rgba(0, 66, 122, 0.04);
+}
+
+/* Celda de puerto destacada (Zárate) */
+.AMA-table td.highlight {
+    font-weight: 700;
+    color: var(--AMA-blue, #00427a);
+}
+
+/* Fila del nombre del buque + voyage code en el thead */
+.AMA-table thead tr:first-child th {
+    background-color: #001f4d;
+    color: #fff;
+    letter-spacing: 0.05em;
+}
+
+/* ── Estilos del Empty State ── */
+.schedule-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: var(--AMA-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--AMA-shadow-sm);
+    border: 1px dashed var(--AMA-border);
+    margin: 2rem 0;
+    color: var(--AMA-text-light);
+}
+
+.schedule-empty-state svg {
+    margin-bottom: 1.5rem;
+    color: var(--AMA-gray-dark, #94a3b8);
+}
+
+/* Estado activo para el select */
+.schedule-select.has-value {
+    border-color: var(--AMA-blue);
+    background-color: #f0f7ff;
+}
+
+/* ── Estilos para el nuevo formato matricial (Pivot) ── */
+.AMA-matrix-table {
+    font-size: 0.85rem; /* Ajustar texto para meter mucha data */
+}
+
+.AMA-matrix-table th,
+.AMA-matrix-table td {
+    padding: 0.6rem 1rem;
+    white-space: nowrap;
+    border: 1px solid var(--border-color); /* Cuadricula explícita */
+}
+
+/* ── Matrix Header: Vessel name row ──────────────────────────────────── */
+.matrix-vessel-header {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.75rem 1rem !important;
+    line-height: 1.3;
+    min-width: 140px;
+}
+
+.matrix-voyage-code {
+    font-weight: 400;
+    font-size: 0.72rem;
+    opacity: 0.75;
+    margin-top: 0.2rem;
+    letter-spacing: 0.05em;
+}
+
+.matrix-port-header {
+    vertical-align: bottom;
+    min-width: 160px;
+}
+
+.matrix-sub-header {
+    text-align: center;
+    background-color: #003366 !important;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem !important;
+}
+
+/* Encabezados anidados (Buque > ETA | ETS) — sticky second row */
+.AMA-matrix-table thead tr:nth-child(2) th {
+    top: 52px; /* Matches actual height of first row with vessel name + voyage code */
+}
+
+/* Zárate row highlight */
+.AMA-matrix-table tbody tr.row-zarate td {
+    background-color: rgba(0, 66, 122, 0.04);
+}
+
+.AMA-matrix-table tbody tr.row-zarate td:first-child {
+    color: var(--AMA-blue);
+    background-color: rgba(0, 66, 122, 0.06);
+}
+
+/* Estilar la columna de puertos a la izquierda (sticky column) */
+.AMA-matrix-table td:first-child,
+.AMA-matrix-table th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 20;
+    background-color: var(--AMA-white);
+    font-weight: 700;
+    border-right: 2px solid var(--AMA-blue);
+}
+
+.AMA-matrix-table th:first-child {
+    background-color: var(--AMA-blue);
+    color: white;
+    z-index: 30; /* Sticky top + left intersection */
+}
+
+/* Quitar resaltes legacy que rompían el grid en matrix view */
+.AMA-matrix-table tbody tr.port-feeder td {
+    background-color: transparent;
+    font-style: auto;
+}
+.AMA-matrix-table tbody tr.port-zarate td {
+    background-color: transparent;
+}
+
+/* ── Route Search Panel ───────────────────────────────────────────────── */
+.route-search-panel {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f0f8 100%);
+    border: 1px solid var(--AMA-border);
+    border-left: 4px solid var(--AMA-blue);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.route-search-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--AMA-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+}
+
+.route-search-header svg {
+    flex-shrink: 0;
+}
+
+.route-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 1rem;
+}
+
+.route-result-card {
+    background: var(--AMA-white);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--AMA-border);
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.route-result-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 66, 122, 0.12);
+    transform: translateY(-1px);
+}
+
+.route-vessel-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--AMA-border);
+    color: var(--AMA-blue);
+    font-size: 0.95rem;
+}
+
+.route-vessel-info svg {
+    flex-shrink: 0;
+    color: var(--AMA-yellow);
+}
+
+.route-voyage-code {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--AMA-text-light);
+    background: var(--AMA-gray-light);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+}
+
+.route-ports-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.route-port-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+    text-align: center;
+}
+
+.route-port-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--AMA-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.route-port-date {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--AMA-blue);
+    line-height: 1.2;
+}
+
+.route-port-departure .route-port-date {
+    color: #b45309;
+}
+
+.route-port-arrival .route-port-date {
+    color: #047857;
+}
+
+.route-port-type {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--AMA-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+}
+
+.route-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--AMA-blue);
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+.route-no-results {
+    padding: 0.75rem 1rem;
+    background: var(--AMA-white);
+    border-radius: var(--radius-md);
+    color: var(--AMA-text-light);
+    font-size: 0.9rem;
+}
+
+/* ── Return Leg Indicators ─────────────────────────────────────────────── */
+.port-return-indicator {
+    font-size: 0.7rem;
+    color: var(--AMA-text-light);
+    font-weight: 400;
+    opacity: 0.7;
+    margin-left: 0.25rem;
+}
+
+.row-return-leg td:first-child {
+    border-left: 3px solid var(--AMA-yellow) !important;
+}
+
+/* ── Feeder Labels (used in JS) ────────────────────────────────────────── */
+.feeder-label {
+    font-size: 0.8em;
+    color: #da861a;
+    font-style: italic;
+}
+
+.feeder-code {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #da861a;
+}
+
+/* ── Alternating rows for readability ──────────────────────────────────── */
+.AMA-matrix-table tbody tr:nth-child(even) td {
+    background-color: #fafbfc;
+}
+
+.AMA-matrix-table tbody tr:nth-child(even) td:first-child {
+    background-color: #fafbfc;
+}
+
+.AMA-matrix-table tbody tr:nth-child(even):hover td {
+    background-color: var(--AMA-blue-subtle);
+}
+
+/* ── Responsive route panel ────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .route-results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .route-ports-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .route-arrow {
+        transform: rotate(90deg);
+    }
+
+    .route-search-panel {
+        padding: 1rem;
+    }
+}

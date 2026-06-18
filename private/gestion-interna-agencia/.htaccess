@@ -1,0 +1,21 @@
+# Prevenir indexación por motores de búsqueda
+Header set X-Robots-Tag "noindex, nofollow"
+
+# Deshabilitar listado de directorios
+Options -Indexes
+
+# Proteger archivos sensibles
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^(db\.php|auth\.php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Forzar HTTPS (Descomentar en producción)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

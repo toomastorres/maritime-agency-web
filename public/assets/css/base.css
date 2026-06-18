@@ -1,0 +1,146 @@
+/* ═══════════════════════════════════════════════════════════ */
+/* AMA — base.css                                       */
+/* Reset, tipografía base y estilos globales                 */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* ─── Modern Reset ─── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--AMA-text);
+    background-color: var(--AMA-white);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Images ─── */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ─── Links ─── */
+a {
+    color: var(--AMA-blue);
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--AMA-blue-dark);
+}
+
+a:focus-visible {
+    outline: 3px solid rgba(0, 105, 204, 0.4);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* ─── Lists ─── */
+ul,
+ol {
+    list-style-position: inside;
+}
+
+/* ─── Headings ─── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--AMA-blue);
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-md);
+}
+
+h3 {
+    font-size: 1.375rem;
+    margin-bottom: var(--space-sm);
+}
+
+h4 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+}
+
+p {
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+}
+
+strong {
+    font-weight: 600;
+}
+
+/* ─── Selection ─── */
+::selection {
+    background-color: var(--AMA-blue);
+    color: var(--AMA-white);
+}
+
+/* ─── Utility: Screen Reader Only ─── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ─── Responsive Typography ─── */
+@media (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+}
