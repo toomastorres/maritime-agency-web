@@ -101,3 +101,10 @@ Apache (`.htaccess`: rewrite + cache) · Composer · Docker / Docker Compose.
 `.env`, logs y uploads están excluidos por [.gitignore](.gitignore). Las
 credenciales se inyectan por variables de entorno; el repositorio no contiene
 secretos ni datos reales.
+
+## ♻️ ¿A quién le sirve / cómo reutilizarlo?
+
+Plantilla para un **sitio institucional + intranet con login y roles (RBAC)** en PHP sin frameworks pesados.
+Para adaptarlo: configurá tu `.env`, corré `database/install.sql`, y reutilizá el portal de `private/`
+(auth con CSRF, rate-limiting y política de contraseñas) y la capa `src/core` (PDO, EmailService, i18n).
+Levantás todo con `docker compose up`.
