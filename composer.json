@@ -1,5 +1,5 @@
 {
-    "name": "AMA/web-bridge",
+    "name": "ama/maritime-agency-web",
     "description": "Bridge API para AMA Agencies Argentina — consulta READ-ONLY a la BD del hosting",
     "version": "1.0.0",
     "type": "project",
