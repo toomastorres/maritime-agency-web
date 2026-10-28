@@ -20,8 +20,8 @@ html {
 
 body {
     font-family: var(--font-primary);
-    color: var(--AMA-text);
-    background-color: var(--AMA-white);
+    color: var(--ama-text);
+    background-color: var(--ama-white);
     line-height: 1.6;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
@@ -37,14 +37,14 @@ img {
 
 /* ─── Links ─── */
 a {
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     text-decoration: underline;
     font-weight: 500;
     transition: color var(--transition-fast);
 }
 
 a:hover {
-    color: var(--AMA-blue-dark);
+    color: var(--ama-blue-dark);
 }
 
 a:focus-visible {
@@ -67,7 +67,7 @@ h4,
 h5,
 h6 {
     font-family: var(--font-heading);
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     line-height: 1.2;
     font-weight: 700;
 }
@@ -103,8 +103,8 @@ strong {
 
 /* ─── Selection ─── */
 ::selection {
-    background-color: var(--AMA-blue);
-    color: var(--AMA-white);
+    background-color: var(--ama-blue);
+    color: var(--ama-white);
 }
 
 /* ─── Utility: Screen Reader Only ─── */

@@ -1,4 +1,4 @@
-# Admin Portal Architecture — AMA Web Project
+# Admin Portal Architecture — Maritime Agency Web
 
 **Versión:** 3.1 (PHPMailer + SMTP config UI + Audit expandido — Abril 2026)
 
@@ -14,7 +14,38 @@
 
 ## Autenticación (`includes/auth.php`)
 
-### Login & Identidad
+> **Desde septiembre 2026 el ingreso es con Microsoft Entra ID.** El login por usuario y
+> contraseña queda reservado a la cuenta break-glass. La configuración y la gestión de roles
+> se documentan en [ENTRA_ID_SETUP.md](ENTRA_ID_SETUP.md).
+
+### Login con Microsoft (método principal)
+- **Protocolo:** OpenID Connect, Authorization Code + PKCE (S256), cliente confidencial.
+- **Implementación:** `src/core/entra_oidc.php`, nativa con curl + openssl, sin Composer.
+- **Autoridad del rol:** el claim `roles` del ID token. El administrador otorga y quita
+  accesos desde Entra ID; `usuarios_admin.rol_portal` queda como reflejo del último login.
+- **Identidad:** `entra_oid` + `entra_tid`. Nunca el email, que es mutable y no verificado.
+- **Aprovisionamiento:** automático en el primer ingreso (JIT). Si ya existía una cuenta con
+  el mismo email, se vincula y conserva su historial de auditoría.
+- **Fail-closed:** sin App Role reconocido no se abre sesión (`oidc_sin_rol`).
+- **Cookie de sesión:** `SameSite=Lax` — `Strict` impediría el callback cross-site de OIDC.
+
+### El portal no emite credenciales
+- **`views/usuarios_form.php`**: con Entra activo no permite crear usuarios (bloqueado también
+  del lado del servidor), el desplegable de rol queda deshabilitado —lo gobierna el App Role— y
+  el campo de contraseña manual sólo aparece para la cuenta break-glass.
+- **`views/perfil.php`**: las cuentas federadas ven un enlace a `myaccount.microsoft.com` en
+  lugar del formulario de cambio de contraseña.
+- **`views/usuarios.php`**: columna **Acceso** con el método de ingreso de cada cuenta
+  (Microsoft / Emergencia / Contraseña).
+
+### Login local (sólo break-glass)
+- Habilitado únicamente para la cuenta con `is_break_glass = 1`, como vía de emergencia.
+- El resto de las cuentas recibe "Esta cuenta debe ingresar con Microsoft" y queda auditado
+  como `login_local_rechazado`.
+- `forgot_password.php` y `reset_password.php` también quedan restringidos a break-glass:
+  de lo contrario un usuario federado podría fijarse una contraseña y saltear Entra y el MFA.
+
+### Método heredado
 - **Método:** Username + contraseña (hash bcrypt vía `password_hash()` / `password_verify()`).
 - **Tabla:** `usuarios_admin` (campos: `id`, `nombre`, `username`, `email`, `password_hash`, `rol_portal`, `is_active`).
 - **Cuentas Compartidas:** Múltiples usuarios pueden compartir el mismo `email` (ej: finance@...) pero cada uno posee un `username` y clave única. Esto garantiza trazabilidad en la auditoría.
@@ -260,11 +291,11 @@ El portal administra eventos críticos reportando a las distintas áreas interna
 
 ### Enrutamiento (Channel Mapping)
 En vez de utilizar un único correo destino, `EmailService::sendNotification($channel, $subject, $body)` despacha mensajes basado en un mapa de constantes configuradas en `.env`:
-- **rrhh:** → `NOTIFY_RRHH` (ej: rrhh@ama-demo.example)
+- **rrhh:** → `NOTIFY_RRHH` (ej: rrhh.personal@atlantic-agency.example.com)
 - **caja:** → `NOTIFY_CAJA` (ej: finance@...)
 - **docs:** → `NOTIFY_DOCS` (ej: docs@...)
 - **cs:** → `NOTIFY_CS` (ej: customerserv@...)
-- Si la variable no está definida en el hosting/`.env`, se usa por defecto `NOTIFY_TO`.
+- Si la variable no está definida en cPanel/`.env`, se usa por defecto `NOTIFY_TO`.
 
 ### Mapeo de Eventos
 1. **Tipo de Cambio:** Dispara a `caja` al actualizar la cotización USD/EUR.
@@ -274,7 +305,7 @@ En vez de utilizar un único correo destino, `EmailService::sendNotification($ch
 5. **Vacantes y Empleados:** Disparan a `rrhh` en operaciones del ciclo ABM.
 6. **Postulaciones:** Disparan a `rrhh` al procesar un CV público vía API.
 
-El motor se apoya sobre **PHPMailer 6.9.3 + SMTP autenticado** contra `smtp.example.com:465` (SMTPS), con casilla real `no-reply@ama-demo.example` del cPanel de el hosting. Esto reemplaza completamente al `mail()` nativo legacy: pasa SPF nativamente (el hosting está en el include del SPF del dominio), firma DKIM con la clave `mail._domainkey`, y es auditable. Prohibido reintroducir `mail()`.
+El motor se apoya sobre **PHPMailer 6.9.3 + SMTP autenticado** contra `smtp-legacy.hosting-ejemplo.example:465` (SMTPS), con casilla real `no-reply@atlantic-agency.example.com` del cPanel de cPanel. Esto reemplaza completamente al `mail()` nativo legacy: pasa SPF nativamente (el hosting compartido está en el include del SPF del dominio), firma DKIM con la clave `mail._domainkey`, y es auditable. Prohibido reintroducir `mail()`.
 
 ### Motor de templates
 
@@ -285,7 +316,7 @@ Los cuerpos HTML dejaron de estar hardcodeados en PHP. Cada template vive como a
 Cada envío escribe una línea JSON en `src/data/logs/email_audit.log`:
 
 ```json
-{"timestamp":"2026-04-14T10:32:11-03:00","channel":"caja","recipient":"finance@ama-demo.example","subject":"Nueva carga de cotización","status":"success","error":null}
+{"timestamp":"2026-04-14T10:32:11-03:00","channel":"caja","recipient":"finance@atlantic-agency.example.com","subject":"Nueva carga de cotización","status":"success","error":null}
 ```
 
 Si `status === "error"`, `error` contiene el `ErrorInfo` de PHPMailer (mensaje del servidor SMTP). La clase **nunca** escribe la password al log.

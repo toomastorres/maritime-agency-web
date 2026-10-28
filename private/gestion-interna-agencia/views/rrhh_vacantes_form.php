@@ -4,6 +4,7 @@
  * Formulario de alta/edición de vacantes.
  */
 if (!function_exists('is_logged_in')) exit;
+if (!isset($pdo)) require_once dirname(__DIR__) . '/includes/db.php';
 
 $id = isset($_GET['edit']) ? (int)$_GET['edit'] : 0;
 $vacante = [
@@ -26,8 +27,7 @@ if ($id > 0) {
             $accion = 'Editar';
         } else {
             $_SESSION['msj'] = 'Error: Vacante no encontrada.';
-            header("Location: dashboard.php?section=rrhh_vacantes");
-            exit;
+            admin_redirect("dashboard.php?section=rrhh_vacantes");
         }
     } catch (\PDOException $e) {}
 }
@@ -101,8 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error_log("Email error (vacantes): " . $e->getMessage());
             }
 
-            header("Location: dashboard.php?section=rrhh_vacantes");
-            exit;
+            admin_redirect("dashboard.php?section=rrhh_vacantes");
         } catch (\PDOException $e) {
             $error = "Error al guardar en la base de datos.";
         }
@@ -110,7 +109,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<div class="admin-card" style="max-width: 800px; margin: 0 auto;">
+<div class="admin-page-head">
+    <div>
+        <h1 class="admin-page-title"><?php echo $isEdit ? 'Editar vacante' : 'Nueva vacante'; ?></h1>
+        <p class="admin-page-sub">Se publica en la sección Institucional del sitio cuando está activa.</p>
+    </div>
+    <a href="?section=rrhh_vacantes" class="btn-admin-secondary">
+        <span class="material-symbols-outlined">arrow_back</span> Volver al listado
+    </a>
+</div>
+
+<div class="admin-card admin-card--form">
     <div class="admin-card-header">
         <h3><span class="material-symbols-outlined">work</span> <?php echo $accion; ?> Vacante</h3>
         <a href="?section=rrhh_vacantes" class="btn-admin-secondary" style="font-size:0.85rem; padding:0.4rem 0.75rem;">
@@ -120,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="admin-card-body">
         <?php if (isset($error)): ?>
-            <div class="admin-alert admin-alert-error" style="margin-bottom:1rem;"><?php echo $error; ?></div>
+            <div class="admin-alert admin-alert-error"><?php echo $error; ?></div>
         <?php endif; ?>
 
         <form method="POST" action="">

@@ -1,577 +1,312 @@
 /* ═══════════════════════════════════════════════════════════ */
-/* AMA — institucional.css                              */
-/* Estilos de la página institucional                        */
+/* AMA — institucional.css                               */
+/* Institucional y vacantes — sistema Oltremare                */
 /* ═══════════════════════════════════════════════════════════ */
 
-.mission-vision-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: -2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .why-AMA-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .why-AMA-list li {
-            background: var(--AMA-white);
-            padding: 1.5rem;
-            border-radius: var(--radius-lg);
-            border-left: 4px solid var(--AMA-blue);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-weight: 500;
-            box-shadow: var(--AMA-shadow-sm);
-            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-            letter-spacing: var(--letter-spacing-base);
-        }
-
-        .why-AMA-list li:hover {
-            transform: translateX(4px);
-            box-shadow: var(--AMA-shadow);
-        }
-
-        /* Vacancies specific */
-        .vacation-card {
-            border: none;
-            background: var(--AMA-white);
-            border-radius: var(--radius-lg);
-            padding: 1.75rem;
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--AMA-shadow-sm);
-        }
-
-        .vacation-card:hover {
-            box-shadow: var(--AMA-shadow-lg);
-            transform: translateY(-3px);
-        }
-
-        .vacature-info span {
-            display: inline-block;
-            background: var(--AMA-blue-subtle);
-            padding: 0.3rem 0.85rem;
-            border-radius: var(--radius-xl);
-            font-size: 0.82rem;
-            color: var(--AMA-text-light);
-            margin-right: 0.5rem;
-            margin-top: 0.5rem;
-            font-weight: 500;
-            letter-spacing: var(--letter-spacing-base);
-        }
-
-        /* Modal specific */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: var(--z-modal);
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 20, 50, 0.4);
-            backdrop-filter: blur(8px);
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-        }
-
-        .modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: var(--AMA-white);
-            padding: 2.5rem;
-            border-radius: var(--radius-xl);
-            width: 90%;
-            max-width: 600px;
-            position: relative;
-            transform: translateY(20px);
-            transition: transform var(--transition-normal);
-            box-shadow: var(--AMA-shadow-xl);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            right: 1.5rem;
-            top: 1.5rem;
-            background: var(--AMA-blue-subtle);
-            border: none;
-            font-size: 1.25rem;
-            cursor: pointer;
-            color: var(--AMA-text-muted);
-            transition: all var(--transition-fast);
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .close-modal:hover {
-            color: var(--AMA-text);
-            background: var(--AMA-blue-light);
-        }
-
-        /* FIX: added :focus-visible for keyboard navigation */
-        .close-modal:focus-visible {
-            outline: 3px solid var(--AMA-blue);
-            outline-offset: 2px;
-        }
-
-        @media (max-width: 600px) {
-            .vacation-card {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-        }
-
-/* ─── Mission & Vision Cards Row ─── */
-.mv-cards-row {
+/* ─── Historia + línea de tiempo ─── */
+.olt-history {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: 64px;
 }
 
-.mv-card {
-    background: var(--AMA-white);
-    border: 1px solid var(--AMA-border);
-    border-radius: var(--radius-xl);
-    padding: 2rem 2rem 1.75rem;
-    text-align: center;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    position: relative;
-    overflow: hidden;
-}
-.mv-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-}
-.mv-card--mission::before { background: var(--AMA-blue); }
-.mv-card--vision::before { background: var(--AMA-gold); }
-
-.mv-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,66,122,0.1);
+/* Sin justificar: es el único bloque del sitio que lo hacía y, sin partición
+   de palabras, a 580px de ancho abre ríos de espacio entre palabras. El resto
+   de las páginas alinea a la izquierda. */
+.olt-history__text p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0 0 16px;
 }
 
-.mv-card__icon-wrap {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: rgba(0,66,122,0.08);
-    color: var(--AMA-blue);
+.olt-timeline {
+    border-left: 1px solid var(--olt-rule-softest);
+    padding-left: 48px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-}
-.mv-card__icon-wrap--gold {
-    background: rgba(197,160,89,0.12);
-    color: var(--AMA-gold);
+    flex-direction: column;
+    gap: 28px;
 }
 
-.mv-card__title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--AMA-blue);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin: 0 0 0.75rem;
-}
-.mv-card--vision .mv-card__title {
-    color: var(--AMA-gold);
+.olt-timeline__item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 20px;
+    align-items: baseline;
 }
 
-.mv-card__text {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--AMA-text-light);
+/* Mismo registro que las cifras institucionales del Home (130 / 2 / 20+):
+   serif, no sans en semibold. Son datos de catálogo, no del día. */
+.olt-timeline__year {
+    font-family: var(--font-olt-serif);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--olt-blue);
+    font-variant-numeric: tabular-nums;
+}
+
+.olt-timeline__title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--olt-blue);
+    margin-bottom: 4px;
+}
+
+.olt-timeline__text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--olt-ink);
+}
+
+/* ─── Misión / Visión / Valores ─── */
+.olt-mv {
+    background: var(--olt-paper);
+    border-top: 1px solid var(--olt-rule);
+}
+
+.olt-mv__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 56px;
+}
+
+/* La caja y el filete los pone .olt-panel (components.css). */
+.olt-mv__card {
+    padding: 32px;
+}
+
+.olt-mv__card p {
+    font-size: 16px;
+    line-height: 1.75;
     margin: 0;
 }
 
-/* ─── Values Section ─── */
-.mv-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.9rem;
-    border: 1.5px solid var(--AMA-blue);
-    border-radius: var(--radius-full);
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--AMA-blue);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
-.values-grid-full {
+.olt-values__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    gap: 32px;
+    border-top: 1px solid var(--olt-rule);
+    padding-top: 28px;
 }
 
-.value-card-v2 {
-    background: var(--AMA-white);
-    border: 1px solid var(--AMA-border);
-    border-radius: var(--radius-xl);
-    padding: 1.75rem 1.5rem;
-    text-align: center;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
-    position: relative;
-}
-.value-card-v2:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 28px rgba(0,66,122,0.1);
-    border-color: var(--AMA-gold);
+.olt-values__grid h4 {
+    font-family: var(--font-olt-serif);
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--olt-blue);
+    margin: 0 0 10px;
 }
 
-.value-card-v2__icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(0,66,122,0.07);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--AMA-blue);
-    margin: 0 auto 1rem;
-    transition: background var(--transition-fast), color var(--transition-fast);
-}
-.value-card-v2:hover .value-card-v2__icon {
-    background: var(--AMA-blue);
-    color: var(--AMA-white);
-}
-
-.value-card-v2 h4 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--AMA-text);
-    margin-bottom: 0.5rem;
-}
-
-.value-card-v2 p {
-    font-size: 0.85rem;
-    color: var(--AMA-text-light);
+.olt-values__grid p {
+    font-size: 15px;
     line-height: 1.6;
     margin: 0;
 }
 
-/* Careers layout */
-.careers-section { background: var(--AMA-blue-subtle); }
+/* ─── Búsquedas abiertas ─── */
+.olt-careers {
+    background: #fff;
+    border-top: 1px solid var(--olt-rule);
+}
 
-.careers-layout {
+.olt-careers .olt-container {
+    padding: 72px var(--olt-gutter) 88px;
+}
+
+.olt-careers .olt-section-head__text p {
+    font-size: 16px;
+    line-height: 1.75;
+    margin: 0;
+}
+
+.olt-vacancies {
+    border-top: 1px solid var(--olt-rule-softest);
+}
+
+.olt-vacancy {
+    border-bottom: 1px solid var(--olt-rule);
+}
+
+.olt-vacancy__head {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 220px 40px;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 24px 4px;
+    font-family: var(--font-olt-sans);
+}
+
+.olt-vacancy.is-open .olt-vacancy__head { background: var(--olt-paper); }
+
+.olt-vacancy__title {
+    font-family: var(--font-olt-serif);
+    font-size: 24px;
+    color: var(--olt-blue);
+    line-height: 1.2;
+}
+
+.olt-vacancy__meta {
+    font-size: 14px;
+    color: var(--olt-ink);
+}
+
+.olt-vacancy__toggle {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--olt-blue-mid);
+    text-align: right;
+}
+
+.olt-vacancy__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .25s ease;
+}
+
+.olt-vacancy.is-open .olt-vacancy__body {
+    grid-template-rows: 1fr;
+}
+
+.olt-vacancy__body-inner {
+    overflow: hidden;
+}
+
+.olt-vacancy.is-open .olt-vacancy__body-inner {
+    padding: 0 4px 32px;
+}
+
+.olt-vacancy__body-inner {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 48px;
     align-items: start;
 }
 
-.careers-col-title {
+.olt-vacancy__desc p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0 0 20px;
+    max-width: 620px;
+}
+
+.olt-vacancy__reqs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--AMA-blue);
-    margin-bottom: 1.25rem;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.careers-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--AMA-gold);
-    color: var(--AMA-white);
-    font-size: 0.8rem;
-    font-weight: 700;
-    width: 24px;
-    height: 24px;
-    border-radius: var(--radius-full);
-}
-
-.spontaneous-card {
-    position: sticky;
-    top: 100px;
-    max-width: none;
-    border-top: 3px solid var(--AMA-gold);
-}
-
-.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-.form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
-
-.form-label { font-size: 0.85rem; font-weight: 600; color: var(--AMA-text); }
-
-.form-input {
-    padding: 0.65rem 0.9rem;
-    border: 1.5px solid var(--AMA-border);
-    border-radius: var(--radius-md);
-    font-size: 0.9rem;
-    font-family: var(--font-primary);
-    color: var(--AMA-text);
-    background: var(--AMA-white);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-    width: 100%;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: var(--AMA-blue);
-    box-shadow: 0 0 0 3px rgba(0,66,122,0.12);
-}
-
-@media (max-width: 900px) {
-    .mv-cards-row { grid-template-columns: 1fr; gap: 1.5rem; }
-    .values-grid-full { grid-template-columns: 1fr 1fr; }
-    .careers-layout { grid-template-columns: 1fr; }
-    .spontaneous-card { position: static; }
-}
-
-@media (max-width: 600px) {
-    .values-grid-full { grid-template-columns: 1fr; }
-    .form-row-2 { grid-template-columns: 1fr; }
-    .mv-card { padding: 1.5rem; }
-}
-
-/* ─── History Timeline ─── */
-.timeline {
+.olt-vacancy__reqs li {
+    font-size: 16px;
+    line-height: 1.6;
+    padding-left: 20px;
     position: relative;
-    padding: 2rem 0;
 }
 
-.timeline::before {
-    content: '';
+.olt-vacancy__reqs li::before {
+    content: '—';
     position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--AMA-blue-light);
-    transform: translateX(-50%);
+    left: 0;
+    color: var(--olt-blue-mid);
 }
 
-.timeline-item {
+.olt-vacancy__apply {
+    border: 1px solid var(--olt-rule);
+    padding: 24px;
+}
+
+.olt-vacancy__apply-toggle {
     display: flex;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 22px;
 }
 
-.timeline-item--left { flex-direction: row; }
-.timeline-item--right { flex-direction: row-reverse; }
-
-.timeline-year {
-    flex-shrink: 0;
-    width: 80px;
-    padding: 0.5rem 1rem;
-    background: var(--AMA-blue);
-    color: var(--AMA-gold);
-    font-weight: 800;
-    font-size: 0.95rem;
-    border-radius: var(--radius-full);
-    text-align: center;
-    align-self: flex-start;
-    margin-top: 0.25rem;
-}
-
-.timeline-card {
+.olt-vacancy__apply-btn {
     flex: 1;
-    max-width: 45%;
-    /* FIX: replaced hardcoded 'white' → var(--AMA-white) */
-    background: var(--AMA-white);
-    /* FIX: replaced hardcoded #e2e8f0 → var(--border-color) */
-    border: 1px solid var(--border-color);
-    /* FIX: replaced hardcoded 16px → var(--radius-xl) */
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
-    /* FIX: replaced raw rgba → var(--AMA-shadow-sm) */
-    box-shadow: var(--AMA-shadow-sm);
+    padding: 10px 14px;
+    font-family: var(--font-olt-sans);
+    font-size: 13px;
+    font-weight: 500;
+    background: #fff;
+    color: var(--olt-ink);
+    border: 1px solid var(--olt-rule);
+    cursor: pointer;
+    transition: all .15s ease;
 }
 
-.timeline-card h4 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--AMA-blue);
-    margin-bottom: 0.5rem;
+.olt-vacancy__apply-btn.is-active {
+    background: var(--olt-blue);
+    color: #fff;
+    border-color: var(--olt-blue);
 }
 
-.timeline-card p {
-    font-size: 0.9rem;
-    /* FIX: replaced hardcoded #64748b → var(--AMA-text-light) */
-    color: var(--AMA-text-light);
+.olt-vacancy__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* .olt-field: primitiva compartida en components.css */
+
+.olt-vacancy__disclaimer {
+    font-size: 10px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--olt-grey);
     line-height: 1.6;
     margin: 0;
 }
 
-@media (max-width: 768px) {
-    .timeline::before { left: 24px; }
-    .timeline-item,
-    .timeline-item--right { flex-direction: row; }
-    .timeline-card { max-width: calc(100% - 100px); }
+/* .olt-vacancy__status: caja plana definida en components.css (compartida
+   con .olt-quote__status y .olt-form-status) */
+
+.olt-vacancy__mailbox p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 18px;
 }
 
-/* ─── Executive Team Grid ─── */
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+.olt-vacancy__mailbox .olt-note-rule {
+    margin-bottom: 18px;
 }
 
-.team-card {
-    /* FIX: replaced hardcoded 'white' → var(--AMA-white) */
-    background: var(--AMA-white);
-    /* FIX: replaced hardcoded #e2e8f0 → var(--border-color) */
-    border: 1px solid var(--border-color);
-    /* FIX: replaced hardcoded 16px → var(--radius-xl) */
-    border-radius: var(--radius-xl);
-    padding: var(--space-xl) var(--space-lg);
-    text-align: center;
-    /* FIX: replaced raw rgba → var(--AMA-shadow-sm) */
-    box-shadow: var(--AMA-shadow-sm);
-    /* FIX: replaced bare '0.3s ease' → var(--transition-normal) */
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+.olt-vacancy__mailbox .olt-note-rule > div:last-child {
+    font-size: 15px;
+    color: var(--olt-ink);
 }
 
-.team-card:hover {
-    transform: translateY(-6px);
-    /* FIX: replaced raw rgba → var(--AMA-shadow-md) */
-    box-shadow: var(--AMA-shadow-md);
+.olt-vacancies__empty {
+    padding: 48px 0;
+    max-width: 620px;
 }
 
-.team-card__avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: rgba(0,66,122,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.25rem;
-    color: var(--AMA-blue);
+.olt-vacancies__empty p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--olt-grey);
 }
 
-.team-card__name {
-    font-size: 1rem;
-    font-weight: 700;
-    /* FIX: replaced hardcoded #1e293b → var(--AMA-text) */
-    color: var(--AMA-text);
-    text-transform: uppercase;
-    margin-bottom: 0.25rem;
+/* ─── Responsive ─── */
+@media (max-width: 1023px) {
+    .olt-history { grid-template-columns: 1fr; gap: 32px; }
+    .olt-timeline { border-left: none; padding-left: 0; border-top: 1px solid var(--olt-rule-softest); padding-top: 24px; }
+    .olt-mv__cards { grid-template-columns: 1fr; }
+    .olt-values__grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .olt-vacancy__body-inner { grid-template-columns: 1fr; gap: 24px; }
+    .olt-vacancy__head { grid-template-columns: 1fr auto; }
+    .olt-vacancy__meta { display: none; }
 }
 
-.team-card__role {
-    font-size: 0.8rem;
-    color: var(--AMA-gold);
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
+@media (max-width: 640px) {
+    .olt-values__grid { grid-template-columns: 1fr; }
+    .olt-careers .olt-container { padding: 48px 20px; }
+    .olt-vacancy__apply { padding: 16px; }
 }
-
-.team-card__email {
-    font-size: 0.78rem;
-    /* FIX: replaced hardcoded #64748b → var(--AMA-text-light) */
-    color: var(--AMA-text-light);
-    text-decoration: none;
-    display: block;
-    transition: color var(--transition-fast);
-}
-
-.team-card__email:hover { color: var(--AMA-blue); }
-
-/* FIX: added missing 768px breakpoint between 1024px and 600px */
-@media (max-width: 1024px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 768px)  { .team-grid { gap: 1rem; } }
-@media (max-width: 600px)  { .team-grid { grid-template-columns: 1fr; } }
-
-/* ─── Extracted inline styles ─── */
-
-/* FIX: extracted style="padding-top:4rem" from section-wrapper on mission/vision section */
-.mv-section { padding-top: var(--space-3xl); }
-
-/* (mv-content-card styles removed — replaced by mv-card layout) */
-
-/* FIX: extracted style="text-align:center; margin-bottom:2.5rem" from careers section-header */
-.section-header--centered { text-align: center; margin-bottom: var(--space-2xl); }
-
-/* FIX: extracted style="max-width:600px; margin:0 auto" from careers intro paragraph */
-.careers-intro { max-width: 600px; margin: 0 auto; }
-
-/* No vacancies fallback card */
-#no-vacantes {
-    display: none;
-    text-align: center;
-    margin-top: var(--space-xl);
-    border-left: 3px solid var(--AMA-gold);
-}
-
-/* FIX: extracted style="margin-bottom:1.5rem" from spontaneous form intro text */
-.spontaneous-intro { margin-bottom: var(--space-lg); }
-
-/* FIX: extracted style="font-size:0.78rem; margin-top:0.3rem" from file input hint text */
-.form-hint { font-size: 0.78rem; margin-top: var(--space-xs); color: var(--AMA-text-muted); }
-
-/* FIX: extracted style="width:100%" from spontaneous submit button */
-.spontaneous-card .boton-primario { width: 100%; }
-
-/* FIX: extracted style="display:none; text-align:center; padding:2rem 0" from #spontaneous-success */
-#spontaneous-success { display: none; text-align: center; padding: var(--space-xl) 0; }
-
-/* FIX: extracted inline div styles for success icon circle */
-.success-icon {
-    width: 56px;
-    height: 56px;
-    background: #e8f5e9; /* semantic success green — not in brand palette, intentional */
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-md);
-}
-
-/* FIX: extracted style="color:var(--AMA-blue)" from success state heading */
-#spontaneous-success .titulo-contenido { color: var(--AMA-blue); }
-
-/* FIX: extracted style="color:var(--AMA-blue); margin-top:0" from #modal-title */
-#modal-title { color: var(--AMA-blue); margin-top: 0; }
-
-/* FIX: extracted style="margin-bottom:1.5rem" from modal metadata row div */
-.modal-meta { margin-bottom: var(--space-lg); }
-
-/* FIX: extracted style="font-weight:bold" from modal metadata label spans */
-.modal-meta-label { font-weight: 700; }
-
-/* FIX: extracted style="white-space:pre-wrap" from #modal-description */
-#modal-description { white-space: pre-wrap; }
-
-/* FIX: extracted style="margin-top:2.5rem; text-align:right" from modal actions row */
-.modal-actions { margin-top: var(--space-2xl); text-align: right; }

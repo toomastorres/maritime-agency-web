@@ -1,12 +1,12 @@
-# Frontend Architecture — AMA Web Project
+# Frontend Architecture — Maritime Agency Web
 
 **Versión:** 3.0 (Auditoría Completa — Marzo 2026)
 
 ## Routing
 
 All page requests go through the **Front Controller** (`index.php`):
-- Clean URLs: `ama-demo.example/servicios` → `src/pages/servicios.php`
-- API routes: `ama-demo.example/api/tipo_cambio` → `src/logic/api/tipo_cambio.php`
+- Clean URLs: `atlantic-agency.example.com/servicios` → `src/pages/servicios.php`
+- API routes: `atlantic-agency.example.com/api/tipo_cambio` → `src/logic/api/tipo_cambio.php`
 - 404 fallback: `404.php`
 
 ---
@@ -41,7 +41,7 @@ Modular CSS loaded via PHP constants (`CSS_URL`). **All color values must refere
 ### CSS Rules
 
 1. **No local `:root` overrides** — never redefine brand colors in page-specific files.
-2. **No hardcoded hex/rgba** — use `var(--AMA-*)` tokens for all colors.
+2. **No hardcoded hex/rgba** — use `var(--ama-*)` tokens for all colors.
 3. **Spacing via scale** — use `var(--space-xs/sm/md/lg/xl/2xl/3xl/4xl)`.
 4. **Transitions via variables** — use `var(--transition-fast/normal/slow)`.
 5. **All interactive elements** must have `:focus-visible` states for keyboard accessibility.
@@ -53,7 +53,7 @@ Modular CSS loaded via PHP constants (`CSS_URL`). **All color values must refere
 
 | File | Function |
 |------|----------|
-| `i18n.js` | Internationalization engine — loads `src/i18n/{lang}.json`, replaces `data-i18n` attributes. Exposes `AMAI18n.updateDOM()` for post-render re-translation. |
+| `i18n.js` | Internationalization engine — loads `src/i18n/{lang}.json`, replaces `data-i18n` attributes. Exposes `AmaI18n.updateDOM()` for post-render re-translation. |
 | `main.js` | Global: mobile nav toggle, active nav highlighting, scroll animations |
 | `index.js` | Home page: FAQ accordion, stat counters, hero parallax, news feed |
 | `contacto.js` | Fetches `/api/contactos`, renders employee cards with department filter |
@@ -66,12 +66,12 @@ Modular CSS loaded via PHP constants (`CSS_URL`). **All color values must refere
 
 ### i18n Usage
 
-After injecting dynamic HTML content via JS, call `AMAI18n.updateDOM()` to apply translations to newly rendered `data-i18n` attributes.
+After injecting dynamic HTML content via JS, call `AmaI18n.updateDOM()` to apply translations to newly rendered `data-i18n` attributes.
 
 **Correct:**
 ```js
 container.innerHTML = html;
-if (typeof AMAI18n !== 'undefined') AMAI18n.updateDOM();
+if (typeof AmaI18n !== 'undefined') AmaI18n.updateDOM();
 ```
 
 **Incorrect (will silently fail):**
@@ -113,7 +113,7 @@ if (window.i18nManager) window.i18nManager.updateDOM(); // i18nManager does not 
 
 - **Languages:** ES, EN, IT, PT
 - **Files:** `src/i18n/{lang}.json` (14-15KB each)
-- **Mechanism:** `data-i18n` attributes on HTML elements, replaced by `AMAI18n.init()`
+- **Mechanism:** `data-i18n` attributes on HTML elements, replaced by `AmaI18n.init()`
 - **Legal pages:** Use `data-lang` attribute on container divs for full-page language switching
 
 ---

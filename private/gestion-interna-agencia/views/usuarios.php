@@ -6,6 +6,10 @@
 if (!function_exists('is_logged_in')) require_once __DIR__ . '/../includes/auth.php';
 require_role('admin_global');
 require_once dirname(__DIR__, 3) . '/src/core/database.php';
+require_once dirname(__DIR__, 3) . '/src/core/entra_oidc.php';
+
+// Con Entra activo no se invitan usuarios: se crean solos al primer ingreso.
+$entraOn = EntraOidc::isConfigured();
 
 $actionMensaje = '';
 $actionError = '';
@@ -68,7 +72,7 @@ try {
     // Columnas base siempre presentes
     $selectCols = ['id', 'nombre', 'email', 'rol_portal', 'creado_en'];
     // Columnas opcionales (agregadas por migración)
-    foreach (['username', 'ultimo_login', 'is_active', 'password_updated_at'] as $optCol) {
+    foreach (['username', 'ultimo_login', 'is_active', 'password_updated_at', 'auth_provider', 'is_break_glass'] as $optCol) {
         if (in_array($optCol, $existingCols)) {
             $selectCols[] = $optCol;
         }
@@ -91,17 +95,27 @@ $rolesDict = [
 ];
 ?>
 
-<div class="header-actions">
+<div class="admin-page-head">
     <div>
-        <h1 style="margin:0; font-size:1.5rem; color:var(--admin-text);">Usuarios del Portal</h1>
-        <p style="margin: 0.2rem 0 0; color:var(--admin-text-muted); font-size: 0.9rem;">
+        <h1 class="admin-page-title">Usuarios del Portal</h1>
+        <p class="admin-page-sub admin-page-sub--ink">
             Administración de accesos, roles y auditoría de cuentas internas.
         </p>
     </div>
-    <a href="?section=usuarios_form" class="btn-admin-primary">
-        <span class="material-symbols-outlined">person_add</span>
-        Invitar Usuario
-    </a>
+    <?php if (!$entraOn): ?>
+        <a href="?section=usuarios_form" class="btn-admin-primary">
+            <span class="material-symbols-outlined">person_add</span>
+            Invitar Usuario
+        </a>
+    <?php else: ?>
+        <div style="text-align:right; max-width:280px;">
+            <p style="margin:0; font-size:.82rem; color:var(--admin-text-muted); line-height:1.55;">
+                <span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle; color:#0069CC;">badge</span>
+                Las cuentas se crean solas al primer ingreso con Microsoft.
+                Los accesos se otorgan en <strong>Entra ID</strong>.
+            </p>
+        </div>
+    <?php endif; ?>
 </div>
 
 <?php if ($actionMensaje): ?>
@@ -120,6 +134,10 @@ $hasUsername = !empty($usuarios) && array_key_exists('username', $usuarios[0]);
 $hasIsActive = !empty($usuarios) && array_key_exists('is_active', $usuarios[0]);
 $hasUltimoLogin = !empty($usuarios) && array_key_exists('ultimo_login', $usuarios[0]);
 $hasPasswordUpdated = !empty($usuarios) && array_key_exists('password_updated_at', $usuarios[0]);
+$hasAuthProvider = !empty($usuarios) && array_key_exists('auth_provider', $usuarios[0]);
+// Con la migración aplicada, "Acceso" reemplaza a "Cambio de Clave": con Entra
+// la fecha de cambio de contraseña ya no significa nada para casi ninguna cuenta.
+$mostrarClave = $hasPasswordUpdated && !$hasAuthProvider;
 ?>
 
 <div class="admin-card">
@@ -131,7 +149,8 @@ $hasPasswordUpdated = !empty($usuarios) && array_key_exists('password_updated_at
                     <th>Email Corporativo</th>
                     <?php if ($hasIsActive): ?><th>Estado</th><?php endif; ?>
                     <?php if ($hasUltimoLogin): ?><th>Último Ingreso</th><?php endif; ?>
-                    <?php if ($hasPasswordUpdated): ?><th>Cambio de Clave</th><?php endif; ?>
+                    <?php if ($hasAuthProvider): ?><th>Acceso</th><?php endif; ?>
+                    <?php if ($mostrarClave): ?><th>Cambio de Clave</th><?php endif; ?>
                     <th style="text-align: right;">Acciones</th>
                 </tr>
             </thead>
@@ -158,19 +177,32 @@ $hasPasswordUpdated = !empty($usuarios) && array_key_exists('password_updated_at
                     </td>
                     <?php endif; ?>
                     <?php if ($hasUltimoLogin): ?>
-                    <td style="font-size:0.85rem; color: var(--admin-text-muted);">
+                    <td class="admin-meta">
                         <?php echo ($u['ultimo_login'] ?? null) ? date('d/m/Y H:i', strtotime($u['ultimo_login'])) : 'Nunca'; ?>
                     </td>
                     <?php endif; ?>
-                    <?php if ($hasPasswordUpdated): ?>
-                    <td style="font-size:0.85rem; color: var(--admin-text-muted);">
+                    <?php if ($hasAuthProvider): ?>
+                    <td class="is-sm">
+                        <?php if ((int)($u['is_break_glass'] ?? 0) === 1): ?>
+                            <span class="badge" style="background:rgba(138,90,0,.12); color:#8A5A00; border:1px solid #8A5A00;"
+                                  title="Cuenta de emergencia: conserva contraseña local">Emergencia</span>
+                        <?php elseif (($u['auth_provider'] ?? '') === 'entra'): ?>
+                            <span class="badge badge-blue" title="Ingresa con su cuenta de Microsoft 365">Microsoft</span>
+                        <?php else: ?>
+                            <span class="badge" style="background:rgba(128,128,131,.14); color:var(--admin-text-muted); border:1px solid rgba(128,128,131,.45);"
+                                  title="Todavía tiene contraseña local. Se convierte a Microsoft en su próximo ingreso">Contraseña</span>
+                        <?php endif; ?>
+                    </td>
+                    <?php endif; ?>
+                    <?php if ($mostrarClave): ?>
+                    <td class="admin-meta">
                         <?php echo ($u['password_updated_at'] ?? null) ? date('d/m/Y H:i', strtotime($u['password_updated_at'])) : 'No registra'; ?>
                     </td>
                     <?php endif; ?>
                     <td style="text-align: right; white-space: nowrap;">
                         <!-- Botón Editar -->
-                        <a href="?section=usuarios_form&id=<?php echo $u['id']; ?>" class="btn-admin-secondary" style="padding: 0.25rem 0.5rem;" title="Editar">
-                            <span class="material-symbols-outlined" style="font-size: 1.1rem;">edit</span>
+                        <a href="?section=usuarios_form&id=<?php echo $u['id']; ?>" class="btn-admin-secondary btn-admin-sm"  title="Editar">
+                            <span class="material-symbols-outlined is-lg" >edit</span>
                         </a>
 
                         <!-- Formulario Bloquear/Desbloquear -->
@@ -181,12 +213,12 @@ $hasPasswordUpdated = !empty($usuarios) && array_key_exists('password_updated_at
                             <input type="hidden" name="user_id" value="<?php echo $u['id']; ?>">
 
                             <?php if ($isActive): ?>
-                                <button type="submit" class="btn-admin-danger" style="padding: 0.25rem 0.5rem;" title="Bloquear Acceso">
-                                    <span class="material-symbols-outlined" style="font-size: 1.1rem;">block</span>
+                                <button type="submit" class="btn-admin-danger btn-admin-sm"  title="Bloquear Acceso">
+                                    <span class="material-symbols-outlined is-lg" >block</span>
                                 </button>
                             <?php else: ?>
-                                <button type="submit" class="btn-admin-primary" style="padding: 0.25rem 0.5rem; background: #10b981; border: none;" title="Reactivar Acceso">
-                                    <span class="material-symbols-outlined" style="font-size: 1.1rem;">verified_user</span>
+                                <button type="submit" class="btn-admin-primary btn-admin-sm"  title="Reactivar Acceso">
+                                    <span class="material-symbols-outlined is-lg" >verified_user</span>
                                 </button>
                             <?php endif; ?>
                         </form>

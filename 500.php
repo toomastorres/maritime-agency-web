@@ -1,7 +1,7 @@
 <?php
 /**
  * ============================================================
- *  AMA Agencies Argentina — 500 Error Interno (Premium)
+ *  Atlantic Maritime Agency — 500 Error Interno (Premium)
  * ============================================================
  */
 require_once __DIR__ . '/src/config/config.php';
@@ -11,7 +11,7 @@ require_once __DIR__ . '/src/config/config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error del Servidor — AMA Agencies Argentina</title>
+    <title>Error del Servidor — Atlantic Maritime Agency</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo ASSETS_URL; ?>/img/favicon.ico" type="image/x-icon">
     <!-- Google Fonts -->
@@ -23,7 +23,7 @@ require_once __DIR__ . '/src/config/config.php';
     <div class="error-container">
         <!-- Brand Logo Header -->
         <div class="logo-header">
-            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
         </div>
 
         <!-- Maritime Radar Sweep & Floating Ship Illustration -->
@@ -46,7 +46,7 @@ require_once __DIR__ . '/src/config/config.php';
                 <!-- Windows -->
                 <circle cx="42" cy="55" r="1.5" fill="currentColor" />
                 <circle cx="50" cy="55" r="1.5" fill="currentColor" />
-                <rect x="44" y="37" width="6" height="4" fill="var(--AMA-blue-dark)" />
+                <rect x="44" y="37" width="6" height="4" fill="var(--ama-blue-dark)" />
                 
                 <!-- Cargo Containers on deck -->
                 <rect x="62" y="53" width="10" height="12" fill="currentColor" fill-opacity="0.2" />
@@ -76,7 +76,7 @@ require_once __DIR__ . '/src/config/config.php';
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 Volver al Inicio / Home
             </a>
-            <a href="mailto:info@ama-demo.example?subject=Consulta%20Web%20-%20Error%20500" class="btn-secondary">
+            <a href="mailto:info@atlantic-agency.example.com?subject=Consulta%20Web%20-%20Error%20500" class="btn-secondary">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 Reportar / Support
             </a>

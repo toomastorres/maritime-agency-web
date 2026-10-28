@@ -149,7 +149,7 @@ $isMaintenanceOn = file_exists($maintenanceFile);
     font-family: 'Consolas', 'Monaco', monospace;
     font-size: 0.85rem;
     padding: 1rem;
-    border-radius: 6px;
+    border-radius: 0;
     height: 300px;
     overflow-y: auto;
     white-space: pre-wrap;
@@ -162,10 +162,10 @@ $isMaintenanceOn = file_exists($maintenanceFile);
 .log-info { color: #60a5fa; }
 </style>
 
-<div class="header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+<div class="admin-page-head">
     <div>
-        <h1 style="margin:0; font-size:1.5rem; color:var(--admin-text);">Mantenimiento y Salud del Sistema</h1>
-        <p style="margin: 0.2rem 0 0; color:var(--admin-text-muted); font-size: 0.9rem;">
+        <h1 class="admin-page-title">Mantenimiento y Salud del Sistema</h1>
+        <p class="admin-page-sub admin-page-sub--ink">
             Diagnóstico profundo, auditoría y control de variables del servidor.
         </p>
     </div>
@@ -180,7 +180,7 @@ $isMaintenanceOn = file_exists($maintenanceFile);
                 Sitio en Mantenimiento (Desactivar)
             </button>
         <?php else: ?>
-            <button type="submit" class="btn-admin-secondary" onclick="return confirm('¿Seguro que deseas ACTIVAR el modo mantenimiento? Nadie podrá ver la web pública temporalmente (nosotros sí a este panel interno).');" style="background:#f59e0b; color:white; border:none;">
+            <button type="submit" class="btn-admin-warning" onclick="return confirm('¿Seguro que deseas ACTIVAR el modo mantenimiento? Nadie podrá ver la web pública temporalmente (nosotros sí a este panel interno).');">
                 <span class="material-symbols-outlined">construction</span>
                 Activar Modo Mantenimiento
             </button>
@@ -201,7 +201,7 @@ $isMaintenanceOn = file_exists($maintenanceFile);
     <div class="admin-card">
         <div class="admin-card-header">
             <span class="material-symbols-outlined">dns</span>
-            <h2 style="margin:0; font-size:1.1rem;">Entorno PHP & Servidor</h2>
+            <h2 class="admin-card-title">Entorno PHP & Servidor</h2>
         </div>
         <div class="admin-table-wrapper">
             <table class="admin-table">
@@ -221,25 +221,25 @@ $isMaintenanceOn = file_exists($maintenanceFile);
     <div class="admin-card">
         <div class="admin-card-header">
             <span class="material-symbols-outlined">storage</span>
-            <h2 style="margin:0; font-size:1.1rem;">Espacio en Disco (Archivos)</h2>
+            <h2 class="admin-card-title">Espacio en Disco (Archivos)</h2>
         </div>
         
-        <div style="padding: 1rem; border: 1px solid var(--admin-border-light); border-radius:8px; margin-bottom: 1rem;">
+        <div style="padding: 1rem; border: 1px solid var(--admin-border-light); border-radius:0; margin-bottom: 1rem;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                <span style="font-weight: 500;">/public/uploads</span>
-                <span style="font-family: monospace; color: var(--admin-text-muted);">(Novedades, Imágenes)</span>
+                <span class="is-medium">/public/uploads</span>
+                <span class="is-mono">(Novedades, Imágenes)</span>
             </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: #3b82f6;">
+            <div class="admin-figure">
                 <?php echo formatBytes($sizeUploads); ?>
             </div>
         </div>
 
-        <div style="padding: 1rem; border: 1px solid var(--admin-border-light); border-radius:8px;">
+        <div style="padding: 1rem; border: 1px solid var(--admin-border-light); border-radius:0;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                <span style="font-weight: 500;">/public/assets/docs</span>
-                <span style="font-family: monospace; color: var(--admin-text-muted);">(Documentación Oficial)</span>
+                <span class="is-medium">/public/assets/docs</span>
+                <span class="is-mono">(Documentación Oficial)</span>
             </div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: #10b981;">
+            <div class="admin-figure">
                 <?php echo formatBytes($sizeDocs); ?>
             </div>
         </div>
@@ -247,17 +247,17 @@ $isMaintenanceOn = file_exists($maintenanceFile);
 </div>
 
 <!-- Tarjeta: Resumen de Seguridad -->
-<div class="admin-card" style="margin-bottom: 1.5rem;">
+<div class="admin-card">
     <div class="admin-card-header">
         <span class="material-symbols-outlined">shield</span>
-        <h2 style="margin:0; font-size:1.1rem;">Resumen de Seguridad y Cuentas</h2>
+        <h2 class="admin-card-title">Resumen de Seguridad y Cuentas</h2>
     </div>
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; padding: 0.5rem 0;">
 
-        <div style="padding:1rem; border:1px solid var(--admin-border-light); border-radius:8px;">
-            <div style="font-size:0.85rem; color:var(--admin-text-muted); margin-bottom:0.35rem;">Usuarios del portal</div>
-            <div style="font-size:1.6rem; font-weight:700; color:#3b82f6;"><?php echo $secStats['users_total']; ?></div>
-            <div style="font-size:0.8rem; color:var(--admin-text-muted); margin-top:0.25rem;">
+        <div class="admin-box">
+            <div class="admin-meta admin-meta--mb">Usuarios del portal</div>
+            <div class="admin-figure"><?php echo $secStats['users_total']; ?></div>
+            <div class="form-hint">
                 <span class="badge badge-green"><?php echo $secStats['users_active']; ?> activos</span>
                 <?php if ($secStats['users_blocked'] > 0): ?>
                     <span class="badge badge-red"><?php echo $secStats['users_blocked']; ?> bloqueados</span>
@@ -265,24 +265,24 @@ $isMaintenanceOn = file_exists($maintenanceFile);
             </div>
         </div>
 
-        <div style="padding:1rem; border:1px solid var(--admin-border-light); border-radius:8px;">
-            <div style="font-size:0.85rem; color:var(--admin-text-muted); margin-bottom:0.35rem;">Logins fallidos (24 h)</div>
-            <div style="font-size:1.6rem; font-weight:700; color:<?php echo $secStats['fails_24h'] >= 10 ? '#dc2626' : '#10b981'; ?>;"><?php echo $secStats['fails_24h']; ?></div>
-            <div style="font-size:0.8rem; color:var(--admin-text-muted); margin-top:0.25rem;">
+        <div class="admin-box">
+            <div class="admin-meta admin-meta--mb">Logins fallidos (24 h)</div>
+            <div style="font-size:1.6rem; font-weight:700; color:<?php echo $secStats['fails_24h'] >= 10 ? 'var(--admin-alert)' : 'var(--admin-blue-hover)'; ?>;"><?php echo $secStats['fails_24h']; ?></div>
+            <div class="form-hint">
                 <?php echo $secStats['top_fail_ip'] ? 'IP más activa: ' . htmlspecialchars($secStats['top_fail_ip']) : 'Sin intentos recientes'; ?>
             </div>
         </div>
 
-        <div style="padding:1rem; border:1px solid var(--admin-border-light); border-radius:8px;">
-            <div style="font-size:0.85rem; color:var(--admin-text-muted); margin-bottom:0.35rem;">Tamaño de la base de datos</div>
+        <div class="admin-box">
+            <div class="admin-meta admin-meta--mb">Tamaño de la base de datos</div>
             <div style="font-size:1.6rem; font-weight:700; color:#8b5cf6;"><?php echo $secStats['db_size_mb'] !== null ? htmlspecialchars($secStats['db_size_mb']) . ' MB' : '—'; ?></div>
-            <div style="font-size:0.8rem; color:var(--admin-text-muted); margin-top:0.25rem;">Datos + índices</div>
+            <div class="form-hint">Datos + índices</div>
         </div>
 
-        <div style="padding:1rem; border:1px solid var(--admin-border-light); border-radius:8px;">
+        <div class="admin-box">
             <div style="font-size:0.85rem; color:var(--admin-text-muted); margin-bottom:0.5rem;">Cuentas por rol</div>
             <?php if (empty($secStats['by_role'])): ?>
-                <div style="font-size:0.85rem; color:var(--admin-text-muted);">Sin datos</div>
+                <div class="admin-meta">Sin datos</div>
             <?php else: foreach ($secStats['by_role'] as $rol => $c): ?>
                 <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.2rem;">
                     <span><?php echo htmlspecialchars($rolesDictPanel[$rol] ?? $rol); ?></span>
@@ -295,10 +295,10 @@ $isMaintenanceOn = file_exists($maintenanceFile);
 </div>
 
 <!-- Tarjeta: Auditoría Completa del Sistema -->
-<div class="admin-card" style="margin-bottom: 1.5rem;">
+<div class="admin-card">
     <div class="admin-card-header">
         <span class="material-symbols-outlined">security</span>
-        <h2 style="margin:0; font-size:1.1rem;">Auditoría del Sistema (Últimas 50 acciones)</h2>
+        <h2 class="admin-card-title">Auditoría del Sistema (Últimas 50 acciones)</h2>
     </div>
     <div class="admin-table-wrapper" style="max-height: 400px; overflow-y: auto;">
         <table class="admin-table">
@@ -349,10 +349,10 @@ $isMaintenanceOn = file_exists($maintenanceFile);
 </div>
 
 <!-- Tarjeta: Auditoría de Emails Enviados -->
-<div class="admin-card" style="margin-bottom: 1.5rem;">
+<div class="admin-card">
     <div class="admin-card-header">
         <span class="material-symbols-outlined">mail</span>
-        <h2 style="margin:0; font-size:1.1rem;">Auditoría de Emails — Últimos 30 envíos</h2>
+        <h2 class="admin-card-title">Auditoría de Emails — Últimos 30 envíos</h2>
     </div>
     <?php if (empty($emailAuditEntries)): ?>
         <p style="padding:1rem; color: var(--admin-text-muted);">No hay envíos de email registrados aún. Los envíos aparecerán aquí tras el primer uso.</p>
@@ -372,10 +372,10 @@ $isMaintenanceOn = file_exists($maintenanceFile);
             <tbody>
                 <?php foreach ($emailAuditEntries as $entry): ?>
                 <tr>
-                    <td style="white-space:nowrap; font-size:0.85rem;"><?php echo htmlspecialchars(substr($entry['timestamp'] ?? '', 0, 19)); ?></td>
+                    <td class="is-sm is-nowrap"><?php echo htmlspecialchars(substr($entry['timestamp'] ?? '', 0, 19)); ?></td>
                     <td><span class="badge badge-blue"><?php echo htmlspecialchars($entry['channel'] ?? '—'); ?></span></td>
-                    <td style="font-size:0.85rem;"><?php echo htmlspecialchars($entry['recipient'] ?? ''); ?></td>
-                    <td style="font-size:0.85rem;"><?php echo htmlspecialchars(mb_substr($entry['subject'] ?? '', 0, 60)); ?></td>
+                    <td class="is-sm"><?php echo htmlspecialchars($entry['recipient'] ?? ''); ?></td>
+                    <td class="is-sm"><?php echo htmlspecialchars(mb_substr($entry['subject'] ?? '', 0, 60)); ?></td>
                     <td>
                         <?php if (($entry['status'] ?? '') === 'success'): ?>
                             <span class="badge badge-green">OK</span>
@@ -396,10 +396,10 @@ $isMaintenanceOn = file_exists($maintenanceFile);
 
 <!-- Tarjeta: Logs de Sistema -->
 <div class="admin-card">
-    <div class="admin-card-header" style="justify-content: space-between;">
+    <div class="admin-card-header">
         <div style="display:flex; align-items:center; gap: 0.5rem;">
             <span class="material-symbols-outlined">terminal</span>
-            <h2 style="margin:0; font-size:1.1rem;">Logs Nativos del Sistema (app.log)</h2>
+            <h2 class="admin-card-title">Logs Nativos del Sistema (app.log)</h2>
         </div>
         <form method="POST" action="" onsubmit="return confirm('¿Seguro que deseas vaciar el archivo de log? Esta acción es irreversible.');" style="margin:0;">
             <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
@@ -437,7 +437,7 @@ $isMaintenanceOn = file_exists($maintenanceFile);
     <div class="admin-card-header">
         <div style="display:flex; align-items:center; gap: 0.5rem;">
             <span class="material-symbols-outlined">bug_report</span>
-            <h2 style="margin:0; font-size:1.1rem;">PHP Error Log (error_log del servidor)</h2>
+            <h2 class="admin-card-title">PHP Error Log (error_log del servidor)</h2>
         </div>
     </div>
     <div class="log-viewer">

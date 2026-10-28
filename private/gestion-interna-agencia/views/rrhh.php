@@ -17,63 +17,31 @@ if (isset($_SESSION['msj'])) {
 
 <?php echo $msj; ?>
 
-<div style="padding: 0.5rem 0 1.5rem;">
-    <h2 style="margin: 0 0 0.35rem; font-size: 1.4rem; color: var(--admin-blue);">
-        <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 1.5rem; margin-right: 0.3rem;">group</span>
-        Recursos Humanos
-    </h2>
-    <p style="margin: 0; color: var(--admin-text-muted); font-size: 0.92rem;">
-        Desde aquí podés gestionar las búsquedas laborales activas y el directorio de contactos de la agencia.
+<div style="margin-bottom: 32px;">
+    <h1 style="font-family:var(--font-admin-serif); margin:0 0 8px; font-size:36px; font-weight:400; color:var(--admin-blue); line-height:1.1;">Recursos Humanos</h1>
+    <p style="margin: 0; color: var(--admin-text); font-size: 16px;">
+        Desde aquí podés gestionar las búsquedas laborales activas de la agencia.
     </p>
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+<div class="admin-grid-2">
 
     <!-- Card: Vacantes -->
     <a href="?section=rrhh_vacantes" style="text-decoration: none; color: inherit;">
-        <div class="admin-card" style="cursor: pointer; transition: transform 0.18s, box-shadow 0.18s; border-left: 4px solid var(--admin-blue);"
-             onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(0,51,160,0.13)';"
-             onmouseout="this.style.transform=''; this.style.boxShadow='';">
-            <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1.5rem 1rem;">
-                <div style="width: 52px; height: 52px; border-radius: 12px; background: rgba(0,51,160,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <span class="material-symbols-outlined" style="font-size: 1.75rem; color: var(--admin-blue);">work</span>
-                </div>
+        <div class="admin-card" style="cursor: pointer; margin-bottom:0;">
+            <div style="display: flex; align-items: center; gap: 1rem; padding: 24px 24px 18px;">
+                <span class="material-symbols-outlined" style="font-size: 28px; color: var(--admin-blue); flex-shrink:0;">work</span>
                 <div>
-                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--admin-text);">Vacantes</div>
-                    <div style="font-size: 0.82rem; color: var(--admin-text-muted); margin-top: 0.2rem;">
+                    <div style="font-family:var(--font-admin-serif); font-size: 21px; font-weight: 400; color: var(--admin-blue);">Vacantes</div>
+                    <div style="font-size: 14px; color: var(--admin-text-muted); margin-top: 4px;">
                         Gestión de búsquedas laborales activas y archivadas
                     </div>
                 </div>
             </div>
-            <div style="padding: 0.75rem 1.5rem 1.25rem; border-top: 1px solid var(--admin-border);">
-                <span style="font-size: 0.82rem; color: var(--admin-blue); font-weight: 500; display: flex; align-items: center; gap: 0.3rem;">
-                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward</span>
+            <div style="padding: 14px 24px 18px; border-top: 1px solid var(--admin-border-light);">
+                <span style="font-size: 14px; color: var(--admin-blue-hover); font-weight: 500; display: flex; align-items: center; gap: 6px;">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
                     Abrir Vacantes
-                </span>
-            </div>
-        </div>
-    </a>
-
-    <!-- Card: Directorio de Contactos -->
-    <a href="?section=rrhh_empleados" style="text-decoration: none; color: inherit;">
-        <div class="admin-card" style="cursor: pointer; transition: transform 0.18s, box-shadow 0.18s; border-left: 4px solid var(--admin-gold, #b8962e);"
-             onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(184,150,46,0.13)';"
-             onmouseout="this.style.transform=''; this.style.boxShadow='';">
-            <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1.5rem 1rem;">
-                <div style="width: 52px; height: 52px; border-radius: 12px; background: rgba(184,150,46,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <span class="material-symbols-outlined" style="font-size: 1.75rem; color: var(--admin-gold, #b8962e);">badge</span>
-                </div>
-                <div>
-                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--admin-text);">Directorio de Contactos</div>
-                    <div style="font-size: 0.82rem; color: var(--admin-text-muted); margin-top: 0.2rem;">
-                        Alta, baja y modificación de empleados de la agencia
-                    </div>
-                </div>
-            </div>
-            <div style="padding: 0.75rem 1.5rem 1.25rem; border-top: 1px solid var(--admin-border);">
-                <span style="font-size: 0.82rem; color: var(--admin-gold, #b8962e); font-weight: 500; display: flex; align-items: center; gap: 0.3rem;">
-                    <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_forward</span>
-                    Abrir Directorio
                 </span>
             </div>
         </div>

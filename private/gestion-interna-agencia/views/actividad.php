@@ -78,10 +78,10 @@ function badgeClassForAction($accion) {
 }
 ?>
 
-<div class="header-actions" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+<div class="admin-page-head">
     <div>
-        <h1 style="margin:0; font-size:1.5rem; color:var(--admin-text);">Registro de Actividad</h1>
-        <p style="margin:0.2rem 0 0; color:var(--admin-text-muted); font-size:0.9rem;">
+        <h1 class="admin-page-title">Registro de Actividad</h1>
+        <p style="margin:8px 0 0; color:var(--admin-text); font-size:16px;">
             Historial completo de acciones realizadas en el portal.
             <span class="badge badge-gray" style="margin-left:0.5rem;"><?php echo number_format($totalRows); ?> registros</span>
         </p>
@@ -93,9 +93,9 @@ function badgeClassForAction($accion) {
     <form method="GET" action="" style="display:flex; gap:0.75rem; align-items:flex-end; flex-wrap:wrap;">
         <input type="hidden" name="section" value="actividad">
 
-        <div style="flex:1; min-width:150px;">
+        <div class="admin-toolbar__field">
             <label style="display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; color:var(--admin-text-muted); margin-bottom:0.25rem;">Usuario</label>
-            <select name="user_id" class="admin-select" style="width:100%;">
+            <select name="user_id" class="admin-select is-full" >
                 <option value="">Todos</option>
                 <?php foreach ($usuarios as $u): ?>
                     <option value="<?php echo $u['id']; ?>" <?php echo $filterUser === (int)$u['id'] ? 'selected' : ''; ?>>
@@ -105,9 +105,9 @@ function badgeClassForAction($accion) {
             </select>
         </div>
 
-        <div style="flex:1; min-width:150px;">
+        <div class="admin-toolbar__field">
             <label style="display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; color:var(--admin-text-muted); margin-bottom:0.25rem;">Acción</label>
-            <select name="accion" class="admin-select" style="width:100%;">
+            <select name="accion" class="admin-select is-full" >
                 <option value="">Todas</option>
                 <?php foreach ($acciones as $a): ?>
                     <option value="<?php echo htmlspecialchars($a); ?>" <?php echo $filterAccion === $a ? 'selected' : ''; ?>>
@@ -117,26 +117,26 @@ function badgeClassForAction($accion) {
             </select>
         </div>
 
-        <div style="min-width:130px;">
+        <div class="is-minw">
             <label style="display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; color:var(--admin-text-muted); margin-bottom:0.25rem;">Desde</label>
-            <input type="date" name="desde" class="admin-input" value="<?php echo htmlspecialchars($filterDesde); ?>" style="width:100%;">
+            <input type="date" name="desde" class="admin-input" value="<?php echo htmlspecialchars($filterDesde); ?>" class="is-full">
         </div>
 
-        <div style="min-width:130px;">
+        <div class="is-minw">
             <label style="display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; color:var(--admin-text-muted); margin-bottom:0.25rem;">Hasta</label>
-            <input type="date" name="hasta" class="admin-input" value="<?php echo htmlspecialchars($filterHasta); ?>" style="width:100%;">
+            <input type="date" name="hasta" class="admin-input" value="<?php echo htmlspecialchars($filterHasta); ?>" class="is-full">
         </div>
 
-        <div style="flex:1; min-width:150px;">
+        <div class="admin-toolbar__field">
             <label style="display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; color:var(--admin-text-muted); margin-bottom:0.25rem;">Buscar en detalles</label>
-            <input type="text" name="buscar" class="admin-input" placeholder="Texto libre..." value="<?php echo htmlspecialchars($filterBuscar); ?>" style="width:100%;">
+            <input type="text" name="buscar" class="admin-input" placeholder="Texto libre..." value="<?php echo htmlspecialchars($filterBuscar); ?>" class="is-full">
         </div>
 
         <div style="display:flex; gap:0.5rem;">
-            <button type="submit" class="btn-admin-primary" style="white-space:nowrap;">
+            <button type="submit" class="btn-admin-primary is-nowrap" >
                 <span class="material-symbols-outlined">filter_alt</span> Filtrar
             </button>
-            <a href="?section=actividad" class="btn-admin-secondary" style="white-space:nowrap;">
+            <a href="?section=actividad" class="btn-admin-secondary is-nowrap" >
                 <span class="material-symbols-outlined">filter_alt_off</span> Limpiar
             </a>
         </div>
@@ -159,7 +159,7 @@ function badgeClassForAction($accion) {
             <tbody>
                 <?php foreach ($logs as $log): ?>
                 <tr>
-                    <td style="white-space:nowrap; font-size:0.85rem;">
+                    <td class="is-sm is-nowrap">
                         <?php echo date('d/m/Y H:i:s', strtotime($log['creado_en'])); ?>
                     </td>
                     <td>
@@ -171,7 +171,7 @@ function badgeClassForAction($accion) {
                         <?php if ($log['autor']): ?>
                             <strong><?php echo htmlspecialchars($log['autor']); ?></strong>
                         <?php else: ?>
-                            <span style="color:var(--admin-text-muted);">— Sistema —</span>
+                            <span class="is-muted">— Sistema —</span>
                         <?php endif; ?>
                     </td>
                     <td style="font-family:monospace; font-size:0.85rem;">
@@ -185,7 +185,7 @@ function badgeClassForAction($accion) {
 
                 <?php if (empty($logs)): ?>
                 <tr>
-                    <td colspan="5" style="text-align:center; padding:2rem; color:var(--admin-text-muted);">
+                    <td colspan="5" class="is-empty-cell">
                         <span class="material-symbols-outlined" style="font-size:2rem; display:block; margin-bottom:0.5rem;">search_off</span>
                         No se encontraron registros con los filtros aplicados.
                     </td>
@@ -204,15 +204,15 @@ function badgeClassForAction($accion) {
         $qs = http_build_query($queryBase);
         ?>
         <?php if ($page > 1): ?>
-            <a href="?<?php echo $qs; ?>&p=<?php echo $page - 1; ?>" class="btn-admin-secondary" style="padding:0.25rem 0.75rem;">&laquo; Anterior</a>
+            <a href="?<?php echo $qs; ?>&p=<?php echo $page - 1; ?>" class="btn-admin-secondary btn-admin-sm" >&laquo; Anterior</a>
         <?php endif; ?>
 
-        <span style="font-size:0.85rem; color:var(--admin-text-muted);">
+        <span class="admin-meta">
             Página <?php echo $page; ?> de <?php echo $totalPages; ?>
         </span>
 
         <?php if ($page < $totalPages): ?>
-            <a href="?<?php echo $qs; ?>&p=<?php echo $page + 1; ?>" class="btn-admin-secondary" style="padding:0.25rem 0.75rem;">Siguiente &raquo;</a>
+            <a href="?<?php echo $qs; ?>&p=<?php echo $page + 1; ?>" class="btn-admin-secondary btn-admin-sm" >Siguiente &raquo;</a>
         <?php endif; ?>
     </div>
     <?php endif; ?>

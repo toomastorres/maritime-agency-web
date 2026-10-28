@@ -1,4 +1,4 @@
-# Backend Architecture — AMA Web Project
+# Backend Architecture — Maritime Agency Web
 
 **Version:** 3.0 (Auditoría Completa — Abril 2026)
 
@@ -7,7 +7,10 @@
 | File | Purpose |
 |------|---------|
 | `database.php` | **Centralized PDO connection**. Reads credentials from `.env` via `loadEnv()`. Singleton guard prevents duplicate connections. Error logging to `src/data/logs/app.log`. PDO con `ERRMODE_EXCEPTION`, `EMULATE_PREPARES=false` (prepared statements reales) y `FETCH_ASSOC` por defecto. |
-| `email.php` | Centralized Email Service (`EmailService`). **PHPMailer 6.9.3 + SMTP autenticado** sobre `smtp.example.com:465` (SMTPS). Motor de templates HTML con placeholders `{{key}}` en `src/email-templates/`. Channel-based routing (`NOTIFY_RRHH`, `NOTIFY_CAJA`, `NOTIFY_DOCS`, `NOTIFY_CS`, `NOTIFY_COMERCIAL_*`). Audit estructurado JSONL en `src/data/logs/email_audit.log` con timestamp/channel/recipient/subject/status/error. Carga condicional de `vendor/autoload.php` (graceful degradation si `vendor/` no fue desplegado). Método `getAuditTail(int)` para panel admin. Método `getDiagnostics()` expone estado de configuración sin filtrar credenciales. |
+| `email.php` | Centralized Email Service (`EmailService`). **PHPMailer 6.9.3 + SMTP autenticado** sobre `smtp-legacy.hosting-ejemplo.example:465` (SMTPS). Motor de templates HTML con placeholders `{{key}}` en `src/email-templates/`. Channel-based routing (`NOTIFY_RRHH`, `NOTIFY_CAJA`, `NOTIFY_DOCS`, `NOTIFY_CS`, `NOTIFY_COMERCIAL_*`). Audit estructurado JSONL en `src/data/logs/email_audit.log` con timestamp/channel/recipient/subject/status/error. Carga condicional de `vendor/autoload.php` (graceful degradation si `vendor/` no fue desplegado). Método `getAuditTail(int)` para panel admin. Método `getDiagnostics()` expone estado de configuración sin filtrar credenciales. |
+| `tipo_cambio.php` | **Regla de negocio única del tipo de cambio**: `tcEnHorario()` (L-V 09:00-17:00, reloj de la agencia, inyectable para tests), `tcHorario()`, `tcDatosBancarios()` y `tcEstadoActual()`, que resuelve el estado completo (`ok` / `no_disponible` / `cerrado` / `error`). La consumen el endpoint web y el bot de correo: una sola regla, dos canales. |
+| `graph_mail.php` | Cliente de **Microsoft Graph app-only** (`GraphMail`) para el buzón de tipo de cambio. Flujo `client_credentials` con curl nativo, sin dependencias de Composer. Requiere `Mail.ReadWrite` + `Mail.Send` otorgados en Exchange Online con RBAC for Applications (acotados a un buzón), no en Entra. Lee no leídos, consulta encabezados SMTP, responde en el hilo (`createReply` → `PATCH` → `send`) y marca como leído. El token no se persiste en disco. |
+| `tc_mailbot.php` | Motor del bot que responde el buzón `tc@` (`TcMailBot`): filtros anti-bucle (RFC 3834, rebotes, listas, autoresponders), bitácora idempotente en `tc_mail_log`, límite por remitente y por antigüedad, y armado de las respuestas. Ver `docs/TIPO_CAMBIO_MAILBOT.md`. |
 | `utils.php` | Shared utilities: `loadEnv()` para parseo de `.env` (con fallback a `$_SERVER` vía `$systemVars`), `jsonResponse()` para respuestas API unificadas, `tail_file()` para lectura eficiente de logs grandes. |
 | `logger.php` | File-based logging system: `logInfo()`, `logWarning()`, `logError()`. Auto-creates log directory. |
 | `SimpleXLSX.php` | PHP library for reading `.xlsx` Excel files (used by Schedules module). |
@@ -27,6 +30,8 @@ Motor minimalista de templates: archivos `.html` estáticos con placeholders `{{
 |----------|-----|
 | `notification.html` | Template genérico AMA-branded con header azul, acento dorado y footer legal. Variables: `{{title}}`, `{{content}}`, `{{year}}` (auto-inyectada). Lo usa `EmailService::buildHtmlTemplate()` para los 13 callers existentes sin que tengan que migrar. |
 
+| `tipo_cambio.html` | Template de la respuesta automática del buzón `tc@` al cliente. Variables: `{{title}}`, `{{content}}`, `{{year}}`. A diferencia de `notification.html` (interno), el footer aclara que es una respuesta automática y que respondiendo el correo contesta una persona. |
+
 Para agregar un template nuevo:
 
 ```php
@@ -44,6 +49,7 @@ All endpoints use `src/core/database.php` for DB access and return JSON via `jso
 | Endpoint | Route | Logic |
 |----------|-------|-------|
 | `tipo_cambio.php` | `GET /api/tipo_cambio` | Time-gated (L-V 09-17hs). Returns USD/EUR rates from `exchange_rates` table. |
+| `tc_mailbot.php` | `GET /api/tc_mailbot` | **Tarea programada**, no es un endpoint público. Dispara una corrida del bot del buzón `tc@`. Por CLI (lo normal, desde el cron) no pide token; por HTTP exige `TC_BOT_TOKEN`. Acepta `--simulacro` / `?simulacro` para una corrida en seco. Cerrojo `flock` para que dos corridas no se pisen. |
 | `contactos.php` | `GET /api/contactos` | Returns employee directory from `employees` table, grouped by department. |
 | `vacantes.php` | `GET /api/vacantes` | Returns active vacancies (`estado = 1`) from `vacancies` table. |
 | `documentos.php` | `GET /api/documentos` | Returns official documents from `public_documents` table, grouped by category. |
@@ -67,7 +73,16 @@ All endpoints use `src/core/database.php` for DB access and return JSON via `jso
 - **Seed Data:** `database/seed_employees.sql`
 - **Migraciones idempotentes:** cada alteración nueva va envuelta en una stored procedure que consulta `information_schema.COLUMNS` antes de ejecutar. Esto permite ejecutar `install.sql` repetidamente sin error ("columna ya existe"). Columnas agregadas por esta vía: `usuarios_admin.username`, `usuarios_admin.is_active`, `usuarios_admin.ultimo_login`, `usuarios_admin.password_updated_at`, `usuarios_admin.reset_token`, `usuarios_admin.reset_expires`.
 
-> **Note on Core Identity:** The `usuarios_admin` table recently migrated from `email`-based UNIQUE authentication to `username`-based `UNIQUE` authentication. This satisfies the business rule to allow multiple users to share a departmental inbox (e.g., `finance@ama-demo.example`) without sharing actual portal access.
+> **Note on Core Identity:** The `usuarios_admin` table recently migrated from `email`-based UNIQUE authentication to `username`-based `UNIQUE` authentication. This satisfies the business rule to allow multiple users to share a departmental inbox (e.g., `finance@atlantic-agency.example.com`) without sharing actual portal access.
+
+### Tabla `tc_mail_log` (bitácora del bot de tipo de cambio)
+
+Una fila por mensaje que el bot del buzón `tc@` procesó, contestado u omitido
+(`internet_message_id`, `conversation_id`, `remitente`, `estado_tc`, `accion`,
+`motivo`). La clave única sobre `internet_message_id` es funcional, no
+decorativa: es el cerrojo que impide contestar dos veces el mismo correo si dos
+corridas del cron se superponen. El bot reserva la fila con `accion = 'en_proceso'`
+**antes** de enviar y la cierra después. Ver `docs/TIPO_CAMBIO_MAILBOT.md`.
 
 ### Tabla `admin_audit_logs` (auditoría completa del portal)
 

@@ -2,8 +2,9 @@
 /**
  * AMA — header.php
  * Componente de cabecera: carga CSS, fuentes, navegación principal.
- * Incluye detección de página activa por server-side, selector de idioma
- * compacto (globo) y comportamiento glassmorphism al hacer scroll.
+ * Topbar Oltremare (razón social + teléfono + idioma) y barra de
+ * navegación blanca. Incluye detección de página activa por
+ * server-side, selector de idioma (dropdown) y drawer mobile.
  */
 require_once __DIR__ . '/../config/config.php';
 
@@ -29,54 +30,68 @@ function navActive(string|array $slugs): string {
     return in_array($currentPage, $slugs, true) ? ' active' : '';
 }
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Fonts: Inter (legado, aún usado por vistas no migradas) + DM Sans / DM Serif Display (rediseño Oltremare) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
-  <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-
-  <!-- CSS design system — cache-busted by content hash -->
-  <link rel="stylesheet" href="<?php echo assetUrl('css/variables.css'); ?>">
-  <link rel="stylesheet" href="<?php echo assetUrl('css/base.css'); ?>">
-  <link rel="stylesheet" href="<?php echo assetUrl('css/layout.css'); ?>">
-  <link rel="stylesheet" href="<?php echo assetUrl('css/hero.css'); ?>">
-  <link rel="stylesheet" href="<?php echo assetUrl('css/components.css'); ?>">
-  <link rel="stylesheet" href="<?php echo assetUrl('css/header.css'); ?>">
-  <link rel="stylesheet" href="<?php echo assetUrl('css/footer.css'); ?>">
-</head>
-<body>
+<!-- CSS design system — cache-busted por content hash -->
+<link rel="stylesheet" href="<?php echo assetUrl('css/variables.css'); ?>">
+<link rel="stylesheet" href="<?php echo assetUrl('css/base.css'); ?>">
+<link rel="stylesheet" href="<?php echo assetUrl('css/layout.css'); ?>">
+<link rel="stylesheet" href="<?php echo assetUrl('css/hero.css'); ?>">
+<link rel="stylesheet" href="<?php echo assetUrl('css/components.css'); ?>">
+<link rel="stylesheet" href="<?php echo assetUrl('css/header.css'); ?>">
+<link rel="stylesheet" href="<?php echo assetUrl('css/footer.css'); ?>">
 
 <!-- ════════════════════════════════════════════════════════════════
-     AMA HEADER
+     AMA TOPBAR — franja Oltremare superior (razón social, teléfono, idioma)
      ════════════════════════════════════════════════════════════════ -->
-<header class="AMA-header" id="AMA-header" role="banner" data-scrolled="false">
+<div class="olt-topbar">
+  <div class="olt-topbar__inner">
+    <span class="olt-topbar__company" data-i18n="topbar.company">Atlantic Maritime Agency S.A. — agente de Atlantic Maritime Group en la República Argentina</span>
+
+    <div class="olt-topbar__right">
+      <a class="olt-topbar__phone" href="tel:+541140000000">+54 11 4000-0000</a>
+
+      <!-- Language dropdown (compacto, mismo comportamiento en todo el sitio) -->
+      <div class="lang-dropdown olt-lang" aria-label="Selector de idioma">
+        <button class="lang-trigger olt-lang__trigger" aria-haspopup="true" aria-expanded="false"
+                aria-label="Cambiar idioma" title="Idioma / Language">
+          <span class="lang-current">ES</span>
+          <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+               width="10" height="10" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+
+        <ul class="lang-menu" role="menu" aria-label="Opciones de idioma">
+          <li role="none"><button class="lang-option active" data-lang="es" role="menuitem">Español</button></li>
+          <li role="none"><button class="lang-option" data-lang="en" role="menuitem">English</button></li>
+          <li role="none"><button class="lang-option" data-lang="it" role="menuitem">Italiano</button></li>
+          <li role="none"><button class="lang-option" data-lang="pt" role="menuitem">Português</button></li>
+        </ul>
+      </div><!-- /.lang-dropdown -->
+    </div>
+  </div>
+</div><!-- /.olt-topbar -->
+
+<!-- ════════════════════════════════════════════════════════════════
+     AMA HEADER — barra de navegación blanca
+     ════════════════════════════════════════════════════════════════ -->
+<header class="ama-header" id="ama-header" role="banner">
 
   <div class="header-inner">
 
     <!-- ── Logo ─────────────────────────────────────────── -->
     <div class="header-logo">
-      <a href="<?php echo BASE_URL; ?>" aria-label="AMA Agencies Argentina — Inicio">
-        <div class="header-logo-inner">
-
-          <div class="header-logo-icon" aria-hidden="true">
-            <!-- AMA flag brand mark -->
-            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg"
-                 alt="" width="27" height="27" decoding="async">
-          </div>
-
-          <div class="header-logo-text">
-            <span class="header-logo-brand">AMA AGENCIES</span>
-            <span class="header-logo-country">Argentina</span>
-          </div>
-
-        </div>
+      <a href="<?php echo BASE_URL; ?>" aria-label="Atlantic Maritime Agency — Inicio">
+        <img class="header-logo-img"
+             src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg"
+             alt="Atlantic Maritime Agency" decoding="async">
       </a>
     </div><!-- /.header-logo -->
 
@@ -99,16 +114,9 @@ function navActive(string|array $slugs): string {
          class="nav-link<?php echo navActive('servicios'); ?>"
          data-i18n="nav.services">Servicios</a>
 
-      <!-- Estas secciones fueron comentadas para simplificar la navegación, pero se mantienen en el código para posible reactivación futura si se decide desarrollar esas páginas -->
-      <!--
-      <a href="<?php echo BASE_URL; ?>procedimientos"
-         class="nav-link<?php echo navActive('procedimientos'); ?>"
-         data-i18n="nav.procedures">Procedimientos</a>
-
       <a href="<?php echo BASE_URL; ?>institucional"
          class="nav-link<?php echo navActive('institucional'); ?>"
          data-i18n="nav.institutional">Institucional</a>
-      -->
 
       <a href="<?php echo BASE_URL; ?>contacto"
          class="nav-link<?php echo navActive('contacto'); ?>"
@@ -118,42 +126,6 @@ function navActive(string|array $slugs): string {
 
     <!-- ── Right-side controls ──────────────────────────── -->
     <div class="header-controls">
-
-      <!-- Globe / Language dropdown -->
-      <div class="lang-dropdown" aria-label="Selector de idioma">
-        <button class="lang-trigger" aria-haspopup="true" aria-expanded="false"
-                aria-label="Cambiar idioma" title="Idioma / Language">
-          <!-- Globe SVG -->
-          <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-               width="18" height="18" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-          <span class="lang-current">ES</span>
-          <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-               width="12" height="12" aria-hidden="true">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
-        </button>
-
-        <ul class="lang-menu" role="menu" aria-label="Opciones de idioma">
-          <li role="none"><button class="lang-option active" data-lang="es" role="menuitem">
-            <span class="lang-flag">🇦🇷</span> <span>Español</span>
-          </button></li>
-          <li role="none"><button class="lang-option" data-lang="en" role="menuitem">
-            <span class="lang-flag">🇬🇧</span> <span>English</span>
-          </button></li>
-          <li role="none"><button class="lang-option" data-lang="it" role="menuitem">
-            <span class="lang-flag">🇮🇹</span> <span>Italiano</span>
-          </button></li>
-          <li role="none"><button class="lang-option" data-lang="pt" role="menuitem">
-            <span class="lang-flag">🇧🇷</span> <span>Português</span>
-          </button></li>
-        </ul>
-      </div><!-- /.lang-dropdown -->
 
       <!-- Mobile hamburger -->
       <button class="nav-toggle" id="nav-toggle"
@@ -169,7 +141,7 @@ function navActive(string|array $slugs): string {
 
   </div><!-- /.header-inner -->
 
-</header><!-- /.AMA-header -->
+</header><!-- /.ama-header -->
 
 <!-- ── Mobile Off-Canvas Drawer ────────────────────────────────── -->
 <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
@@ -178,17 +150,9 @@ function navActive(string|array $slugs): string {
      role="navigation" aria-label="Menú móvil" aria-hidden="true">
 
   <div class="mobile-drawer-header">
-    <div class="mobile-drawer-logo">
-      <div class="mobile-drawer-icon" aria-hidden="true">
-        <!-- AMA flag brand mark -->
-        <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg"
-             alt="" width="24" height="24" decoding="async">
-      </div>
-      <div>
-        <div class="mobile-drawer-brand">AMA AGENCIES</div>
-        <div class="mobile-drawer-country">Argentina</div>
-      </div>
-    </div>
+    <img class="mobile-drawer-logo-img"
+         src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg"
+         alt="Atlantic Maritime Agency" decoding="async">
     <button class="drawer-close" aria-label="Cerrar menú">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
@@ -228,30 +192,13 @@ function navActive(string|array $slugs): string {
         <span data-i18n="nav.services">Servicios</span>
       </a>
     </li>
-
-    <!-- Estas secciones fueron comentadas para simplificar la navegación, pero se mantienen en el código para posible reactivación futura si se decide desarrollar esas páginas -->
-    <!--
-    <li>
-      <a href="<?php echo BASE_URL; ?>procedimientos"
-         class="mobile-nav-link<?php echo navActive('procedimientos'); ?>">
-        <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
-          <polyline points="10 9 9 9 8 9"/>
-        </svg>
-        <span data-i18n="nav.procedures">Procedimientos</span>
-      </a>
-    </li>
     <li>
       <a href="<?php echo BASE_URL; ?>institucional"
          class="mobile-nav-link<?php echo navActive('institucional'); ?>">
-        <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg>
         <span data-i18n="nav.institutional">Institucional</span>
       </a>
     </li>
-    -->
 
     <li>
       <a href="<?php echo BASE_URL; ?>contacto"
@@ -262,8 +209,9 @@ function navActive(string|array $slugs): string {
     </li>
   </ul>
 
-  <!-- Mobile lang selector -->
+  <!-- Mobile phone + lang selector -->
   <div class="mobile-lang-selector">
+    <a class="mobile-drawer-phone" href="tel:+541140000000">+54 11 4000-0000</a>
     <span class="mobile-lang-label" data-i18n="nav.lang_label">Idioma</span>
     <div class="mobile-lang-buttons">
       <button class="mobile-lang-btn active" data-lang="es">ES</button>

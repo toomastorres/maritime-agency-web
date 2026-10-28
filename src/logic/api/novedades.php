@@ -13,7 +13,7 @@ header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: public, max-age=300');
 header('Vary: Accept-Encoding');
 // CORS restringido al dominio propio
-$allowedOrigin = (!empty($_SERVER['HTTP_ORIGIN']) && preg_match('/^https?:\/\/(www\.)?AMA-bue\.com\.ar$/i', $_SERVER['HTTP_ORIGIN']))
+$allowedOrigin = (!empty($_SERVER['HTTP_ORIGIN']) && preg_match('/^https?:\/\/(www\.)?ama-bue\.com\.ar$/i', $_SERVER['HTTP_ORIGIN']))
     ? $_SERVER['HTTP_ORIGIN']
     : '';
 if ($allowedOrigin) {

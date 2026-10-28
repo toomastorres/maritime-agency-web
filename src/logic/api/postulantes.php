@@ -32,6 +32,11 @@ $email    = trim($_POST['email']    ?? '');
 $telefono = trim($_POST['telefono'] ?? '');
 $area     = trim($_POST['area']     ?? '');
 
+// Postulación a una vacante puntual (Institucional / P6) vs. espontánea: opcional
+$vacante_id = isset($_POST['vacante_id']) && ctype_digit((string)$_POST['vacante_id'])
+    ? (int) $_POST['vacante_id']
+    : null;
+
 // ── Validaciones ──
 $errors = [];
 
@@ -86,6 +91,25 @@ if (!is_dir($upload_dir)) {
     @mkdir($upload_dir, 0755, true);
 }
 
+// El directorio se crea en caliente la primera vez que alguien se postula, así
+// que la protección tiene que recrearse con él: si no, en un despliegue nuevo
+// el primer CV queda descargable por URL hasta que alguien suba el .htaccess.
+$htaccess = $upload_dir . '/.htaccess';
+if (!is_file($htaccess)) {
+    @file_put_contents($htaccess, implode("\n", [
+        '# CV de postulantes: datos personales, sin acceso directo por URL.',
+        '# Descarga sólo por private/gestion-interna-agencia/descargar-cv.php',
+        '<IfModule mod_authz_core.c>',
+        '    Require all denied',
+        '</IfModule>',
+        '<IfModule !mod_authz_core.c>',
+        '    Order deny,allow',
+        '    Deny from all',
+        '</IfModule>',
+        '',
+    ]));
+}
+
 $ext = strtolower(pathinfo($cv_name, PATHINFO_EXTENSION)) ?: 'pdf';
 $slug = preg_replace('/[^a-z0-9]+/', '-', strtolower(mb_substr($apellido . '-' . $nombre, 0, 60)));
 $cv_filename = date('Ymd') . '_' . bin2hex(random_bytes(8)) . '_' . $slug . '.' . $ext;
@@ -106,15 +130,16 @@ try {
 
     $stmt = $pdo->prepare(
         "INSERT INTO applicants (vacancy_id, nombre, email, telefono, area, cv_path, mensaje)
-         VALUES (NULL, ?, ?, ?, ?, ?, ?)"
+         VALUES (?, ?, ?, ?, ?, ?, ?)"
     );
     $stmt->execute([
+        $vacante_id,
         $nombre_completo,
         mb_substr($email, 0, 150),
         $telefono ? mb_substr($telefono, 0, 50) : null,
         $area ?: null,
         $cv_path,
-        null, // mensaje (no hay campo de mensaje en el form espontáneo)
+        null, // mensaje (no hay campo de mensaje en el form de postulación)
     ]);
 
     // Send Internal Email Notification

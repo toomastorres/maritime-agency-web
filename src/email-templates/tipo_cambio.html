@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        .wrapper { width: 100%; background-color: #f0f2f5; padding: 30px 10px; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .header { background-color: #0b2b5e; padding: 24px 30px; text-align: center; border-bottom: 4px solid #c8a145; }
+        .header h1 { color: #ffffff; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: 0.5px; }
+        .content { padding: 30px; color: #333333; font-size: 15px; line-height: 1.6; }
+        .content h2 { color: #0b2b5e; font-size: 18px; margin-top: 0; margin-bottom: 20px; font-weight: 600; }
+        .content p { margin-bottom: 15px; }
+        .content strong { color: #0b2b5e; }
+        .rate-box { background-color: #f8f9fa; border-left: 4px solid #c8a145; border-radius: 6px; padding: 20px 24px; margin-bottom: 20px; }
+        .rate-row { font-size: 17px; margin: 0 0 8px 0; }
+        .rate-row:last-child { margin-bottom: 0; }
+        .rate-label { color: #0b2b5e; font-weight: 600; }
+        .rate-value { font-family: 'Consolas', 'Courier New', monospace; font-weight: 700; font-size: 20px; color: #0b2b5e; }
+        .rate-meta { font-size: 13px; color: #666666; margin: 12px 0 0 0; }
+        .notice { background-color: #fff8e6; border-left: 4px solid #c8a145; border-radius: 6px; padding: 15px 20px; margin-bottom: 20px; font-size: 14px; color: #6b5310; }
+        .bank { background-color: #f8f9fa; border-left: 3px solid #0b2b5e; border-radius: 6px; padding: 15px 20px; margin-bottom: 20px; font-size: 14px; white-space: pre-wrap; }
+        .bank h3 { color: #0b2b5e; font-size: 14px; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        .quote { border-left: 3px solid #dddddd; padding: 8px 0 8px 15px; margin: 0 0 20px 0; color: #777777; font-size: 13px; font-style: italic; }
+        .footer { background-color: #f8f9fa; padding: 20px 30px; text-align: center; font-size: 13px; color: #666666; border-top: 1px solid #eeeeee; }
+        .footer a { color: #0b2b5e; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <h1>ATLANTIC MARITIME</h1>
+            </div>
+            <div class="content">
+                <h2>{{title}}</h2>
+                {{content}}
+            </div>
+            <div class="footer">
+                <p>Respuesta automatica del departamento de Caja de <strong>Atlantic Maritime Agency</strong>.</p>
+                <p>Si tu consulta era otra o necesitas hablar con una persona, respondé este correo: lo atiende nuestro equipo.</p>
+                <p style="margin-top: 10px; font-size: 11px; color: #999;">&copy; {{year}} Atlantic Maritime Agency. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

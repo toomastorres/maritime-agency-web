@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async function () {
        which triggers the CSS glassmorphism transition.
        ═══════════════════════════════════════════════════════════════ */
     function initScrollBehavior() {
-        const header = document.getElementById('AMA-header');
+        const header = document.getElementById('ama-header');
         if (!header) return;
 
         const THRESHOLD = 10;
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const globeCurrent = document.querySelector('.lang-current');
                 if (globeCurrent) globeCurrent.textContent = btn.dataset.lang.toUpperCase();
                 // Dispatch custom event for i18n module
-                document.dispatchEvent(new CustomEvent('AMA:lang', { detail: { lang: btn.dataset.lang } }));
+                document.dispatchEvent(new CustomEvent('ama:lang', { detail: { lang: btn.dataset.lang } }));
             });
         });
     }
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     b.classList.toggle('active', b.dataset.lang === lang);
                 });
                 closeDropdown();
-                document.dispatchEvent(new CustomEvent('AMA:lang', { detail: { lang } }));
+                document.dispatchEvent(new CustomEvent('ama:lang', { detail: { lang } }));
             });
         });
 
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const target = document.querySelector(targetId);
                 if (target) {
                     e.preventDefault();
-                    const headerHeight = document.getElementById('AMA-header')?.offsetHeight || 72;
+                    const headerHeight = document.getElementById('ama-header')?.offsetHeight || 72;
                     const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
                     window.scrollTo({ top, behavior: 'smooth' });
                 }
@@ -308,9 +308,9 @@ document.addEventListener('DOMContentLoaded', async function () {
        INJECT GLOBAL STYLES (scroll reveal + back-to-top)
        ═══════════════════════════════════════════════════════════════ */
     function injectGlobalStyles() {
-        if (document.getElementById('AMA-global-styles')) return;
+        if (document.getElementById('ama-global-styles')) return;
         const style = document.createElement('style');
-        style.id = 'AMA-global-styles';
+        style.id = 'ama-global-styles';
         style.textContent = `
             /* Scroll Reveal */
             .reveal-on-scroll {
@@ -335,28 +335,27 @@ document.addEventListener('DOMContentLoaded', async function () {
                 z-index: 998;
                 width: 48px;
                 height: 48px;
-                border-radius: 50%;
-                background: var(--AMA-blue, #00427A);
+                border-radius: 0;
+                background: #0F396C;
                 color: #fff;
-                border: 2px solid var(--AMA-gold, #C5A059);
+                border: none;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 4px 20px rgba(0,66,122,0.3);
+                box-shadow: none;
                 opacity: 0;
-                transform: translateY(20px) scale(0.8);
+                transform: translateY(20px);
                 pointer-events: none;
-                transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+                transition: opacity 0.3s ease, transform 0.3s ease, background 0.15s ease;
             }
             #back-to-top.visible {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
                 pointer-events: auto;
             }
             #back-to-top:hover {
-                background: var(--AMA-gold, #C5A059);
-                transform: translateY(-3px) scale(1);
+                background: #0069CC;
             }
             @media (max-width: 768px) {
                 #back-to-top { bottom: 1.25rem; right: 1.25rem; width: 44px; height: 44px; }
@@ -372,8 +371,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // ── Run all initializers ────────────────────────────────────────────
-    if (typeof AMAI18n !== 'undefined') {
-        await AMAI18n.init();
+    if (typeof AmaI18n !== 'undefined') {
+        await AmaI18n.init();
     }
     initScrollBehavior();
     initMobileDrawer();

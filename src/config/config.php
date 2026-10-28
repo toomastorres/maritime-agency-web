@@ -17,7 +17,7 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 require_once dirname(__DIR__) . '/core/utils.php';
 $env = loadEnv(dirname(__DIR__, 2) . '/.env');
 
-// SMTP — Configuracion del servidor de correo (el hosting SMTPS)
+// SMTP — Configuracion del servidor de correo (SMTPS del hosting compartido)
 define('SMTP_HOST',      $env['SMTP_HOST'] ?? '');
 define('SMTP_PORT',      $env['SMTP_PORT'] ?? '465');
 define('SMTP_SECURE',    $env['SMTP_SECURE'] ?? 'ssl');
@@ -38,7 +38,7 @@ define('NOTIFY_COMERCIAL_PROYECTO', $env['NOTIFY_COMERCIAL_PROYECTO'] ?? NOTIFY_
 define('NOTIFY_COMERCIAL_CONTAINERS', $env['NOTIFY_COMERCIAL_CONTAINERS'] ?? NOTIFY_TO);
 
 // Autodetect the base protocol and host (for BASE_URL)
-// Handles: direct SSL, el hosting shared hosting, and reverse proxy / SSL termination setups
+// Handles: direct SSL, shared hosting (cPanel), and reverse proxy / SSL termination setups
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
     || (($_SERVER['SERVER_PORT'] ?? 80) == 443)
     || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')

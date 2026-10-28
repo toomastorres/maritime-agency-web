@@ -30,7 +30,9 @@ if (!$token) {
 
 try {
     $tokenHash = hash('sha256', $token);
-    $stmt = $pdo->prepare("SELECT id, nombre, username, email, reset_expires FROM usuarios_admin WHERE reset_token = ? AND is_active = 1 LIMIT 1");
+    // Defensa en profundidad: aunque exista un token viejo, sólo la cuenta
+    // break-glass puede fijar contraseña local.
+    $stmt = $pdo->prepare("SELECT id, nombre, username, email, reset_expires FROM usuarios_admin WHERE reset_token = ? AND is_active = 1 AND is_break_glass = 1 LIMIT 1");
     $stmt->execute([$tokenHash]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -93,28 +95,28 @@ $csrfToken = generate_csrf_token();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Establecer Nueva Contraseña - AMA Agencies</title>
+    <title>Establecer Nueva Contraseña - Atlantic Maritime Agency</title>
     <!-- Mismos estilos de forgot_password.php -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <style>
-        :root { --brand-blue: #0033a0; --brand-blue-hover: #002277; --bg-color: #f8fafc; --surface: #ffffff; --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --error-bg: #fef2f2; --error-text: #991b1b; --error-border: #f87171; --success-bg: #f0fdf4; --success-text: #166534; --success-border: #4ade80; }
-        body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-main); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        :root { --brand-blue: #0F396C; --brand-blue-hover: #0069CC; --bg-color: #F0F0F0; --surface: #ffffff; --text-main: #1A1A1C; --text-muted: #808083; --border: rgba(128, 128, 131, .35); --error-bg: #ffffff; --error-text: #B3261E; --error-border: #B3261E; --success-bg: #ffffff; --success-text: #0F396C; --success-border: #0069CC; }
+        body { margin: 0; font-family: 'DM Sans', system-ui, -apple-system, sans-serif; background-color: #0F396C; color: var(--text-main); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
         .login-wrapper { width: 100%; max-width: 440px; padding: 2rem; }
-        .login-card { background: var(--surface); padding: 2.5rem 2rem; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid var(--border); }
+        .login-card { background: var(--surface); padding: 40px 36px; border-radius: 0; box-shadow: none; border: 1px solid var(--border); }
         .brand-logo { text-align: center; margin-bottom: 2rem; }
         .brand-logo img { max-height: 55px; width: auto; }
-        .login-title { font-size: 1.25rem; font-weight: 600; text-align: center; margin: 0 0 0.5rem 0; }
+        .login-title { font-family: 'DM Serif Display', 'Georgia', serif; font-size: 28px; font-weight: 400; text-align: center; margin: 0 0 0.5rem 0; color: var(--brand-blue); }
         .login-subtitle { font-size: 0.875rem; text-align: center; color: var(--text-muted); margin-bottom: 2rem; line-height: 1.5; }
-        .alert { padding: 1rem; border-radius: 6px; font-size: 0.875rem; margin-bottom: 1.5rem; border-left: 4px solid; line-height: 1.4; }
+        .alert { padding: 1rem; border-radius: 0; font-size: 0.875rem; margin-bottom: 1.5rem; border-left: 3px solid; line-height: 1.4; }
         .alert-error { background-color: var(--error-bg); color: var(--error-text); border-left-color: var(--error-border); }
         .alert-success { background-color: var(--success-bg); color: var(--success-text); border-left-color: var(--success-border); }
         .form-group { margin-bottom: 1.25rem; }
         .form-label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem; }
-        .form-control { width: 100%; padding: 0.75rem 1rem; font-size: 0.95rem; font-family: inherit; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-        .form-control:focus { outline: none; border-color: var(--brand-blue); box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1); }
-        .btn-submit { width: 100%; padding: 0.875rem; font-size: 0.95rem; font-weight: 600; color: #ffffff; background-color: var(--brand-blue); border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.2s, transform 0.1s; }
+        .form-control { width: 100%; padding: 12px 14px; font-size: 16px; font-family: inherit; border: 1px solid rgba(128, 128, 131, .5); border-radius: 0; box-sizing: border-box; }
+        .form-control:focus { outline: none; border-color: var(--brand-blue); box-shadow: none; }
+        .btn-submit { width: 100%; padding: 0.875rem; font-size: 0.95rem; font-weight: 500; color: #ffffff; background-color: var(--brand-blue); border: none; border-radius: 0; cursor: pointer; transition: background-color 0.2s; }
         .btn-submit:hover { background-color: var(--brand-blue-hover); }
         .back-link { display: block; text-align: center; margin-top: 1.5rem; font-size: 0.875rem; color: var(--brand-blue); text-decoration: none; font-weight: 500; }
         .back-link:hover { color: var(--brand-blue-hover); text-decoration: underline; }
@@ -125,7 +127,7 @@ $csrfToken = generate_csrf_token();
 <div class="login-wrapper">
     <div class="login-card">
         <div class="brand-logo">
-            <img src="../../public/assets/img/logo-blue.svg" alt="AMA Agencies Argentina">
+            <img src="../../public/assets/img/logo-mark.svg" alt="Atlantic Maritime Agency">
         </div>
         
         <h1 class="login-title">Establecer Nueva Contraseña</h1>

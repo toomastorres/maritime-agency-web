@@ -19,13 +19,17 @@ if (session_status() === PHP_SESSION_NONE) {
         || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
         || (($_SERVER['SERVER_PORT'] ?? 80) == 443);
 
+    // SameSite=Lax (no Strict): el callback de OIDC es una navegación
+    // cross-site desde login.microsoftonline.com y una cookie Strict no
+    // se enviaría, dejando el login en bucle. Lax sigue bloqueando el
+    // POST cross-site, y el token CSRF cubre el resto.
     session_set_cookie_params([
         'lifetime' => 0,
         'path'     => '/',
         'domain'   => '',
         'secure'   => $isHttps,
         'httponly'  => true,
-        'samesite'  => 'Strict',
+        'samesite'  => 'Lax',
     ]);
     session_start();
 }
@@ -55,7 +59,7 @@ if (!isset($_SESSION['fingerprint'])) {
     session_destroy();
     session_start();
     $_SESSION = [];
-    header('Location: index.php');
+    header('Location: /gestion-interna-agencia/index.php');
     exit;
 }
 
@@ -68,7 +72,7 @@ if (isset($_SESSION['user_id'])) {
         session_destroy();
         session_start();
         $_SESSION = [];
-        header('Location: index.php?expired=1');
+        header('Location: /gestion-interna-agencia/index.php?expired=1');
         exit;
     }
     $_SESSION['last_activity'] = time();
@@ -82,9 +86,23 @@ function is_logged_in() {
 
 function require_login() {
     if (!is_logged_in()) {
-        header('Location: index.php');
+        // Preservar el destino para volver tras el login.
+        $target = $_SERVER['REQUEST_URI'] ?? '';
+        $qs = ($target !== '' && strpos($target, '/gestion-interna-agencia/') === 0)
+            ? '?return_to=' . urlencode($target)
+            : '';
+        header('Location: /gestion-interna-agencia/index.php' . $qs);
         exit;
     }
+}
+
+/**
+ * Indica si la sesión actual se abrió con Microsoft Entra ID.
+ *
+ * @return bool
+ */
+function is_entra_session() {
+    return ($_SESSION['auth_provider'] ?? '') === 'entra';
 }
 
 function has_role($role) {

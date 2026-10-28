@@ -1,220 +1,156 @@
 /**
  * AMA — index.js
- * Lógica de la página principal: FAQ accordion, contadores de estadísticas,
- * typewriter en el badge del hero y scroll parallax en el hero.
+ * Lógica de la página principal: franja operativa (tipo de cambio,
+ * próxima llegada a Zárate), tabla de próximas salidas y novedades.
+ * Todo se alimenta de las APIs reales del sitio (/api/tipo_cambio,
+ * /api/schedules, /api/novedades), con estados de carga/error/vacío.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
-    // ── Typewriter Animation on Hero Badge ──────────────────────────────
-    function initHeroTypewriter() {
-        const typewriterEl = document.getElementById('heroTypewriterText');
-        if (!typewriterEl) return;
+    // AmaI18n.t() devuelve la propia key si no encuentra traducción — lo que
+    // también pasa si esta función corre antes de que termine de cargar el JSON
+    // de idioma (fetch en paralelo). Se detecta ese caso y se usa el fallback.
+    const tr = (key, fallback) => {
+        if (typeof AmaI18n === 'undefined') return fallback;
+        const val = AmaI18n.t(key);
+        return (val && val !== key) ? val : fallback;
+    };
 
-        const configEl = document.getElementById('heroBadgeConfig');
-        const defaultWords = ['Conectividad', 'Confiabilidad', 'Eficiencia'];
-        let words = defaultWords;
-        
-        if (configEl && configEl.hasAttribute('data-i18n-words')) {
-            // Se sobreescriben en updateDOM si es necesario, pero las leemos de dataset o texto.
-            // Para integrar con i18n.js usaremos CustomEvent.
-            document.addEventListener('AMA:lang_updated', () => {
-                const text = AMAI18n.t('hero.words');
-                if (text && text !== 'hero.words') {
-                    words = text.split('|');
-                    wordIdx = 0;
+    // Los tiles de la franja operativa son <a> completos, así que lo que se
+    // inyecte adentro no puede ser otro enlace: un <a> anidado es HTML inválido
+    // y el navegador lo desarma, rompiendo el layout del tile.
+    const muted = (txt) => `<span class="home-strip__muted">${txt}</span>`;
+
+    // ── Tipo de cambio del día ───────────────────────────────────────────
+    function loadTipoCambio() {
+        const valueEl = document.getElementById('home-tc-value');
+        const metaEl  = document.getElementById('home-tc-meta');
+        if (!valueEl) return;
+
+        fetch('/api/tipo_cambio')
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === 'ok' && result.data && result.data.dolar_valor) {
+                    const monto = Number(result.data.dolar_valor).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    valueEl.innerHTML = `<span class="home-strip__tc-currency">USD</span><span>${monto}</span>`;
+                    if (metaEl) metaEl.textContent = tr('home.tc_note', 'Venta · cotización del día');
+                    return;
                 }
+                if (result.status === 'cerrado') {
+                    valueEl.innerHTML = muted(tr('home.tc_closed', 'Fuera de horario — ver tipo de cambio'));
+                    return;
+                }
+                valueEl.innerHTML = muted(tr('home.tc_unavailable', 'Ver tipo de cambio'));
+            })
+            .catch(() => {
+                valueEl.innerHTML = muted(tr('home.tc_unavailable', 'Ver tipo de cambio'));
             });
-            // Try to load initial translations
-            if (typeof AMAI18n !== 'undefined') {
-                const text = AMAI18n.t('hero.words');
-                if (text && text !== 'hero.words') {
-                    words = text.split('|');
-                }
-            }
-        }
-
-        let wordIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
-        let typingSpeed = 120;
-
-        function type() {
-            const currentWord = words[wordIdx];
-            if (isDeleting) {
-                typewriterEl.textContent = currentWord.substring(0, charIdx - 1);
-                charIdx--;
-                typingSpeed = 50;
-            } else {
-                typewriterEl.textContent = currentWord.substring(0, charIdx + 1);
-                charIdx++;
-                typingSpeed = 120;
-            }
-
-            if (!isDeleting && charIdx === currentWord.length) {
-                // Pause at full word
-                isDeleting = true;
-                typingSpeed = 2000;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                wordIdx = (wordIdx + 1) % words.length;
-                typingSpeed = 500;
-            }
-
-            setTimeout(type, typingSpeed);
-        }
-
-        // Start typewriter after a short delay
-        setTimeout(type, 1000);
     }
 
-    // ── Hero Parallax ──────────────────────────────────────────────────
-    function initHeroParallax() {
-        const heroImg = document.getElementById('heroParallaxImg');
-        const heroSection = document.getElementById('hero');
-        if (!heroImg || !heroSection) return;
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const heroHeight = heroSection.offsetHeight;
-
-            if (scrollY <= heroHeight) {
-                // Move bg image down slightly slower than scroll (0.3x)
-                heroImg.style.transform = `translateY(${scrollY * 0.28}px) scale(1.02)`;
-            }
-        }, { passive: true });
+    // ── Schedules: próxima llegada a Zárate + próximas salidas ──────────
+    function parseDdMmYyyy(str) {
+        if (!str || typeof str !== 'string') return null;
+        const parts = str.split('/');
+        if (parts.length !== 3) return null;
+        const [d, m, y] = parts.map(Number);
+        if (!d || !m || !y) return null;
+        return new Date(y, m - 1, d);
     }
 
-    // ── Animated Counter Stats ─────────────────────────────────────────
-    function initStatCounters() {
-        const statsSec = document.getElementById('statsSection');
-        const counters = document.querySelectorAll('.idx-stat-card__number');
-        if (!statsSec || !counters.length) return;
+    function buildZarateArrivals(data) {
+        const isZarate = (p) => typeof p === 'string' && /z[aá]rate/i.test(p);
+        const arrivals = [];
 
-        let animated = false;
+        (data.rutas || []).forEach(ruta => {
+            const viajes = ruta.viajes || [];
+            const origin = (viajes[0] && typeof viajes[0].puerto === 'string') ? viajes[0].puerto : null;
 
-        function animateCounter(el) {
-            const target = parseInt(el.getAttribute('data-target'), 10) || 0;
-            const suffix = el.getAttribute('data-suffix') || '';
-            const duration = 2000; // ms
-            const start = performance.now();
-
-            function run(now) {
-                const elapsed = now - start;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                // Ease out cubic
-                const eased = 1 - Math.pow(1 - progress, 3);
-                const val = Math.round(eased * target);
-
-                el.textContent = val + suffix;
-
-                if (progress < 1) {
-                    requestAnimationFrame(run);
-                } else {
-                    el.textContent = target + suffix;
-                }
-            }
-            requestAnimationFrame(run);
-        }
-
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !animated) {
-                        animated = true;
-                        counters.forEach(el => animateCounter(el));
-                        observer.unobserve(statsSec);
-                    }
+            viajes.forEach(v => {
+                if (!isZarate(v.puerto) || !v.eta) return;
+                const etaDate = parseDdMmYyyy(v.eta);
+                if (!etaDate) return;
+                arrivals.push({
+                    vessel: ruta.nombre || '—',
+                    voyage: ruta.voyage_code || '',
+                    service: data.service_name || '',
+                    origin: (origin && origin !== v.puerto) ? origin : '—',
+                    eta: v.eta,
+                    etd: v.ets || '—',
+                    etaDate: etaDate,
                 });
-            }, { threshold: 0.25 });
-            observer.observe(statsSec);
-        } else {
-            // Fallback
-            counters.forEach(el => animateCounter(el));
-        }
-    }
-
-    // ── FAQ Accordion ──────────────────────────────────────────────────
-    function initFAQAccordion() {
-        const faqItems = document.querySelectorAll('.idx-faq-item');
-        if (!faqItems.length) return;
-
-        faqItems.forEach(item => {
-            const btn = item.querySelector('.idx-faq-btn');
-            const body = item.querySelector('.idx-faq-body');
-            if (!btn || !body) return;
-
-            btn.addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-
-                // Close all other accordion items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('open')) {
-                        otherItem.classList.remove('open');
-                        const otherBtn = otherItem.querySelector('.idx-faq-btn');
-                        const otherBody = otherItem.querySelector('.idx-faq-body');
-                        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
-                        if (otherBody) {
-                            otherBody.style.maxHeight = '0px';
-                            // Wait for transition before hiding
-                            setTimeout(() => {
-                                if (!otherItem.classList.contains('open')) {
-                                    otherBody.setAttribute('hidden', '');
-                                }
-                            }, 420);
-                        }
-                    }
-                });
-
-                // Toggle current item
-                if (isOpen) {
-                    item.classList.remove('open');
-                    btn.setAttribute('aria-expanded', 'false');
-                    body.style.maxHeight = '0px';
-                    setTimeout(() => {
-                        if (!item.classList.contains('open')) {
-                            body.setAttribute('hidden', '');
-                        }
-                    }, 420);
-                } else {
-                    body.removeAttribute('hidden');
-                    // Force reflow
-                    body.offsetHeight; 
-                    item.classList.add('open');
-                    btn.setAttribute('aria-expanded', 'true');
-                    
-                    // Set height to scrollHeight for smooth transition
-                    const inner = body.querySelector('.idx-faq-body__inner');
-                    const height = inner ? inner.offsetHeight : 200;
-                    body.style.maxHeight = `${height + 32}px`;
-                }
             });
         });
+
+        arrivals.sort((a, b) => a.etaDate - b.etaDate);
+        return arrivals;
     }
 
-    // ── Fade-In Reveal Observer for sections (support index.css fade-in-up class) ──
-    function initIndexFadeInReveal() {
-        const revealItems = document.querySelectorAll('.fade-in-up');
-        if (!revealItems.length || !('IntersectionObserver' in window)) return;
+    function renderDeparturesEmpty(msg) {
+        const body = document.getElementById('home-departures-body');
+        if (body) body.innerHTML = `<tr><td colspan="5" class="home-departures__status">${msg}</td></tr>`;
+    }
 
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    obs.unobserve(entry.target);
+    function loadSchedules() {
+        const arrivalValueEl = document.getElementById('home-arrival-value');
+        const arrivalMetaEl  = document.getElementById('home-arrival-meta');
+        const body = document.getElementById('home-departures-body');
+        if (!body && !arrivalValueEl) return;
+
+        const scheduleUrl = '/schedule';
+        const fallbackText = tr('home.departures_empty', 'Consultá el schedule completo');
+        // La tabla no está dentro de un enlace, así que ahí sí va un <a> real.
+        const fallbackMsg = `<a href="${scheduleUrl}">${fallbackText}</a>`;
+        const arrivalFallback = muted(fallbackText);
+
+        fetch('/api/schedules')
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'error' || data.status === 'sin_datos' || !data.rutas || !data.rutas.length) {
+                    if (arrivalValueEl) arrivalValueEl.innerHTML = arrivalFallback;
+                    renderDeparturesEmpty(fallbackMsg);
+                    return;
                 }
-            });
-        }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-        revealItems.forEach(item => obs.observe(item));
+                const arrivals = buildZarateArrivals(data);
+
+                if (!arrivals.length) {
+                    if (arrivalValueEl) arrivalValueEl.innerHTML = arrivalFallback;
+                    renderDeparturesEmpty(fallbackMsg);
+                    return;
+                }
+
+                const next = arrivals[0];
+                if (arrivalValueEl) {
+                    arrivalValueEl.textContent = '';
+                    arrivalValueEl.innerHTML = `${next.vessel} ${next.voyage ? `<span class="voyage">V. ${next.voyage}</span>` : ''}`;
+                }
+                if (arrivalMetaEl) {
+                    const parts = [`ETA ${next.eta}`];
+                    if (next.etd && next.etd !== '—') parts.push(`ETD ${next.etd}`);
+                    if (next.service) parts.push(next.service);
+                    arrivalMetaEl.textContent = parts.join(' · ');
+                }
+
+                if (body) {
+                    body.innerHTML = arrivals.slice(0, 4).map(a => `
+                        <tr>
+                            <td><span class="vessel-name">${a.vessel}</span> ${a.voyage ? `<span class="voyage">V. ${a.voyage}</span>` : ''}</td>
+                            <td class="is-secondary">${a.service || '—'}</td>
+                            <td class="is-secondary">${a.origin}</td>
+                            <td class="is-right">${a.eta}</td>
+                            <td class="is-right">${a.etd}</td>
+                        </tr>
+                    `).join('');
+                }
+            })
+            .catch(() => {
+                if (arrivalValueEl) arrivalValueEl.innerHTML = arrivalFallback;
+                renderDeparturesEmpty(fallbackMsg);
+            });
     }
 
-    // Initialize home page features
-    initHeroTypewriter();
-    initHeroParallax();
-    initStatCounters();
-    initFAQAccordion();
-    initIndexFadeInReveal();
+    loadTipoCambio();
+    loadSchedules();
 });

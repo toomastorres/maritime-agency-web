@@ -1,13 +1,13 @@
 # Documentación de Internacionalización (i18n)
 
-**Proyecto**: AMA Agencies Argentina Web
+**Proyecto**: Atlantic Maritime Agency Web
 **Motor**: `public/assets/js/i18n.js`
 
 ## Arquitectura Base
 El proyecto utiliza un sistema de internacionalización basado en JavaScript puro sin dependencias pesadas, ideal para el entorno híbrido de despliegue. 
 
 - **Diccionarios**: Archivos JSON ubicados en `src/i18n/` (`es.json`, `en.json`, `pt.json`, `it.json`).
-- **Motor**: `AMAI18n` provee los métodos principales para la carga asíncrona, detección inicial de idiomas usando URL Params o `localStorage`, y sustitución bidimensional en el DOM.
+- **Motor**: `AmaI18n` provee los métodos principales para la carga asíncrona, detección inicial de idiomas usando URL Params o `localStorage`, y sustitución bidimensional en el DOM.
 
 ## Uso en Frontend (Estático)
 Para traducir texto que se procesa a nivel de documento HTML (Archivos PHP en `src/pages/`):
@@ -34,8 +34,8 @@ Para texto generado a partir del lado del cliente (`fetch` en archivos JS):
 
 2. **Re-disparo del Motor (IMPORTANTE)**: Una vez que el DOM fue modificado con la respuesta asíncrona y nuevos atributos `data-i18n` existen, es necesario indicarle al manejador global que re-evalúe el documento:
    ```javascript
-   if (typeof AMAI18n !== 'undefined') {
-       AMAI18n.updateDOM();
+   if (typeof AmaI18n !== 'undefined') {
+       AmaI18n.updateDOM();
    }
    ```
    Esto asegura que los nuevos elementos, como resultados de búsqueda o listados de empleados (`contacto.js`), se traduzcan inmediatamente al idioma actual del navegador.

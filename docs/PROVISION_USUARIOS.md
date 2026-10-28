@@ -26,11 +26,15 @@ SELECT id, username, rol_portal, is_active FROM usuarios_admin;
    ```
    SETUP_TOKEN=setup_<algo-aleatorio-largo>
    ```
-2. Entrá a: `https://ama-demo.example/gestion-interna-agencia/setup.php?token=<ese-token>`
+2. Entrá a: `https://atlantic-agency.example.com/gestion-interna-agencia/setup.php?token=<ese-token>`
 3. Completá nombre, usuario, correo y una **contraseña fuerte** (mín. 12 caracteres; el medidor te orienta). Se crea el `admin_global`.
 4. **Cerrá la puerta:** borrá el archivo `setup.php` y dejá `SETUP_TOKEN` vacío en el `.env`.
 
-> `setup.php` se auto-bloquea apenas existe un `admin_global`, pero igual conviene borrarlo.
+> **`setup.php` ya fue eliminado del repositorio** (septiembre 2026), una vez creado el primer
+> administrador y designada la cuenta break-glass. Si alguna vez hiciera falta volver a
+> usarlo, se recupera del historial de Git con
+> `git show <commit>:private/gestion-interna-agencia/setup.php`, se sube por FTP, se usa y se
+> borra de nuevo.
 
 ## 3. Crear el resto de los usuarios (desde el panel)
 

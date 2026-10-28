@@ -3,12 +3,12 @@
  * Motor de internacionalización: traducciones JSON, detección de idioma, reemplazo DOM.
  */
 
-const AMAI18n = (function () {
+const AmaI18n = (function () {
     'use strict';
 
     const SUPPORTED_LANGS = ['es', 'en', 'it', 'pt'];
     const DEFAULT_LANG = 'es';
-    const STORAGE_KEY = 'AMA_lang';
+    const STORAGE_KEY = 'ama_lang';
 
     let currentLang = DEFAULT_LANG;
     let translations = {};
@@ -109,6 +109,14 @@ const AMAI18n = (function () {
             }
         });
 
+        // aria-label: lo usa el lector de pantalla y hasta ahora no había forma
+        // de traducirlo, así que quedaba fijo en castellano.
+        document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+            const key = el.getAttribute('data-i18n-aria');
+            const value = getNestedValue(translations, key);
+            if (value) el.setAttribute('aria-label', value);
+        });
+
         // Placeholder attributes
         document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
             const key = el.getAttribute('data-i18n-placeholder');
@@ -140,7 +148,7 @@ const AMAI18n = (function () {
         updateLangSelector();
         
         // Dispatch event for other scripts to update dynamic text
-        document.dispatchEvent(new CustomEvent('AMA:lang_updated'));
+        document.dispatchEvent(new CustomEvent('ama:lang_updated'));
     }
 
     /**
@@ -148,6 +156,11 @@ const AMAI18n = (function () {
      */
     function updateMetaTags() {
         let meta = { ...(translations.meta || {}) };
+
+        // Páginas cuya URL no identifica de forma fiable el namespace de i18n
+        // (p. ej. 404: la ruta es la que el visitante tipeó, no la del propio
+        // recurso) declaran su namespace explícitamente en <body data-i18n-page>.
+        const explicitPage = document.body.getAttribute('data-i18n-page');
 
         // Detect current page to check for page-specific meta
         let path = window.location.pathname;
@@ -158,12 +171,11 @@ const AMAI18n = (function () {
             'contacto': 'contact',
             'servicios': 'services_page',
             'institucional': 'institutional',
-            'procedimientos': 'procedures',
             'schedule': 'schedule',
             'index': 'index'
         };
 
-        const key = pageKeyMap[pageName] || pageName;
+        const key = explicitPage || pageKeyMap[pageName] || pageName;
         if (translations[key] && translations[key].meta) {
             meta = { ...meta, ...translations[key].meta };
         }

@@ -16,7 +16,7 @@
 }
 
 .section-wrapper--alt {
-    background-color: var(--AMA-gray-light);
+    background-color: var(--ama-gray-light);
 }
 
 /* ─── Grid: 33/66 ─── */
@@ -114,7 +114,7 @@
 
 /* ─── Dark Section (stats, testimonials) ─── */
 .section-dark {
-    background: var(--AMA-blue);
+    background: var(--ama-blue);
     color: #ffffff;
 }
 

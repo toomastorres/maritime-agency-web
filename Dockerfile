@@ -1,8 +1,11 @@
 # Imagen para correr el sitio + portal admin (PHP 8.2 + Apache).
 FROM php:8.2-apache
 
-# Extensiones PHP necesarias (MySQL via PDO) + utilidades
-RUN docker-php-ext-install pdo pdo_mysql \
+# Utilidades para Composer + extensiones PHP necesarias (MySQL via PDO; curl/openssl/mbstring/pdo_sqlite ya vienen en php:8.2-apache)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install pdo pdo_mysql \
     && a2enmod rewrite expires headers
 
 # Composer (para instalar PHPMailer y demás dependencias)
@@ -11,8 +14,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . /var/www/html
 
-# Dependencias PHP (PHPMailer). Si no hay composer.json no falla el build.
-RUN if [ -f composer.json ]; then composer install --no-dev --no-interaction --prefer-dist || true; fi \
+# Dependencias PHP (PHPMailer)
+RUN if [ -f composer.json ]; then composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader; fi \
     && chown -R www-data:www-data /var/www/html
 
 # El front controller (index.php) está en la raíz del proyecto.

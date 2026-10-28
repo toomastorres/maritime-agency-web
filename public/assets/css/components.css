@@ -9,12 +9,12 @@
     font-size: 2.5rem;
     font-weight: 700;
     font-family: var(--font-heading);
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     margin-bottom: var(--space-md);
     text-align: center;
     line-height: 1.2;
     padding-bottom: var(--space-sm);
-    border-bottom: 3px solid var(--AMA-blue-light);
+    border-bottom: 3px solid var(--ama-blue-light);
     letter-spacing: var(--letter-spacing-heading);
 }
 
@@ -22,7 +22,7 @@
     font-size: 1.5rem;
     font-weight: 600;
     font-family: var(--font-heading);
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     margin-bottom: 0.75rem;
     text-align: left;
     line-height: 1.3;
@@ -34,7 +34,7 @@
 .cuerpo-principal {
     font-size: 1.125rem;
     line-height: 1.7;
-    color: var(--AMA-text);
+    color: var(--ama-text);
     text-align: center;
     margin-bottom: var(--space-lg);
     max-width: 800px;
@@ -46,7 +46,7 @@
 .cuerpo-contenido {
     font-size: 1rem;
     line-height: 1.6;
-    color: var(--AMA-text);
+    color: var(--ama-text);
     text-align: left;
     margin-bottom: var(--space-md);
     letter-spacing: var(--letter-spacing-base);
@@ -54,15 +54,15 @@
 
 .texto-info {
     font-size: 0.95rem;
-    color: var(--AMA-text-light);
+    color: var(--ama-text-light);
     line-height: 1.5;
     margin-bottom: 0.75rem;
 }
 
 .texto-destacado {
     font-weight: 600;
-    color: var(--AMA-blue);
-    background-color: var(--AMA-blue-light);
+    color: var(--ama-blue);
+    background-color: var(--ama-blue-light);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
     display: inline-block;
@@ -78,14 +78,14 @@
 
 .boton-primario,
 .boton-secundario {
-    background-color: var(--AMA-blue);
-    color: var(--AMA-white);
+    background-color: var(--ama-blue);
+    color: var(--ama-white);
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     font-weight: 500;
     font-family: var(--font-primary);
     border-radius: var(--radius-md);
-    border: 2px solid var(--AMA-blue);
+    border: 2px solid var(--ama-blue);
     cursor: pointer;
     text-decoration: none;
     transition: all var(--transition-normal);
@@ -102,16 +102,16 @@
 
 .boton-secundario {
     background-color: transparent;
-    color: var(--AMA-blue);
-    border-color: var(--AMA-blue);
+    color: var(--ama-blue);
+    border-color: var(--ama-blue);
 }
 
 .boton-primario:hover,
 .boton-secundario:hover {
-    background-color: var(--AMA-blue-dark);
-    color: var(--AMA-white);
+    background-color: var(--ama-blue-dark);
+    color: var(--ama-white);
     transform: translateY(-2px);
-    box-shadow: var(--AMA-shadow);
+    box-shadow: var(--ama-shadow);
     text-decoration: none;
 }
 
@@ -138,12 +138,12 @@
 }
 
 .card-info {
-    background-color: var(--AMA-white);
+    background-color: var(--ama-white);
     width: 100%;
     max-width: 800px;
     min-height: 200px;
     margin: 0 auto;
-    box-shadow: var(--AMA-shadow);
+    box-shadow: var(--ama-shadow);
     box-sizing: border-box;
     padding: var(--space-xl);
     display: flex;
@@ -156,10 +156,10 @@
 
 .card-info:hover {
     transform: translateY(-4px);
-    box-shadow: var(--AMA-shadow-lg);
+    box-shadow: var(--ama-shadow-lg);
 }
 
-.card-AMA {
+.card-ama {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -167,25 +167,25 @@
     max-width: 340px;
     flex: 1 1 280px;
     padding: var(--space-xl);
-    background-color: var(--AMA-white);
+    background-color: var(--ama-white);
     border: none;
     /* FIX: consolidated from duplicate block at bottom of file — uses radius-xl */
     border-radius: var(--radius-xl);
-    box-shadow: var(--AMA-shadow);
+    box-shadow: var(--ama-shadow);
     transition: all var(--transition-normal);
 }
 
-.card-AMA:hover {
+.card-ama:hover {
     /* FIX: removed conflicting duplicate — kept clean translateY(-8px) without scale() */
     transform: translateY(-8px);
-    box-shadow: var(--AMA-shadow-xl);
+    box-shadow: var(--ama-shadow-xl);
 }
 
 .card-panel {
-    background-color: var(--AMA-gray-light);
-    border: 2px solid var(--AMA-blue);
+    background-color: var(--ama-gray-light);
+    border: 2px solid var(--ama-blue);
     border-radius: var(--radius-lg);
-    box-shadow: var(--AMA-shadow);
+    box-shadow: var(--ama-shadow);
     padding: var(--space-2xl);
     margin-bottom: var(--space-xl);
     width: 100%;
@@ -206,18 +206,18 @@
 .card-footer {
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
-    border-top: 2px solid var(--AMA-gray);
+    border-top: 2px solid var(--ama-gray);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.95rem;
-    color: var(--AMA-text-light);
+    color: var(--ama-text-light);
 }
 
 .info-item {
-    background-color: var(--AMA-white);
-    box-shadow: var(--AMA-shadow);
-    border: 1px solid var(--AMA-blue);
+    background-color: var(--ama-white);
+    box-shadow: var(--ama-shadow);
+    border: 1px solid var(--ama-blue);
     padding: var(--space-lg);
     width: 280px;
     box-sizing: border-box;
@@ -233,36 +233,42 @@
     transform: translateY(-3px);
 }
 
-/* ─── Alert Components ─── */
+/* ─── Alert Components ───
+   Usadas por los estados de carga/vacío/error de Schedule y Tipo de
+   Cambio (páginas ya migradas al sistema Oltremare): caja plana con
+   filete de acento, mismo lenguaje visual que .olt-form-status. */
 
 .alerta-exito {
-    background-color: var(--AMA-success-bg);
-    color: var(--AMA-success);
+    background-color: #fff;
+    color: var(--olt-blue);
     padding: 1.25rem;
-    border-radius: var(--radius-md);
+    border-radius: 0;
     margin-bottom: var(--space-lg);
-    border-left: 4px solid var(--AMA-success);
-    font-weight: 500;
+    border: 1px solid var(--olt-rule);
+    border-left: 3px solid var(--olt-blue-mid);
+    font-weight: 400;
 }
 
 .alerta-error {
-    background-color: var(--AMA-error-bg);
-    color: var(--AMA-error);
+    background-color: #fff;
+    color: var(--olt-alert);
     padding: 1.25rem;
-    border-radius: var(--radius-md);
+    border-radius: 0;
     margin-bottom: var(--space-lg);
-    border-left: 4px solid var(--AMA-error);
-    font-weight: 500;
+    border: 1px solid var(--olt-rule);
+    border-left: 3px solid var(--olt-alert);
+    font-weight: 400;
 }
 
 .alerta-estado {
-    background-color: var(--AMA-warning-bg);
-    color: var(--AMA-warning);
+    background-color: #fff;
+    color: var(--olt-ink);
     padding: 1.25rem;
-    border-radius: var(--radius-md);
+    border-radius: 0;
     margin-bottom: var(--space-lg);
-    border-left: 4px solid var(--AMA-warning);
-    font-weight: 500;
+    border: 1px solid var(--olt-rule);
+    border-left: 3px solid var(--olt-grey);
+    font-weight: 400;
 }
 
 /* Alerta con icono SVG inline alineado al texto */
@@ -291,13 +297,13 @@
 
 /* ─── Form Components ─── */
 
-.formulario-AMA input,
-.formulario-AMA select,
-.formulario-AMA textarea {
+.formulario-ama input,
+.formulario-ama select,
+.formulario-ama textarea {
     padding: 0.75rem var(--space-md);
-    border: 2px solid var(--AMA-border);
+    border: 2px solid var(--ama-border);
     border-radius: var(--radius-md);
-    background-color: var(--AMA-white);
+    background-color: var(--ama-white);
     font-size: 1rem;
     font-family: var(--font-primary);
     width: 100%;
@@ -305,16 +311,16 @@
     box-sizing: border-box;
 }
 
-.formulario-AMA input:focus,
-.formulario-AMA select:focus,
-.formulario-AMA textarea:focus {
-    border-color: var(--AMA-blue);
+.formulario-ama input:focus,
+.formulario-ama select:focus,
+.formulario-ama textarea:focus {
+    border-color: var(--ama-blue);
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 66, 122, 0.12);
 }
 
-.formulario-AMA label {
-    color: var(--AMA-blue);
+.formulario-ama label {
+    color: var(--ama-blue);
     display: block;
     font-weight: 600;
     margin-bottom: var(--space-sm);
@@ -338,7 +344,7 @@
 
 .lista-institucional li::before {
     content: '\2713';
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     font-weight: 700;
     font-size: 1.1rem;
     margin-right: 0.75rem;
@@ -363,7 +369,7 @@
         gap: var(--space-lg);
     }
 
-    .card-AMA {
+    .card-ama {
         max-width: 100%;
         margin: 0 var(--space-md);
     }
@@ -377,14 +383,14 @@
 
 /* Gold button — primary CTA on dark backgrounds */
 .boton-oro {
-    background-color: var(--AMA-gold);
+    background-color: var(--ama-gold);
     color: #1a1a1a;
     padding: 0.875rem 1.75rem;
     font-size: 1rem;
     font-weight: 700;
     font-family: var(--font-primary);
     border-radius: var(--radius-full);
-    border: 2px solid var(--AMA-gold);
+    border: 2px solid var(--ama-gold);
     cursor: pointer;
     text-decoration: none;
     transition: all var(--transition-normal);
@@ -397,8 +403,8 @@
 }
 
 .boton-oro:hover {
-    background-color: var(--AMA-gold-dark);
-    border-color: var(--AMA-gold-dark);
+    background-color: var(--ama-gold-dark);
+    border-color: var(--ama-gold-dark);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(197, 160, 89, 0.4);
@@ -457,7 +463,7 @@
 }
 
 .badge-gold {
-    background-color: var(--AMA-gold);
+    background-color: var(--ama-gold);
     color: #1a1a1a;
 }
 
@@ -470,13 +476,13 @@
 }
 
 .badge-blue {
-    background-color: var(--AMA-blue);
+    background-color: var(--ama-blue);
     color: #ffffff;
 }
 
 .badge-categoria {
     background-color: rgba(0, 66, 122, 0.1);
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     border: 1px solid rgba(0, 66, 122, 0.2);
 }
 
@@ -510,7 +516,7 @@
 /* ─── Canonical Gold Section Label & Divider ─── */
 .section-label-gold {
     display: block;
-    color: var(--AMA-gold);
+    color: var(--ama-gold);
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -521,7 +527,7 @@
 .section-divider-gold {
     width: 96px;
     height: 6px;
-    background: var(--AMA-gold);
+    background: var(--ama-gold);
     border-radius: var(--radius-full);
     margin: 1.5rem auto 0;
 }
@@ -539,10 +545,7 @@
 }
 
 /* ─── Legal Page Content ─── */
-
-.legal-page-content {
-    padding-top: 100px;
-}
+/* padding-top vive en legal.css (rediseño Oltremare: header no es fixed) */
 
 /* i18n Declarative Legal / Cookie / Terms Pages Display */
 .legal-page-content .lang-content { display: none !important; }
@@ -550,3 +553,561 @@ html[lang="es"] .legal-page-content .lang-content[data-lang="es"],
 html[lang="en"] .legal-page-content .lang-content[data-lang="en"],
 html[lang="it"] .legal-page-content .lang-content[data-lang="it"],
 html[lang="pt"] .legal-page-content .lang-content[data-lang="pt"] { display: block !important; }
+
+/* ═══════════════════════════════════════════════════════════ */
+/* OLTREMARE PAGE KIT — rediseño 2026                          */
+/* Bloques compartidos por las vistas ya migradas al sistema   */
+/* Oltremare (Home, Tipo de cambio, Schedule, Servicios,       */
+/* Procedimientos, Institucional, Contacto, Legales). Vive acá */
+/* porque components.css ya se carga en todas las páginas.     */
+/* ═══════════════════════════════════════════════════════════ */
+
+.olt-page {
+    font-family: var(--font-olt-sans);
+    color: var(--olt-ink);
+    background: #fff;
+}
+
+.olt-page h1, .olt-page h2, .olt-page h3 {
+    font-weight: 400;
+}
+
+.olt-container {
+    max-width: var(--olt-container);
+    margin: 0 auto;
+    padding: 0 var(--olt-gutter);
+}
+
+.olt-section {
+    padding: 72px 0;
+}
+
+/* ─── Kicker / eyebrow label ─── */
+.olt-kicker {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--olt-grey);
+    margin-bottom: 16px;
+}
+
+.olt-kicker--inline { margin-bottom: 0; }
+.olt-kicker--accent { color: var(--olt-blue-mid); font-size: 14px; font-weight: 500; letter-spacing: .18em; }
+.olt-kicker--light { color: rgba(255, 255, 255, .6); }
+
+/* ─── Headings ─── */
+.olt-h1 {
+    font-family: var(--font-olt-serif);
+    font-size: 36px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+    line-height: 1.15;
+}
+
+.olt-h2 {
+    font-family: var(--font-olt-serif);
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--olt-blue);
+    line-height: 1.15;
+    margin: 0 0 16px;
+}
+
+.olt-h2--light { color: #fff; }
+
+.olt-h3 {
+    font-family: var(--font-olt-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--olt-blue);
+    line-height: 1.2;
+    margin: 0 0 12px;
+}
+
+/* ─── Breadcrumb ─── */
+.olt-crumb {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, .7);
+    margin-bottom: 12px;
+}
+
+.olt-crumb a {
+    color: rgba(255, 255, 255, .7);
+    text-decoration: none;
+}
+
+.olt-crumb a:hover { color: #fff; }
+
+/* ─── Link (underlined, blue-mid) ─── */
+.olt-link {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--olt-blue-mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--olt-blue-mid);
+    padding-bottom: 2px;
+}
+
+.olt-link:hover {
+    color: var(--olt-blue);
+    border-color: var(--olt-blue);
+}
+
+.olt-accent { color: var(--olt-blue-mid); }
+
+/* ─── Buttons ─── */
+.olt-btn {
+    display: inline-block;
+    font-family: var(--font-olt-sans);
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 16px 28px;
+    text-align: center;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.olt-btn--white { background: #fff; color: var(--olt-blue); }
+.olt-btn--white:hover { background: rgba(255, 255, 255, .85); }
+
+.olt-btn--outline-light {
+    border-color: rgba(255, 255, 255, .7);
+    color: #fff;
+    font-weight: 500;
+}
+.olt-btn--outline-light:hover { background: rgba(255, 255, 255, .12); }
+
+.olt-btn--primary { background: var(--olt-blue); color: #fff; }
+.olt-btn--primary:hover { background: #0c2c53; }
+
+.olt-btn--outline {
+    border-color: var(--olt-blue);
+    color: var(--olt-blue);
+    font-weight: 500;
+}
+.olt-btn--outline:hover { background: rgba(15, 57, 108, .06); }
+
+.olt-btn--sm { padding: 12px 18px; font-size: 14px; }
+
+/* ─── Flat hero (páginas de consulta/datos: sin imagen) ─── */
+.olt-hero-flat {
+    background: var(--olt-blue);
+    padding: 44px 0;
+}
+
+.olt-hero-flat__inner {
+    max-width: var(--olt-container);
+    margin: 0 auto;
+    padding: 0 var(--olt-gutter);
+}
+
+.olt-hero-flat--row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.olt-hero-flat__subtitle {
+    font-size: 21px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, .85);
+    margin: 12px 0 0;
+    max-width: 640px;
+}
+
+/* ─── Image hero (páginas editoriales: foto a sangre + degradado) ─── */
+.olt-hero-image {
+    position: relative;
+    background: var(--olt-blue);
+    overflow: hidden;
+}
+
+.olt-hero-image__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.olt-hero-image__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #0F396C 0%, rgba(15, 57, 108, .92) 52%, rgba(15, 57, 108, .5) 100%);
+}
+
+.olt-hero-image__content {
+    position: relative;
+    max-width: var(--olt-container);
+    margin: 0 auto;
+    padding: 56px var(--olt-gutter) 60px;
+}
+
+.olt-hero-image__subtitle {
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, .85);
+    margin: 14px 0 0;
+    max-width: 620px;
+}
+
+/* ─── Rules ─── */
+.olt-rule { height: 1px; background: var(--olt-rule); border: none; margin: 0; }
+.olt-rule--soft { background: var(--olt-rule-soft); }
+
+/* ═══════════════════════════════════════════════════════════ */
+/* PRIMITIVAS COMPARTIDAS                                      */
+/* La "caja blanca con filete de 1px" estaba redefinida 29     */
+/* veces entre las hojas de cada página, con más de diez       */
+/* paddings distintos para el mismo contenedor. Estas tres     */
+/* primitivas son el reemplazo; las páginas se migran de a     */
+/* una a medida que se rediseñan.                              */
+/* ═══════════════════════════════════════════════════════════ */
+
+/* ─── Superficie ─── */
+.olt-panel {
+    background: #fff;
+    border: 1px solid var(--olt-rule);
+    padding: 28px 32px;
+}
+
+.olt-panel--sm { padding: 20px 22px; }
+.olt-panel--lg { padding: 40px 44px; }
+.olt-panel--flush { padding: 0; }
+
+/* Barras de un panel --flush: la cabecera (rótulo + dato secundario a la
+   derecha) y el pie (acciones). El filete interno es el más suave de los
+   tres: separa dentro de una caja que ya tiene su propio borde. */
+.olt-panel__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--olt-rule-softest);
+}
+
+.olt-panel__head-meta {
+    font-size: 14px;
+    color: var(--olt-grey);
+    font-variant-numeric: tabular-nums;
+}
+
+.olt-panel__foot {
+    padding: 20px 32px;
+    border-top: 1px solid var(--olt-rule-softest);
+}
+
+.olt-panel__body { padding: 28px 32px; }
+
+/* ─── Encabezado de sección: volanta + título + enlace a la derecha ─── */
+.olt-section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+}
+
+.olt-section-head__text { max-width: 640px; }
+
+.olt-section-head .olt-h2 { margin-bottom: 0; }
+
+.olt-section-head__aside {
+    flex-shrink: 0;
+    padding-bottom: 4px;
+}
+
+/* ─── Métrica: rótulo + valor + nota ───
+   Un solo ritmo para toda cifra del sitio (panel del día, estadísticas
+   de la agencia, cotización). El peso máximo es 600: DM Sans se carga
+   en 300/400/500/600, así que un 700/800 lo sintetiza el navegador y
+   ensucia justamente los números, que son lo que más nitidez pide. */
+.olt-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.olt-metric__label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--olt-grey);
+}
+
+.olt-metric__value {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    color: var(--olt-blue);
+    font-variant-numeric: tabular-nums;
+}
+
+.olt-metric__value--sm { font-size: 21px; letter-spacing: 0; }
+
+/* Valor que es texto y no cifra (un mail, un nombre de área): baja de
+   escala y puede cortarse, porque una dirección larga no entra en una
+   columna de tres. */
+.olt-metric__value--text {
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.olt-metric__value--xl { font-size: 56px; }
+
+/* Cifra institucional (130 puertos, 20+ años): mismo esqueleto que la
+   métrica operativa, pero en la serif del branding para distinguir el
+   dato de catálogo del dato vivo del día. */
+.olt-metric__value--serif {
+    font-family: var(--font-olt-serif);
+    font-weight: 400;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: 1;
+}
+
+.olt-metric__meta {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--olt-grey);
+}
+
+/* ─── Campo de formulario ───
+   Estaba definido tres veces con medidas distintas: 44px de alto y 16px de
+   texto en Servicios y Contacto, 42px y 15px en la postulación de
+   Institucional, y ninguna de las tres contemplaba <select>, así que el
+   selector de sector del formulario de Contacto salía con el chrome nativo
+   del navegador en medio de campos planos. */
+.olt-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.olt-field--full { grid-column: 1 / -1; }
+
+.olt-field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--olt-ink);
+}
+
+.olt-field input,
+.olt-field textarea,
+.olt-field select {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid rgba(128, 128, 131, .5);
+    border-radius: 0;
+    font-family: var(--font-olt-sans);
+    font-size: 16px;
+    color: var(--olt-ink);
+    background: #fff;
+    box-sizing: border-box;
+}
+
+/* appearance:none quita el degradado y el borde redondeado que pone el
+   sistema operativo; la flecha se dibuja como fondo para que sea la misma
+   en todos los navegadores. */
+.olt-field select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 38px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808083' stroke-width='1.6'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.olt-field textarea {
+    height: auto;
+    padding: 12px 14px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.olt-field input:focus,
+.olt-field textarea:focus,
+.olt-field select:focus {
+    outline: none;
+    border-color: var(--olt-blue);
+}
+
+.olt-field input[type="file"] {
+    height: auto;
+    padding: 10px;
+    font-size: 13px;
+    border-style: dashed;
+    background: var(--olt-paper);
+    cursor: pointer;
+}
+
+.olt-req { color: var(--olt-alert); }
+
+/* ─── Estado vacío / no disponible ───
+   Había tres tratamientos distintos para lo mismo: .tc-no-data (caja
+   centrada con filete), .schedule-empty-state (filete punteado) y
+   .olt-vacancies__empty (texto suelto a la izquierda). Uno solo.
+
+   Importante: un estado esperado (fuera de horario, todavía sin cargar,
+   filtro sin resultados) NO es un error y no va en rojo. El rojo queda
+   reservado para .olt-form-status--error, donde algo falló de verdad. */
+.olt-state {
+    background: #fff;
+    border: 1px solid var(--olt-rule);
+    padding: 44px 40px;
+    max-width: 560px;
+    margin: 8px auto;
+    text-align: center;
+}
+
+.olt-state--left {
+    text-align: left;
+    margin-left: 0;
+}
+
+.olt-state__icon {
+    color: var(--olt-grey);
+    opacity: .6;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.olt-state--left .olt-state__icon { margin-left: 0; }
+
+.olt-state__title {
+    font-family: var(--font-olt-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--olt-blue);
+    margin: 0 0 10px;
+    line-height: 1.25;
+}
+
+.olt-state__desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--olt-ink);
+    margin: 0 0 20px;
+}
+
+/* Dato concreto que ancla el estado: la fecha y hora consultadas, el
+   filtro aplicado. Sin esto el usuario no sabe si está mirando algo
+   viejo o si el sitio no respondió. */
+.olt-state__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: var(--olt-paper);
+    font-size: 14px;
+    color: var(--olt-grey);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 24px;
+}
+
+.olt-state__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.olt-state--left .olt-state__actions { justify-content: flex-start; }
+
+/* Único caso en rojo: algo falló de verdad (la API no respondió). Los
+   estados esperados quedan en gris. */
+.olt-state--error {
+    border-left: 3px solid var(--olt-alert);
+}
+
+.olt-state--error .olt-state__icon { color: var(--olt-alert); opacity: 1; }
+
+.olt-state__hint {
+    font-size: 14px;
+    color: var(--olt-grey);
+    line-height: 1.6;
+    margin: 20px 0 0;
+}
+
+@media (max-width: 600px) {
+    .olt-state { padding: 32px 22px; }
+    .olt-state__actions { flex-direction: column; }
+    .olt-state__actions > * { justify-content: center; }
+}
+
+/* ─── Form Status / Alert (formularios públicos con fetch: cotizador,
+       postulación, consulta general). Reemplaza el texto de color suelto
+       por una caja plana con filete de acento, igual al patrón usado en
+       .olt-note-bar / .legal-callout / .admin-alert del portal interno. ─── */
+.olt-quote__status,
+.olt-vacancy__status,
+.olt-form-status {
+    display: none;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 18px;
+    margin-top: 16px;
+    background: #fff;
+    border: 1px solid var(--olt-rule);
+    border-left: 3px solid var(--olt-grey);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.olt-quote__status--ok,
+.olt-quote__status--error,
+.olt-vacancy__status--ok,
+.olt-vacancy__status--error,
+.olt-form-status--ok,
+.olt-form-status--error {
+    display: flex;
+}
+
+.olt-quote__status--ok,
+.olt-vacancy__status--ok,
+.olt-form-status--ok {
+    border-left-color: var(--olt-blue-mid);
+    color: var(--olt-blue);
+}
+
+.olt-quote__status--error,
+.olt-vacancy__status--error,
+.olt-form-status--error {
+    border-left-color: var(--olt-alert);
+    color: var(--olt-alert);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1023px) {
+    .olt-container,
+    .olt-hero-flat__inner,
+    .olt-hero-image__content {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+@media (max-width: 767px) {
+    .olt-section { padding: 48px 0; }
+    .olt-h1, .olt-h2 { font-size: 28px; }
+}

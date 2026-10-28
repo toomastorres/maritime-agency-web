@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>Política de Cookies | AMA Agencies Argentina</title>
+    <title>Política de Cookies | Atlantic Maritime Agency</title>
     <meta name="description"
-        content="Política de cookies de AMA Agencies Argentina S.A. Tipos de cookies utilizadas, finalidad, duración y cómo gestionarlas.">
-    <meta name="author" content="AMA Agencies Argentina S.A.">
+        content="Política de cookies de Atlantic Maritime Agency S.A. Tipos de cookies utilizadas, finalidad, duración y cómo gestionarlas.">
+    <meta name="author" content="Atlantic Maritime Agency S.A.">
     <meta name="robots" content="index, follow">
 
     <!-- Favicon -->
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://ama-demo.example/politicas-de-cookies">
+    <link rel="canonical" href="https://atlantic-agency.example.com/politicas-de-cookies">
 
     <!-- Specific CSS for Legal Pages -->
     <link rel="stylesheet" href="<?php echo assetUrl('css/legal.css'); ?>">
@@ -69,7 +69,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Política de Cookies</h1>
@@ -78,7 +78,7 @@
                             Última actualización: Junio 2026
                         </span>
 
-                        <p class="legal-intro">Este sitio web, propiedad de <strong>AMA Agencies Argentina S.A.</strong>, utiliza cookies propias y de terceros para garantizar su correcto funcionamiento, mejorar la experiencia de usuario y obtener estadísticas de navegación. La presente Política explica qué son las cookies, cuáles utilizamos y cómo puede gestionarlas.</p>
+                        <p class="legal-intro">Este sitio web, propiedad de <strong>Atlantic Maritime Agency S.A.</strong>, utiliza cookies propias y de terceros para garantizar su correcto funcionamiento, mejorar la experiencia de usuario y obtener estadísticas de navegación. La presente Política explica qué son las cookies, cuáles utilizamos y cómo puede gestionarlas.</p>
 
                         <h2 id="cook-1-es">¿Qué son las Cookies?</h2>
                         <p>Las cookies son pequeños archivos de texto que los sitios web almacenan en su navegador o dispositivo para recordar información sobre su visita, como sus preferencias de idioma o los datos de su sesión, y para analizar cómo interactúa con el sitio. No dañan su dispositivo y, por sí solas, no permiten identificarlo personalmente.</p>
@@ -126,7 +126,7 @@
                         <p>Nos reservamos el derecho de modificar la presente Política de Cookies para adaptarla a novedades normativas o técnicas. Toda modificación será publicada en esta misma página, indicando su fecha de última actualización.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -170,7 +170,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Cookie Policy</h1>
@@ -179,7 +179,7 @@
                             Last updated: June 2026
                         </span>
 
-                        <p class="legal-intro">This website, owned by <strong>AMA Agencies Argentina S.A.</strong>, uses its own and third-party cookies to ensure its proper operation, improve the user experience and obtain browsing statistics. This Policy explains what cookies are, which ones we use and how you can manage them.</p>
+                        <p class="legal-intro">This website, owned by <strong>Atlantic Maritime Agency S.A.</strong>, uses its own and third-party cookies to ensure its proper operation, improve the user experience and obtain browsing statistics. This Policy explains what cookies are, which ones we use and how you can manage them.</p>
 
                         <h2 id="cook-1-en">What are Cookies?</h2>
                         <p>Cookies are small text files that websites store on your browser or device to remember information about your visit, such as your language preferences or session data, and to analyse how you interact with the site. They do not harm your device and, on their own, do not allow you to be personally identified.</p>
@@ -227,7 +227,7 @@
                         <p>We reserve the right to amend this Cookie Policy to adapt it to regulatory or technical developments. Any changes will be published on this same page, indicating the date of the latest update.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -271,7 +271,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Informativa sui Cookie</h1>
@@ -280,7 +280,7 @@
                             Ultimo aggiornamento: Giugno 2026
                         </span>
 
-                        <p class="legal-intro">Questo sito web, di proprietà di <strong>AMA Agencies Argentina S.A.</strong>, utilizza cookie propri e di terze parti per garantirne il corretto funzionamento, migliorare l'esperienza dell'utente e ottenere statistiche di navigazione. La presente Informativa spiega cosa sono i cookie, quali utilizziamo e come puoi gestirli.</p>
+                        <p class="legal-intro">Questo sito web, di proprietà di <strong>Atlantic Maritime Agency S.A.</strong>, utilizza cookie propri e di terze parti per garantirne il corretto funzionamento, migliorare l'esperienza dell'utente e ottenere statistiche di navigazione. La presente Informativa spiega cosa sono i cookie, quali utilizziamo e come puoi gestirli.</p>
 
                         <h2 id="cook-1-it">Cosa sono i Cookie?</h2>
                         <p>I cookie sono piccoli file di testo che i siti web memorizzano nel tuo browser o dispositivo per ricordare informazioni sulla tua visita, come le preferenze della lingua o i dati della sessione, e per analizzare come interagisci con il sito. Non danneggiano il tuo dispositivo e, di per sé, non consentono di identificarti personalmente.</p>
@@ -328,7 +328,7 @@
                         <p>Ci riserviamo il diritto di modificare la presente Informativa sui Cookie per adeguarla a novità normative o tecniche. Ogni modifica sarà pubblicata su questa stessa pagina, indicandone la data di ultimo aggiornamento.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -372,7 +372,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Política de Cookies</h1>
@@ -381,7 +381,7 @@
                             Última atualização: Junho 2026
                         </span>
 
-                        <p class="legal-intro">Este site, propriedade da <strong>AMA Agencies Argentina S.A.</strong>, utiliza cookies próprios e de terceiros para garantir o seu correto funcionamento, melhorar a experiência do utilizador e obter estatísticas de navegação. A presente Política explica o que são cookies, quais utilizamos e como pode geri-los.</p>
+                        <p class="legal-intro">Este site, propriedade da <strong>Atlantic Maritime Agency S.A.</strong>, utiliza cookies próprios e de terceiros para garantir o seu correto funcionamento, melhorar a experiência do utilizador e obter estatísticas de navegação. A presente Política explica o que são cookies, quais utilizamos e como pode geri-los.</p>
 
                         <h2 id="cook-1-pt">O que são Cookies?</h2>
                         <p>Os cookies são pequenos arquivos de texto que os sites armazenam no seu navegador ou dispositivo para lembrar informações sobre a sua visita, como as suas preferências de idioma ou os dados da sua sessão, e para analisar como interage com o site. Não danificam o seu dispositivo e, por si só, não permitem identificá-lo pessoalmente.</p>
@@ -429,7 +429,7 @@
                         <p>Reservamo-nos o direito de modificar a presente Política de Cookies para a adaptar a novidades normativas ou técnicas. Qualquer modificação será publicada nesta mesma página, indicando a sua data de última atualização.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>

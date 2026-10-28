@@ -5,6 +5,7 @@
  * Las vacantes con activo=1 se muestran en la página pública institucional.php
  */
 if (!function_exists('is_logged_in')) exit;
+if (!isset($pdo)) require_once dirname(__DIR__) . '/includes/db.php';
 
 // ── POST: Eliminar Vacante ────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_vacante'])) {
@@ -30,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_vacante'])) {
             $_SESSION['msj'] = 'Error de base de datos al eliminar. Puede haber registros relacionados.';
         }
     }
-    header("Location: dashboard.php?section=rrhh_vacantes");
-    exit;
+    admin_redirect("dashboard.php?section=rrhh_vacantes");
 }
 
 // ── POST: Toggle visibilidad pública (activo) ─────────────────────────────────
@@ -58,8 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_vacante'])) {
             $_SESSION['msj'] = 'Error al cambiar la visibilidad de la vacante.';
         }
     }
-    header("Location: dashboard.php?section=rrhh_vacantes");
-    exit;
+    admin_redirect("dashboard.php?section=rrhh_vacantes");
 }
 
 // ── Listar vacantes ───────────────────────────────────────────────────────────
@@ -78,25 +77,25 @@ if (isset($_SESSION['msj'])) {
 }
 ?>
 
+<div class="admin-page-head">
+    <div>
+        <h1 class="admin-page-title">Vacantes</h1>
+        <p class="admin-page-sub">Búsquedas publicadas en la sección Institucional del sitio.</p>
+    </div>
+    <a href="?section=rrhh_vacantes_form" class="btn-admin-primary">
+        <span class="material-symbols-outlined">add</span> Nueva vacante
+    </a>
+</div>
+
 <?php echo $msj; ?>
 
 <div class="admin-card">
-    <div class="admin-card-header" style="justify-content:space-between;">
-        <div style="display:flex; align-items:center; gap:0.6rem;">
-            <span class="material-symbols-outlined">work</span>
-            <h3 style="margin:0; font-size:1rem;">Gestión de Vacantes Web</h3>
-        </div>
-        <a href="?section=rrhh_vacantes_form" class="btn-admin-primary" style="padding:0.5rem 1rem; font-size:0.85rem;">
-            <span class="material-symbols-outlined">add</span> Nueva Vacante
-        </a>
+    <div class="admin-card-note">
+        <span class="material-symbols-outlined">info</span>
+        <span>Las vacantes con estado <strong>Visible</strong> aparecen en la sección pública <em>Institucional</em>. Usá <strong>Activar / Desactivar</strong> para controlar su visibilidad.</span>
     </div>
 
-    <div style="padding: 0.75rem 1.25rem; background: rgba(0,51,160,0.04); border-bottom: 1px solid var(--admin-border); font-size: 0.82rem; color: var(--admin-text-muted);">
-        <span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle; margin-right:0.25rem;">info</span>
-        Las vacantes con estado <strong>Visible</strong> aparecen en la sección pública <em>Institucional</em>. Usá el botón <strong>Activar / Desactivar</strong> para controlar su visibilidad.
-    </div>
-
-    <div class="admin-table-wrapper" style="border:none; box-shadow:none; margin-bottom:0;">
+    <div class="admin-table-wrapper admin-table-wrapper--flush">
         <table class="admin-table">
             <thead>
                 <tr>
@@ -112,7 +111,14 @@ if (isset($_SESSION['msj'])) {
             </thead>
             <tbody>
                 <?php if (empty($vacantes)): ?>
-                    <tr><td colspan="8" style="text-align:center; color:var(--admin-text-muted); padding:2rem;">No hay vacantes registradas.</td></tr>
+                    <tr><td colspan="8">
+                        <div class="admin-empty">
+                            <span class="material-symbols-outlined admin-empty__icon">work_off</span>
+                            <p class="admin-empty__title">No hay vacantes registradas.</p>
+                            <p class="admin-empty__desc">Creá una búsqueda para que aparezca en la sección Institucional del sitio.</p>
+                            <a href="?section=rrhh_vacantes_form" class="btn-admin-primary btn-admin-sm">Crear la primera vacante</a>
+                        </div>
+                    </td></tr>
                 <?php else: ?>
                     <?php foreach ($vacantes as $v): ?>
                     <?php
@@ -132,7 +138,7 @@ if (isset($_SESSION['msj'])) {
                     ?>
                     <tr>
                         <td>#<?php echo $v['id']; ?></td>
-                        <td style="font-weight:500; color:var(--admin-blue);"><?php echo htmlspecialchars($v['titulo']); ?></td>
+                        <td><span class="td-main td-main--blue"><?php echo htmlspecialchars($v['titulo']); ?></span></td>
                         <td><?php echo htmlspecialchars($v['departamento'] ?? '—'); ?></td>
                         <td><?php echo htmlspecialchars($v['ubicacion'] ?? '—'); ?></td>
                         <td>
@@ -145,33 +151,30 @@ if (isset($_SESSION['msj'])) {
                                 <?php echo $isAbierta ? 'ABIERTA' : 'CERRADA'; ?>
                             </span>
                         </td>
-                        <td style="font-size:0.82rem; color:var(--admin-text-muted);"><?php echo $fechaDisplay; ?></td>
+                        <td class="is-nowrap"><span class="td-sub"><?php echo $fechaDisplay; ?></span></td>
                         <td>
-                            <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                            <div class="admin-row-actions">
 
                                 <!-- Editar -->
                                 <a href="?section=rrhh_vacantes_form&edit=<?php echo $v['id']; ?>"
-                                   class="btn-admin-secondary"
-                                   style="padding:0.3rem 0.65rem; font-size:0.8rem;">Editar</a>
+                                   class="btn-admin-secondary btn-admin-sm">Editar</a>
 
                                 <!-- Toggle visibilidad pública -->
-                                <form method="POST" action="?section=rrhh_vacantes" style="display:inline;">
+                                <form method="POST" action="?section=rrhh_vacantes" class="admin-inline-form">
                                     <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
                                     <input type="hidden" name="toggle_vacante" value="<?php echo $v['id']; ?>">
                                     <input type="hidden" name="activo" value="<?php echo $nextActivo; ?>">
-                                    <button type="submit" class="<?php echo $toggleClass; ?>"
-                                            style="padding:0.3rem 0.65rem; font-size:0.8rem;">
+                                    <button type="submit" class="<?php echo $toggleClass; ?> btn-admin-sm">
                                         <?php echo $toggleText; ?>
                                     </button>
                                 </form>
 
                                 <!-- Eliminar -->
-                                <form method="POST" action="?section=rrhh_vacantes" style="display:inline;"
+                                <form method="POST" action="?section=rrhh_vacantes" class="admin-inline-form"
                                       onsubmit="return confirm('¿Eliminar esta vacante permanentemente? Esta acción no se puede deshacer.');">
                                     <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
                                     <input type="hidden" name="delete_vacante" value="<?php echo $v['id']; ?>">
-                                    <button type="submit" class="btn-admin-danger"
-                                            style="padding:0.3rem 0.65rem; font-size:0.8rem;">Eliminar</button>
+                                    <button type="submit" class="btn-admin-danger btn-admin-sm">Eliminar</button>
                                 </form>
 
                             </div>

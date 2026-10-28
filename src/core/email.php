@@ -1,10 +1,10 @@
 <?php
 /**
  * AMA — email.php
- * Core Email Service — PHPMailer + SMTP autenticado (el hosting).
+ * Core Email Service — PHPMailer + SMTP autenticado (el hosting compartido).
  *
  * Reemplaza la implementacion legacy basada en mail() nativo.
- * - Transport: SMTPS sobre smtp.example.com:465 (configurable via .env)
+ * - Transport: SMTPS sobre smtp-legacy.hosting-ejemplo.example:465 (configurable via .env)
  * - Templates: archivos .html con placeholders {{key}} en src/email-templates/
  * - Logging tecnico: src/data/logs/app.log (mode 3)
  * - Audit estructurado: src/data/logs/email_audit.log (JSONL)

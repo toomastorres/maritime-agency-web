@@ -1,4 +1,4 @@
-# Demo local: sitio público + portal admin + MySQL con datos de ejemplo.
+# Demo local: sitio público + portal admin + MySQL 8 con datos ficticios de demostración.
 #   docker compose up --build   →   http://localhost:8080
 #   Portal admin:               →   http://localhost:8080/gestion-interna-agencia/
 services:
@@ -9,10 +9,11 @@ services:
       MYSQL_DATABASE: ama_web
       MYSQL_USER: ama_web
       MYSQL_PASSWORD: ama_web
-    # Los .sql se ejecutan en orden alfabético al crear el volumen:
-    # install.sql (schema) → reset_data.sql → seed_employees.sql (datos ficticios).
+    # Se montan únicamente el esquema unificado y el seed de demostración en orden explícito
+    # (evitando ejecutar scripts destructivos como reset_data.sql).
     volumes:
-      - ./database:/docker-entrypoint-initdb.d:ro
+      - ./database/install.sql:/docker-entrypoint-initdb.d/01-install.sql:ro
+      - ./database/seed_demo.sql:/docker-entrypoint-initdb.d/02-seed-demo.sql:ro
       - db_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
@@ -33,10 +34,12 @@ services:
       DB_USER: ama_web
       DB_PASS: ama_web
       DB_NAME: ama_web
-      SMTP_HOST: smtp.example.com
+      SMTP_HOST: mail.hosting-ejemplo.example
       SMTP_PORT: "465"
-      SMTP_FROM: no-reply@ama-demo.example
+      SMTP_SECURE: ssl
+      SMTP_FROM: no-reply@avisos.atlantic-agency.example.com
       SMTP_FROM_NAME: AMA Sistemas
+      NOTIFY_TO: info@atlantic-agency.example.com
 
 volumes:
   db_data:

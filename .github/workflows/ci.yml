@@ -2,33 +2,53 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   pull_request:
-    branches: [main]
 
 jobs:
-  lint:
+  quality-and-tests:
+    name: PHP 8.2 Lint, Schema & Automated Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-          tools: composer
+          extensions: curl, openssl, pdo_sqlite, pdo_mysql, mbstring, json
+          coverage: none
 
-      - name: Lint PHP (php -l en todos los archivos)
+      - name: PHP syntax check (php -l)
         run: |
           set -e
-          find . -path ./vendor -prune -o -name "*.php" -print0 \
-            | xargs -0 -n1 -P4 php -l > /dev/null
+          find . -name '*.php' -not -path './vendor/*' -print0 \
+            | xargs -0 -n1 php -l
 
-      - name: Validar composer.json
+      - name: Validate composer.json
         run: composer validate --no-check-publish --no-check-lock
 
-      - name: Validar JSON de i18n
+      - name: Validate i18n JSON dictionaries
         run: |
-          for f in src/i18n/*.json; do
-            php -r 'json_decode(file_get_contents($argv[1])); if (json_last_error() !== JSON_ERROR_NONE) { fwrite(STDERR, $argv[1] . ": JSON invalido\n"); exit(1); }' "$f"
-          done
+          php -r '
+            $files = glob("src/i18n/*.json");
+            if (!$files) { fwrite(STDERR, "No i18n JSON files found\n"); exit(1); }
+            foreach ($files as $f) {
+                json_decode(file_get_contents($f), true, 512, JSON_THROW_ON_ERROR);
+                echo "OK: $f\n";
+            }
+          '
+
+      - name: Run TcMailBot automated test suite
+        run: php tests/test_tc_mailbot.php
+
+      - name: Run Entra ID OIDC & JWKS test suite
+        run: php tests/test_entra_oidc.php
+
+      - name: Run Entra ID App Roles RBAC test suite
+        run: php tests/test_entra_roles.php
+
+      - name: Run Entra ID state/nonce/PKCE test suite
+        run: php tests/test_entra_state.php
+
+      - name: Run Entra ID portal UI rendering test suite
+        run: php tests/test_entra_ui.php

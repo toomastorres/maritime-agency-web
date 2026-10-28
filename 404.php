@@ -1,86 +1,90 @@
 <?php
 /**
  * ============================================================
- *  AMA Agencies Argentina — 404 No Encontrado (Premium)
+ *  Atlantic Maritime Agency — 404 No Encontrado
+ *  Sistema Oltremare: usa header/footer reales para no dejar
+ *  al visitante en una página aislada sin navegación.
  * ============================================================
  */
 require_once __DIR__ . '/src/config/config.php';
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página no encontrada — AMA Agencies Argentina</title>
+    <title>Página no encontrada | Atlantic Maritime Agency</title>
+    <meta name="robots" content="noindex, follow">
+
     <!-- Favicon -->
-    <link rel="shortcut icon" href="<?php echo ASSETS_URL; ?>/img/favicon.ico" type="image/x-icon">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+    <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
+
+    <!-- Specific CSS for this page -->
     <link rel="stylesheet" href="<?php echo assetUrl('css/404.css'); ?>">
 </head>
-<body>
-    <div class="error-container">
-        <!-- Brand Logo Header -->
-        <div class="logo-header">
-            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
-        </div>
 
-        <!-- Maritime Radar Sweep & Floating Ship Illustration -->
-        <div class="illustration-wrapper">
-            <div class="radar-sweep"></div>
-            <svg class="ship-illustration" viewBox="0 0 120 120" width="100" height="100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Sea Waves -->
-                <path d="M10 85 C 30 80, 50 90, 70 85 C 90 80, 100 88, 110 85" stroke-width="1.5" />
-                <path d="M20 95 C 40 92, 55 98, 75 95 C 95 92, 100 96, 105 95" stroke-width="1" opacity="0.6" />
-                
-                <!-- Ship Hull -->
-                <path d="M25 65 L85 65 L95 78 C 80 82, 40 82, 20 78 Z" fill="currentColor" fill-opacity="0.1" stroke-width="2" />
-                
-                <!-- Ship Cabin / Superstructure -->
-                <rect x="35" y="45" width="22" height="20" fill="currentColor" fill-opacity="0.2" />
-                <rect x="42" y="33" width="10" height="12" fill="currentColor" fill-opacity="0.3" />
-                <line x1="47" y1="33" x2="47" y2="25" />
-                <line x1="51" y1="33" x2="51" y2="28" />
-                
-                <!-- Windows -->
-                <circle cx="42" cy="55" r="1.5" fill="currentColor" />
-                <circle cx="50" cy="55" r="1.5" fill="currentColor" />
-                <rect x="44" y="37" width="6" height="4" fill="var(--AMA-blue-dark)" />
-                
-                <!-- Cargo Containers on deck -->
-                <rect x="62" y="53" width="10" height="12" fill="currentColor" fill-opacity="0.2" />
-                <rect x="73" y="57" width="10" height="8" fill="currentColor" fill-opacity="0.3" />
-                <line x1="67" y1="53" x2="67" y2="65" stroke-width="0.5" opacity="0.5" />
-                <line x1="78" y1="57" x2="78" y2="65" stroke-width="0.5" opacity="0.5" />
-                
-                <!-- Radar / Communication Dish on cabin -->
-                <path d="M36 45 L32 39 M32 39 A 4 4 0 0 1 36 35" stroke-width="1.5" />
+<body data-i18n-page="error404">
+    <!-- HEADER -->
+    <?php require_once __DIR__ . '/src/components/header.php'; ?>
+
+    <main id="main-content" role="main" class="olt-page">
+
+        <!-- HERO plano -->
+        <header class="olt-hero-flat olt-404__hero">
+            <svg class="olt-404__hero-icon" viewBox="0 0 24 24" width="220" height="220" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="5" r="2"/>
+                <line x1="12" y1="7" x2="12" y2="21"/>
+                <line x1="8" y1="10" x2="16" y2="10"/>
+                <path d="M5 12H2a10 10 0 0 0 10 10 10 10 0 0 0 10-10h-3"/>
             </svg>
-        </div>
-
-        <!-- Error Code and Bilingual Message -->
-        <h1 class="error-code">404</h1>
-        <h2 class="error-title">Página No Encontrada</h2>
-        
-        <div class="error-desc">
-            <p>La página que busca no existe, ha cambiado de nombre o no está disponible temporalmente.</p>
-            <div class="error-desc-en">
-                <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+            <div class="olt-hero-flat__inner">
+                <div class="olt-kicker--light" data-i18n="error404.kicker">Error 404</div>
+                <h1 class="olt-h1" data-i18n="error404.title">Página no encontrada</h1>
+                <p class="olt-hero-flat__subtitle" data-i18n="error404.subtitle">La página que busca no existe, cambió de dirección o no está disponible temporalmente.</p>
             </div>
-        </div>
+        </header>
 
-        <!-- Premium Navigation Actions -->
-        <div class="actions-wrapper">
-            <a href="<?php echo BASE_URL; ?>/" class="btn-primary">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                Volver al Inicio / Home
-            </a>
-            <a href="mailto:info@ama-demo.example?subject=Consulta%20Web%20-%20Error%20404" class="btn-secondary">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                Soporte / Support
-            </a>
-        </div>
-    </div>
+        <!-- MAIN CONTENT -->
+        <section class="olt-section olt-404__section">
+            <div class="olt-container olt-404__layout">
+
+                <div class="olt-404__digits-col">
+                    <div class="olt-404__digits" aria-hidden="true">404</div>
+                    <div class="olt-404__digits-rule"></div>
+                </div>
+
+                <div class="olt-404__body">
+                    <p data-i18n="error404.body">Verifique la dirección ingresada o utilice alguno de los siguientes accesos para continuar navegando el sitio.</p>
+
+                    <div class="olt-404__actions">
+                        <a href="<?php echo BASE_URL; ?>" class="olt-btn olt-btn--primary" data-i18n="error404.cta_home">Volver al inicio</a>
+                        <a href="<?php echo BASE_URL; ?>contacto" class="olt-btn olt-btn--outline" data-i18n="error404.cta_contact">Contactar a la agencia</a>
+                    </div>
+
+                    <hr class="olt-rule olt-rule--soft olt-404__rule">
+
+                    <div class="olt-404__links">
+                        <span class="olt-kicker olt-kicker--inline" data-i18n="error404.links_label">Accesos directos</span>
+                        <a class="olt-404__link-chip" href="<?php echo BASE_URL; ?>tipo-de-cambio" data-i18n="nav.exchange">Tipo de Cambio</a>
+                        <a class="olt-404__link-chip" href="<?php echo BASE_URL; ?>schedule" data-i18n="nav.schedule">Schedule</a>
+                        <a class="olt-404__link-chip" href="<?php echo BASE_URL; ?>servicios" data-i18n="nav.services">Servicios</a>
+                        <a class="olt-404__link-chip" href="<?php echo BASE_URL; ?>institucional" data-i18n="nav.institutional">Institucional</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <?php require_once __DIR__ . '/src/components/footer.php'; ?>
+
+    <!-- JavaScript Base -->
+    <script src="<?php echo assetUrl('js/i18n.js'); ?>" defer></script>
+    <script src="<?php echo assetUrl('js/main.js'); ?>" defer></script>
 </body>
+
 </html>

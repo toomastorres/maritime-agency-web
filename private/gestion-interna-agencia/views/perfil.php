@@ -7,6 +7,11 @@
 if (!function_exists('is_logged_in')) require_once __DIR__ . '/../includes/auth.php';
 require_once dirname(__DIR__) . '/includes/db.php';
 require_once __DIR__ . '/../includes/password_policy.php';
+require_once dirname(__DIR__, 3) . '/src/core/entra_oidc.php';
+
+// Las cuentas de Microsoft no tienen contraseña local que cambiar: la
+// gestiona Microsoft. Sólo la cuenta break-glass conserva la suya.
+$entraOn = EntraOidc::isConfigured();
 
 $msgDatos = '';
 $errDatos = '';
@@ -14,9 +19,12 @@ $msgPass = '';
 $errPass = '';
 
 // Obtener datos actuales del usuario
-$stmt = $pdo->prepare("SELECT id, nombre, username, email, rol_portal, creado_en, ultimo_login, password_updated_at FROM usuarios_admin WHERE id = ?");
+$stmt = $pdo->prepare("SELECT id, nombre, username, email, rol_portal, creado_en, ultimo_login, password_updated_at, is_break_glass FROM usuarios_admin WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Puede cambiar contraseña sólo si Entra está apagado o es la cuenta de emergencia.
+$gestionaClave = !$entraOn || (int)($user['is_break_glass'] ?? 0) === 1;
 
 if (!$user) {
     die('Error: usuario no encontrado en la base de datos.');
@@ -74,7 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newPass = $_POST['new_password'] ?? '';
             $confirmPass = $_POST['confirm_password'] ?? '';
 
-            if (empty($currentPass) || empty($newPass) || empty($confirmPass)) {
+            if (!$gestionaClave) {
+                // Bloqueo del lado del servidor, no sólo de la interfaz.
+                $errPass = 'Tu cuenta ingresa con Microsoft: la contraseña se administra desde tu cuenta de Microsoft 365.';
+            } elseif (empty($currentPass) || empty($newPass) || empty($confirmPass)) {
                 $errPass = 'Complete todos los campos de contraseña.';
             } elseif ($newPass !== $confirmPass) {
                 $errPass = 'La nueva contraseña y la confirmación no coinciden.';
@@ -86,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $hashStmt->execute([$_SESSION['user_id']]);
                 $currentHash = $hashStmt->fetchColumn();
 
-                if (!password_verify($currentPass, $currentHash)) {
+                if (empty($currentHash) || !password_verify($currentPass, $currentHash)) {
                     $errPass = 'La contraseña actual es incorrecta.';
                 } else {
                     try {
@@ -193,12 +204,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <!-- Card 2: Cambiar Contraseña -->
+    <!-- Card 2: Contraseña -->
+    <?php if (!$gestionaClave): ?>
+
+    <div class="admin-card perfil-card">
+        <div class="admin-card-header perfil-card-header">
+            <span class="material-symbols-outlined">verified_user</span>
+            <h2>Tu contraseña</h2>
+        </div>
+        <div style="padding:1.25rem 0;">
+            <p style="color:var(--admin-text-muted); line-height:1.7; margin:0 0 1rem;">
+                Entrás a este portal con tu <strong>cuenta de Microsoft 365</strong>, así que no hay
+                una contraseña propia del portal que cambiar.
+            </p>
+            <p style="color:var(--admin-text-muted); line-height:1.7; margin:0 0 1.25rem;">
+                Para cambiar tu contraseña, configurar el segundo factor o revisar tus dispositivos,
+                usá el portal de tu cuenta de Microsoft.
+            </p>
+            <a href="https://myaccount.microsoft.com/security-info" target="_blank" rel="noopener noreferrer"
+               class="btn-admin-primary" style="text-decoration:none;">
+                <span class="material-symbols-outlined">open_in_new</span>
+                Administrar mi cuenta de Microsoft
+            </a>
+        </div>
+    </div>
+
+    <?php else: ?>
+
     <div class="admin-card perfil-card">
         <div class="admin-card-header perfil-card-header">
             <span class="material-symbols-outlined">lock</span>
             <h2>Cambiar Contraseña</h2>
         </div>
+
+        <?php if ($entraOn): ?>
+            <div style="margin:1rem 0; padding:.85rem 1rem; background:rgba(138,90,0,.10); border-left:3px solid #8A5A00;">
+                <p style="margin:0; font-size:.88rem; color:var(--admin-text); line-height:1.6;">
+                    <strong>Cuenta de emergencia.</strong> Es la única con contraseña local del portal.
+                    Guardala en un lugar físico seguro.
+                </p>
+            </div>
+        <?php endif; ?>
 
         <?php if ($msgPass): ?>
             <div class="admin-alert admin-alert-success perfil-alert">
@@ -249,4 +295,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 </div>
+    <?php endif; ?>
+
+<?php if ($gestionaClave): ?>
 <script src="../../public/assets/js/admin-password.js" defer></script>
+<?php endif; ?>

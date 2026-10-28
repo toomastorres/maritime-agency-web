@@ -28,7 +28,7 @@ function loadEnv(string $path): array {
     }
     
     // 2. Fallback: fusionar con variables de entorno del servidor (Hosting)
-    // Especialmente útil si el archivo .env no se sube por estar ignorado y las env variables vienen del CPanel/el hosting
+    // Especialmente útil si el archivo .env no se sube por estar ignorado y las env variables vienen del CPanel/cPanel
     $systemVars = [
         'APP_ENV',
         'DB_HOST', 'DB_USER', 'DB_PASS', 'DB_NAME',
@@ -38,7 +38,11 @@ function loadEnv(string $path): array {
         'NOTIFY_RRHH', 'NOTIFY_CAJA', 'NOTIFY_DOCS', 'NOTIFY_CS',
         'NOTIFY_COMERCIAL_AUTOS', 'NOTIFY_COMERCIAL_PROYECTO', 'NOTIFY_COMERCIAL_CONTAINERS',
         'BRIDGE_TOKEN', 'ADMIN_USER', 'ADMIN_PASS_HASH',
-        'HEALTH_TOKEN', 'SETUP_TOKEN'
+        'HEALTH_TOKEN', 'SETUP_TOKEN',
+        'ENTRA_TENANT_ID', 'ENTRA_CLIENT_ID', 'ENTRA_CLIENT_SECRET',
+        'ENTRA_REDIRECT_URI', 'ENTRA_POST_LOGOUT_URI',
+        'TC_BOT_TENANT_ID', 'TC_BOT_CLIENT_ID', 'TC_BOT_CLIENT_SECRET',
+        'TC_BOT_MAILBOX', 'TC_BOT_CRON_TOKEN', 'TC_BOT_DRY_RUN'
     ];
     foreach ($systemVars as $key) {
         if (!isset($vars[$key]) || $vars[$key] === '') {
@@ -69,7 +73,7 @@ function checkRateLimit(int $maxRequests = 60, int $windowSeconds = 60): bool {
     $endpoint = $_SERVER['REQUEST_URI'] ?? 'unknown';
     $key = md5($ip . ':' . parse_url($endpoint, PHP_URL_PATH));
 
-    $tmpDir = sys_get_temp_dir() . '/AMA_rate_limit';
+    $tmpDir = sys_get_temp_dir() . '/ama_rate_limit';
     if (!is_dir($tmpDir)) {
         @mkdir($tmpDir, 0700, true);
     }
@@ -153,6 +157,23 @@ function atomicCacheWrite(string $file, string $data): bool {
         return false;
     }
     return @rename($tmp, $file);
+}
+
+/**
+ * Invalida el cache de archivo de una API pública borrando todos los
+ * archivos que empiecen con el prefijo dado (p. ej. 'schedules_' cubre
+ * todas las variantes cacheadas por filtro de buque/POL/POD).
+ * Se llama desde el portal interno justo después de escribir datos
+ * nuevos, para que la publicación sea inmediata en vez de esperar el TTL.
+ */
+function clearCacheByPrefix(string $cacheDir, string $prefix): int {
+    $cleared = 0;
+    foreach (glob(rtrim($cacheDir, '/') . '/' . $prefix . '*.json') ?: [] as $file) {
+        if (@unlink($file)) {
+            $cleared++;
+        }
+    }
+    return $cleared;
 }
 
 /**

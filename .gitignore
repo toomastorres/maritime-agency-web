@@ -38,6 +38,7 @@ $RECYCLE.BIN/
 src/data/*.json
 src/data/schedules/*.xlsx
 src/data/schedules/*.xls
+src/data/cache/
 
 # ─── Build artifacts ───────────────────────────────────────
 dist/

@@ -8,7 +8,7 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    color: var(--AMA-white);
+    color: var(--ama-white);
 }
 
 /* Background image (div variant — internal pages) */
@@ -61,7 +61,7 @@ img.hero__bg-image {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     background: var(--hero-badge-bg);
-    color: var(--hero-badge-color, var(--AMA-gold));
+    color: var(--hero-badge-color, var(--ama-gold));
     border: 1px solid var(--hero-badge-border);
     margin-bottom: var(--space-md);
 }
@@ -101,7 +101,7 @@ img.hero__bg-image {
     min-height: var(--hero-height-home, 80vh);
     align-items: center;
     justify-content: center;
-    background-color: var(--AMA-navy);
+    background-color: var(--ama-navy);
     --hero-overlay: linear-gradient(
         160deg,
         rgba(0, 26, 61, 0.92) 0%,
@@ -142,16 +142,16 @@ img.hero__bg-image {
 /* Ghost button in hero context */
 .hero--home .boton-ghost {
     border-color: rgba(255, 255, 255, 0.5);
-    color: var(--AMA-white);
+    color: var(--ama-white);
     backdrop-filter: blur(8px);
     background-color: rgba(255, 255, 255, 0.08);
 }
 
 .hero--home .boton-ghost:hover {
-    background-color: var(--AMA-white);
-    color: var(--AMA-blue);
+    background-color: var(--ama-white);
+    color: var(--ama-blue);
     transform: translateY(-2px);
-    border-color: var(--AMA-white);
+    border-color: var(--ama-white);
 }
 
 /* Scroll indicator (home only) */
@@ -186,7 +186,7 @@ img.hero__bg-image {
 .hero--page {
     height: var(--hero-height-page, 500px);
     align-items: flex-end;
-    background-color: var(--AMA-blue);
+    background-color: var(--ama-blue);
     --hero-overlay: linear-gradient(
         to top,
         rgba(0, 66, 122, 0.92) 0%,

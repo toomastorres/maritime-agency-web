@@ -13,8 +13,8 @@
     // Inyectar estilos una sola vez
     if (!document.getElementById('pw-meter-styles')) {
         var css = '' +
-            '.pw-meter{height:6px;border-radius:4px;background:#e2e8f0;margin-top:.55rem;overflow:hidden}' +
-            '.pw-meter > span{display:block;height:100%;width:0;border-radius:4px;transition:width .25s ease,background .25s ease}' +
+            '.pw-meter{height:4px;border-radius:0;background:rgba(128,128,131,.25);margin-top:.55rem;overflow:hidden}' +
+            '.pw-meter > span{display:block;height:100%;width:0;border-radius:0;transition:width .25s ease,background .25s ease}' +
             '.pw-meter-label{font-size:.72rem;font-weight:600;margin-top:.3rem;letter-spacing:.2px}';
         var style = document.createElement('style');
         style.id = 'pw-meter-styles';
@@ -23,11 +23,11 @@
     }
 
     var LEVELS = [
-        { label: 'Muy débil', color: '#dc2626', width: '20%' },
-        { label: 'Débil',     color: '#f59e0b', width: '40%' },
-        { label: 'Aceptable', color: '#eab308', width: '60%' },
-        { label: 'Fuerte',    color: '#22c55e', width: '80%' },
-        { label: 'Excelente', color: '#16a34a', width: '100%' }
+        { label: 'Muy débil', color: '#B3261E', width: '20%' },
+        { label: 'Débil',     color: '#B3261E', width: '40%' },
+        { label: 'Aceptable', color: '#8a5a00', width: '60%' },
+        { label: 'Fuerte',    color: '#0069CC', width: '80%' },
+        { label: 'Excelente', color: '#0F396C', width: '100%' }
     ];
 
     function score(pw) {
@@ -39,7 +39,7 @@
         if (/\d/.test(pw)) s++;
         if (/[^A-Za-z0-9]/.test(pw)) s++;
         // Penalizar repeticiones triviales o secuencias obvias
-        if (/(.)\1{3,}/.test(pw) || /1234|qwerty|password|AMA/i.test(pw)) s = Math.max(0, s - 2);
+        if (/(.)\1{3,}/.test(pw) || /1234|qwerty|password|ama/i.test(pw)) s = Math.max(0, s - 2);
         return Math.min(s, 4);
     }
 

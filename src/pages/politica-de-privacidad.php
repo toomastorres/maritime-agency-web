@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>Política de Privacidad | AMA Agencies Argentina</title>
+    <title>Política de Privacidad | Atlantic Maritime Agency</title>
     <meta name="description"
-        content="Política de privacidad de AMA Agencies Argentina S.A. Cómo recopilamos, usamos, conservamos y protegemos sus datos personales conforme a la Ley 25.326.">
-    <meta name="author" content="AMA Agencies Argentina S.A.">
+        content="Política de privacidad de Atlantic Maritime Agency S.A. Cómo recopilamos, usamos, conservamos y protegemos sus datos personales conforme a la Ley 25.326.">
+    <meta name="author" content="Atlantic Maritime Agency S.A.">
     <meta name="robots" content="index, follow">
 
     <!-- Favicon -->
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://ama-demo.example/politica-de-privacidad">
+    <link rel="canonical" href="https://atlantic-agency.example.com/politica-de-privacidad">
 
     <!-- Specific CSS for Legal Pages -->
     <link rel="stylesheet" href="<?php echo assetUrl('css/legal.css'); ?>">
@@ -72,7 +72,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Política de Privacidad</h1>
@@ -81,16 +81,16 @@
                             Última actualización: Junio 2026
                         </span>
 
-                        <p class="legal-intro">En <strong>AMA Agencies Argentina S.A.</strong> ("la Empresa") nos comprometemos a proteger su privacidad y a tratar sus datos personales con el mayor cuidado, transparencia y responsabilidad. La presente Política describe cómo recopilamos, utilizamos, conservamos y resguardamos su información personal, en cumplimiento de la <strong>Ley N° 25.326 de Protección de los Datos Personales</strong> y su normativa reglamentaria y complementaria de la República Argentina.</p>
+                        <p class="legal-intro">En <strong>Atlantic Maritime Agency S.A.</strong> ("la Empresa") nos comprometemos a proteger su privacidad y a tratar sus datos personales con el mayor cuidado, transparencia y responsabilidad. La presente Política describe cómo recopilamos, utilizamos, conservamos y resguardamos su información personal, en cumplimiento de la <strong>Ley N° 25.326 de Protección de los Datos Personales</strong> y su normativa reglamentaria y complementaria de la República Argentina.</p>
 
                         <h2 id="priv-1-es">Responsable del Tratamiento</h2>
                         <p>El responsable de la base de datos y del tratamiento de su información personal es:</p>
                         <ul>
-                            <li><strong>Razón social:</strong> AMA Agencies Argentina S.A.</li>
-                            <li><strong>Domicilio:</strong> 25 de Mayo 702, Primer Piso, Ciudad Autónoma de Buenos Aires, Argentina.</li>
-                            <li><strong>CUIT:</strong> <span class="legal-pendiente">[COMPLETAR: CUIT]</span></li>
+                            <li><strong>Razón social:</strong> Atlantic Maritime Agency S.A.</li>
+                            <li><strong>Domicilio:</strong> Av. Puerto Madero 450, Piso 8, Ciudad Autónoma de Buenos Aires, Argentina.</li>
+                            <li><strong>CUIT:</strong> 30-00000000-0</li>
                             <li><strong>Inscripción:</strong> <span class="legal-pendiente">[COMPLETAR: datos de inscripción registral / IGJ]</span></li>
-                            <li><strong>Correo electrónico de contacto:</strong> <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a></li>
+                            <li><strong>Correo electrónico de contacto:</strong> <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a></li>
                         </ul>
 
                         <h2 id="priv-2-es">Información que Recopilamos y su Origen</h2>
@@ -128,7 +128,7 @@
 
                         <h2 id="priv-5-es">Cesiones y Transferencias Internacionales</h2>
                         <p>No vendemos, comercializamos ni cedemos sus datos personales a terceros ajenos a la operatoria.</p>
-                        <p>Podremos compartir su información dentro del <strong>Grupo AMA</strong> —cuya casa matriz se encuentra en Nápoles, Italia— cuando ello resulte necesario para la prestación del servicio, la gestión operativa o el cumplimiento de obligaciones contractuales. Asimismo, podremos comunicar sus datos a autoridades públicas, organismos de control o terceros cuando exista una obligación legal o requerimiento judicial que así lo exija.</p>
+                        <p>Podremos compartir su información dentro del <strong>Atlantic Maritime Group</strong> —cuya casa matriz se encuentra en Nápoles, Italia— cuando ello resulte necesario para la prestación del servicio, la gestión operativa o el cumplimiento de obligaciones contractuales. Asimismo, podremos comunicar sus datos a autoridades públicas, organismos de control o terceros cuando exista una obligación legal o requerimiento judicial que así lo exija.</p>
                         <p>Cuando una transferencia implique el envío de datos a otros países, adoptaremos los recaudos exigidos por la Ley N° 25.326 y su normativa reglamentaria a fin de garantizar un nivel adecuado de protección de su información.</p>
 
                         <h2 id="priv-6-es">Seguridad y Confidencialidad</h2>
@@ -138,7 +138,7 @@
                         <p>Usted tiene derecho a ejercer, de forma gratuita, los derechos de <strong>acceso, rectificación, actualización y supresión</strong> de sus datos personales, así como a oponerse a su tratamiento en los términos de la legislación vigente.</p>
                         <div class="legal-callout">
                             <h3>¿Cómo ejercer sus derechos?</h3>
-                            <p>Envíe una solicitud por correo electrónico a <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a>, acreditando su identidad. Responderemos su requerimiento dentro de los plazos legales aplicables.</p>
+                            <p>Envíe una solicitud por correo electrónico a <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a>, acreditando su identidad. Responderemos su requerimiento dentro de los plazos legales aplicables.</p>
                         </div>
                         <p>Se informa que la <strong>AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA (AAIP)</strong>, en su carácter de Órgano de Control de la Ley N° 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales.</p>
 
@@ -149,7 +149,7 @@
                         <p>Nos reservamos el derecho de modificar la presente Política de Privacidad para adaptarla a novedades normativas, operativas o jurisprudenciales. Toda modificación será publicada en esta misma página, indicando su fecha de última actualización.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -196,7 +196,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Privacy Policy</h1>
@@ -205,16 +205,16 @@
                             Last updated: June 2026
                         </span>
 
-                        <p class="legal-intro">At <strong>AMA Agencies Argentina S.A.</strong> ("the Company"), we are committed to protecting your privacy and to processing your personal data with the utmost care, transparency and responsibility. This Policy describes how we collect, use, retain and safeguard your personal information, in compliance with <strong>Personal Data Protection Law No. 25.326</strong> and its implementing and complementary regulations of the Argentine Republic.</p>
+                        <p class="legal-intro">At <strong>Atlantic Maritime Agency S.A.</strong> ("the Company"), we are committed to protecting your privacy and to processing your personal data with the utmost care, transparency and responsibility. This Policy describes how we collect, use, retain and safeguard your personal information, in compliance with <strong>Personal Data Protection Law No. 25.326</strong> and its implementing and complementary regulations of the Argentine Republic.</p>
 
                         <h2 id="priv-1-en">Data Controller</h2>
                         <p>The party responsible for the database and the processing of your personal information is:</p>
                         <ul>
-                            <li><strong>Company name:</strong> AMA Agencies Argentina S.A.</li>
-                            <li><strong>Registered office:</strong> 25 de Mayo 702, 1st Floor, Autonomous City of Buenos Aires, Argentina.</li>
-                            <li><strong>Tax ID (CUIT):</strong> <span class="legal-pendiente">[TO COMPLETE: CUIT]</span></li>
+                            <li><strong>Company name:</strong> Atlantic Maritime Agency S.A.</li>
+                            <li><strong>Registered office:</strong> Av. Puerto Madero 450, 8th Floor, Autonomous City of Buenos Aires, Argentina.</li>
+                            <li><strong>Tax ID (CUIT):</strong> 30-00000000-0</li>
                             <li><strong>Registration:</strong> <span class="legal-pendiente">[TO COMPLETE: corporate registration / IGJ details]</span></li>
-                            <li><strong>Contact email:</strong> <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a></li>
+                            <li><strong>Contact email:</strong> <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a></li>
                         </ul>
 
                         <h2 id="priv-2-en">Information We Collect and its Source</h2>
@@ -252,7 +252,7 @@
 
                         <h2 id="priv-5-en">Disclosures and International Transfers</h2>
                         <p>We do not sell, trade or assign your personal data to third parties unrelated to the operation.</p>
-                        <p>We may share your information within the <strong>AMA Group</strong> —whose headquarters are located in Naples, Italy— where necessary for the provision of the service, operational management or the fulfilment of contractual obligations. We may also disclose your data to public authorities, supervisory bodies or third parties where a legal obligation or judicial requirement so demands.</p>
+                        <p>We may share your information within the <strong>Atlantic Maritime Group</strong> —whose headquarters are located in Naples, Italy— where necessary for the provision of the service, operational management or the fulfilment of contractual obligations. We may also disclose your data to public authorities, supervisory bodies or third parties where a legal obligation or judicial requirement so demands.</p>
                         <p>Where a transfer involves sending data to other countries, we will adopt the safeguards required by Law No. 25.326 and its implementing regulations in order to guarantee an adequate level of protection for your information.</p>
 
                         <h2 id="priv-6-en">Security and Confidentiality</h2>
@@ -262,7 +262,7 @@
                         <p>You have the right to exercise, free of charge, the rights of <strong>access, rectification, updating and deletion</strong> of your personal data, as well as to object to its processing under the terms of the applicable legislation.</p>
                         <div class="legal-callout">
                             <h3>How to exercise your rights</h3>
-                            <p>Send a request by email to <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a>, providing proof of your identity. We will respond to your request within the applicable legal time frames.</p>
+                            <p>Send a request by email to <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a>, providing proof of your identity. We will respond to your request within the applicable legal time frames.</p>
                         </div>
                         <p>Please note that the <strong>AGENCY FOR ACCESS TO PUBLIC INFORMATION (AAIP)</strong>, acting as the Control Body of Law No. 25.326, has the authority to handle complaints and claims filed in relation to non-compliance with personal data protection regulations.</p>
 
@@ -273,7 +273,7 @@
                         <p>We reserve the right to amend this Privacy Policy to adapt it to regulatory, operational or case-law developments. Any changes will be published on this same page, indicating the date of the latest update.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -320,7 +320,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Informativa sulla Privacy</h1>
@@ -329,16 +329,16 @@
                             Ultimo aggiornamento: Giugno 2026
                         </span>
 
-                        <p class="legal-intro">In <strong>AMA Agencies Argentina S.A.</strong> ("la Società") ci impegniamo a proteggere la tua privacy e a trattare i tuoi dati personali con la massima cura, trasparenza e responsabilità. La presente Informativa descrive come raccogliamo, utilizziamo, conserviamo e tuteliamo le tue informazioni personali, in conformità con la <strong>Legge N. 25.326 sulla Protezione dei Dati Personali</strong> e relativa normativa di attuazione e complementare della Repubblica Argentina.</p>
+                        <p class="legal-intro">In <strong>Atlantic Maritime Agency S.A.</strong> ("la Società") ci impegniamo a proteggere la tua privacy e a trattare i tuoi dati personali con la massima cura, trasparenza e responsabilità. La presente Informativa descrive come raccogliamo, utilizziamo, conserviamo e tuteliamo le tue informazioni personali, in conformità con la <strong>Legge N. 25.326 sulla Protezione dei Dati Personali</strong> e relativa normativa di attuazione e complementare della Repubblica Argentina.</p>
 
                         <h2 id="priv-1-it">Titolare del Trattamento</h2>
                         <p>Il responsabile del database e del trattamento delle tue informazioni personali è:</p>
                         <ul>
-                            <li><strong>Ragione sociale:</strong> AMA Agencies Argentina S.A.</li>
-                            <li><strong>Sede:</strong> 25 de Mayo 702, 1° Piano, Città Autonoma di Buenos Aires, Argentina.</li>
-                            <li><strong>CUIT (codice fiscale):</strong> <span class="legal-pendiente">[DA COMPLETARE: CUIT]</span></li>
+                            <li><strong>Ragione sociale:</strong> Atlantic Maritime Agency S.A.</li>
+                            <li><strong>Sede:</strong> Av. Puerto Madero 450, 8° Piano, Città Autonoma di Buenos Aires, Argentina.</li>
+                            <li><strong>CUIT (codice fiscale):</strong> 30-00000000-0</li>
                             <li><strong>Iscrizione:</strong> <span class="legal-pendiente">[DA COMPLETARE: dati di iscrizione / IGJ]</span></li>
-                            <li><strong>Email di contatto:</strong> <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a></li>
+                            <li><strong>Email di contatto:</strong> <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a></li>
                         </ul>
 
                         <h2 id="priv-2-it">Informazioni che Raccogliamo e la Loro Origine</h2>
@@ -376,7 +376,7 @@
 
                         <h2 id="priv-5-it">Comunicazioni e Trasferimenti Internazionali</h2>
                         <p>Non vendiamo, commercializziamo né cediamo i tuoi dati personali a terzi estranei all'operatività.</p>
-                        <p>Potremo condividere le tue informazioni all'interno del <strong>Gruppo AMA</strong> —la cui casa madre ha sede a Napoli, Italia— ove necessario per la prestazione del servizio, la gestione operativa o l'adempimento di obblighi contrattuali. Potremo inoltre comunicare i tuoi dati ad autorità pubbliche, organismi di controllo o terzi qualora sussista un obbligo legale o una richiesta giudiziaria.</p>
+                        <p>Potremo condividere le tue informazioni all'interno del <strong>Atlantic Maritime Group</strong> —la cui casa madre ha sede a Napoli, Italia— ove necessario per la prestazione del servizio, la gestione operativa o l'adempimento di obblighi contrattuali. Potremo inoltre comunicare i tuoi dati ad autorità pubbliche, organismi di controllo o terzi qualora sussista un obbligo legale o una richiesta giudiziaria.</p>
                         <p>Qualora un trasferimento comporti l'invio di dati verso altri Paesi, adotteremo le cautele richieste dalla Legge N. 25.326 e relativa normativa di attuazione al fine di garantire un livello adeguato di protezione delle tue informazioni.</p>
 
                         <h2 id="priv-6-it">Sicurezza e Riservatezza</h2>
@@ -386,7 +386,7 @@
                         <p>Hai il diritto di esercitare, gratuitamente, i diritti di <strong>accesso, rettifica, aggiornamento e cancellazione</strong> dei tuoi dati personali, nonché di opporti al loro trattamento nei termini della legislazione vigente.</p>
                         <div class="legal-callout">
                             <h3>Come esercitare i tuoi diritti</h3>
-                            <p>Invia una richiesta via email a <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a>, comprovando la tua identità. Risponderemo alla tua richiesta entro i termini legali applicabili.</p>
+                            <p>Invia una richiesta via email a <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a>, comprovando la tua identità. Risponderemo alla tua richiesta entro i termini legali applicabili.</p>
                         </div>
                         <p>Si informa che l'<strong>AGENZIA DI ACCESSO ALL'INFORMAZIONE PUBBLICA (AAIP)</strong>, in qualità di Organo di Controllo della Legge N. 25.326, ha l'autorità di occuparsi delle denunce e dei reclami presentati in relazione all'inosservanza delle norme sulla protezione dei dati personali.</p>
 
@@ -397,7 +397,7 @@
                         <p>Ci riserviamo il diritto di modificare la presente Informativa sulla Privacy per adeguarla a novità normative, operative o giurisprudenziali. Ogni modifica sarà pubblicata su questa stessa pagina, indicandone la data di ultimo aggiornamento.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -444,7 +444,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Política de Privacidade</h1>
@@ -453,16 +453,16 @@
                             Última atualização: Junho 2026
                         </span>
 
-                        <p class="legal-intro">Na <strong>AMA Agencies Argentina S.A.</strong> ("a Empresa"), comprometemo-nos a proteger a sua privacidade e a tratar os seus dados pessoais com o maior cuidado, transparência e responsabilidade. A presente Política descreve como recolhemos, utilizamos, conservamos e protegemos as suas informações pessoais, em conformidade com a <strong>Lei N.º 25.326 de Proteção dos Dados Pessoais</strong> e respetiva regulamentação e normas complementares da República Argentina.</p>
+                        <p class="legal-intro">Na <strong>Atlantic Maritime Agency S.A.</strong> ("a Empresa"), comprometemo-nos a proteger a sua privacidade e a tratar os seus dados pessoais com o maior cuidado, transparência e responsabilidade. A presente Política descreve como recolhemos, utilizamos, conservamos e protegemos as suas informações pessoais, em conformidade com a <strong>Lei N.º 25.326 de Proteção dos Dados Pessoais</strong> e respetiva regulamentação e normas complementares da República Argentina.</p>
 
                         <h2 id="priv-1-pt">Responsável pelo Tratamento</h2>
                         <p>O responsável pela base de dados e pelo tratamento das suas informações pessoais é:</p>
                         <ul>
-                            <li><strong>Razão social:</strong> AMA Agencies Argentina S.A.</li>
-                            <li><strong>Domicílio:</strong> 25 de Mayo 702, 1.º Andar, Cidade Autónoma de Buenos Aires, Argentina.</li>
-                            <li><strong>CUIT:</strong> <span class="legal-pendiente">[A COMPLETAR: CUIT]</span></li>
+                            <li><strong>Razão social:</strong> Atlantic Maritime Agency S.A.</li>
+                            <li><strong>Domicílio:</strong> Av. Puerto Madero 450, 8.º Andar, Cidade Autónoma de Buenos Aires, Argentina.</li>
+                            <li><strong>CUIT:</strong> 30-00000000-0</li>
                             <li><strong>Inscrição:</strong> <span class="legal-pendiente">[A COMPLETAR: dados de inscrição / IGJ]</span></li>
-                            <li><strong>E-mail de contacto:</strong> <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a></li>
+                            <li><strong>E-mail de contacto:</strong> <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a></li>
                         </ul>
 
                         <h2 id="priv-2-pt">Informações que Coletamos e a Sua Origem</h2>
@@ -500,7 +500,7 @@
 
                         <h2 id="priv-5-pt">Cessões e Transferências Internacionais</h2>
                         <p>Não vendemos, comercializamos nem cedemos os seus dados pessoais a terceiros alheios à operação.</p>
-                        <p>Poderemos partilhar as suas informações dentro do <strong>Grupo AMA</strong> —cuja casa-mãe se encontra em Nápoles, Itália— quando tal for necessário para a prestação do serviço, a gestão operacional ou o cumprimento de obrigações contratuais. Poderemos também comunicar os seus dados a autoridades públicas, organismos de controlo ou terceiros quando exista uma obrigação legal ou requisição judicial que o exija.</p>
+                        <p>Poderemos partilhar as suas informações dentro do <strong>Atlantic Maritime Group</strong> —cuja casa-mãe se encontra em Nápoles, Itália— quando tal for necessário para a prestação do serviço, a gestão operacional ou o cumprimento de obrigações contratuais. Poderemos também comunicar os seus dados a autoridades públicas, organismos de controlo ou terceiros quando exista uma obrigação legal ou requisição judicial que o exija.</p>
                         <p>Quando uma transferência implique o envio de dados para outros países, adotaremos as cautelas exigidas pela Lei N.º 25.326 e respetiva regulamentação, a fim de garantir um nível adequado de proteção das suas informações.</p>
 
                         <h2 id="priv-6-pt">Segurança e Confidencialidade</h2>
@@ -510,7 +510,7 @@
                         <p>Tem o direito de exercer, de forma gratuita, os direitos de <strong>acesso, retificação, atualização e supressão</strong> dos seus dados pessoais, bem como de se opor ao seu tratamento nos termos da legislação vigente.</p>
                         <div class="legal-callout">
                             <h3>Como exercer os seus direitos</h3>
-                            <p>Envie um pedido por e-mail para <a href="mailto:AMA@ama-demo.example">AMA@ama-demo.example</a>, comprovando a sua identidade. Responderemos ao seu pedido dentro dos prazos legais aplicáveis.</p>
+                            <p>Envie um pedido por e-mail para <a href="mailto:info@atlantic-agency.example.com">info@atlantic-agency.example.com</a>, comprovando a sua identidade. Responderemos ao seu pedido dentro dos prazos legais aplicáveis.</p>
                         </div>
                         <p>Informa-se que a <strong>AGÊNCIA DE ACESSO À INFORMAÇÃO PÚBLICA (AAIP)</strong>, na sua qualidade de Órgão de Controlo da Lei N.º 25.326, tem a atribuição de atender as denúncias e reclamações apresentadas em relação ao incumprimento das normas sobre proteção de dados pessoais.</p>
 
@@ -521,7 +521,7 @@
                         <p>Reservamo-nos o direito de modificar a presente Política de Privacidade para a adaptar a novidades normativas, operacionais ou jurisprudenciais. Qualquer modificação será publicada nesta mesma página, indicando a sua data de última atualização.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>

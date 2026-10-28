@@ -15,8 +15,12 @@ CREATE TABLE IF NOT EXISTS usuarios_admin (
     nombre VARCHAR(100) NOT NULL,
     username VARCHAR(60) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    entra_oid CHAR(36) NULL UNIQUE,
+    entra_tid CHAR(36) NULL,
+    password_hash VARCHAR(255) NULL,
     rol_portal ENUM('caja', 'cs', 'rrhh', 'documentacion', 'admin_global') NOT NULL,
+    auth_provider ENUM('entra', 'local') NOT NULL DEFAULT 'local',
+    is_break_glass TINYINT(1) NOT NULL DEFAULT 0,
     creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ultimo_login TIMESTAMP NULL,
     is_active TINYINT(1) DEFAULT 1,
@@ -29,8 +33,8 @@ CREATE TABLE IF NOT EXISTS usuarios_admin (
 -- Estas migraciones se aplican de forma segura: si la columna/indice ya existe, se ignora el error.
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS __AMA_migrate$$
-CREATE PROCEDURE __AMA_migrate()
+DROP PROCEDURE IF EXISTS __ama_migrate$$
+CREATE PROCEDURE __ama_migrate()
 BEGIN
     -- usuarios_admin: reset_token
     IF NOT EXISTS (SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios_admin' AND COLUMN_NAME = 'reset_token') THEN
@@ -51,6 +55,21 @@ BEGIN
         ALTER TABLE usuarios_admin MODIFY COLUMN username VARCHAR(60) NOT NULL;
         ALTER TABLE usuarios_admin ADD UNIQUE INDEX idx_username (username);
     END IF;
+    -- usuarios_admin: entra_oid / entra_tid / auth_provider / is_break_glass / password_hash NULL
+    IF NOT EXISTS (SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios_admin' AND COLUMN_NAME = 'entra_oid') THEN
+        ALTER TABLE usuarios_admin ADD COLUMN entra_oid CHAR(36) NULL AFTER email;
+        ALTER TABLE usuarios_admin ADD UNIQUE INDEX idx_entra_oid (entra_oid);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios_admin' AND COLUMN_NAME = 'entra_tid') THEN
+        ALTER TABLE usuarios_admin ADD COLUMN entra_tid CHAR(36) NULL AFTER entra_oid;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios_admin' AND COLUMN_NAME = 'auth_provider') THEN
+        ALTER TABLE usuarios_admin ADD COLUMN auth_provider ENUM('entra', 'local') NOT NULL DEFAULT 'local' AFTER rol_portal;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios_admin' AND COLUMN_NAME = 'is_break_glass') THEN
+        ALTER TABLE usuarios_admin ADD COLUMN is_break_glass TINYINT(1) NOT NULL DEFAULT 0 AFTER auth_provider;
+    END IF;
+    ALTER TABLE usuarios_admin MODIFY COLUMN password_hash VARCHAR(255) NULL;
 
     -- applicants: vacancy_id nullable
     ALTER TABLE applicants MODIFY vacancy_id INT NULL DEFAULT NULL;
@@ -90,7 +109,7 @@ BEGIN
 END$$
 DELIMITER ;
 
--- La llamada a __AMA_migrate() se ejecuta al final del archivo,
+-- La llamada a __ama_migrate() se ejecuta al final del archivo,
 -- después de todos los CREATE TABLE IF NOT EXISTS.
 
 -- ──
@@ -129,22 +148,31 @@ CREATE TABLE IF NOT EXISTS bank_details (
     FOREIGN KEY (actualizado_por) REFERENCES usuarios_admin(id) ON DELETE RESTRICT
 );
 
+-- Bitácora del bot que responde el buzón tc@atlantic-agency.example.com.
+-- La clave única sobre internet_message_id es lo que impide contestar
+-- dos veces el mismo correo si el cron se superpone o una corrida muere.
+CREATE TABLE IF NOT EXISTS tc_mail_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    internet_message_id VARCHAR(255) NOT NULL,
+    conversation_id VARCHAR(255) NULL,
+    graph_message_id VARCHAR(512) NULL,
+    remitente VARCHAR(320) NOT NULL,
+    asunto VARCHAR(255) NULL,
+    estado_tc ENUM('ok', 'no_disponible', 'cerrado', 'error') NULL,
+    accion ENUM('en_proceso', 'respondido', 'omitido', 'error') NOT NULL DEFAULT 'en_proceso',
+    motivo VARCHAR(190) NULL,
+    recibido_en DATETIME NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_internet_message_id (internet_message_id),
+    INDEX idx_conversacion (conversation_id),
+    INDEX idx_remitente_fecha (remitente, creado_en),
+    INDEX idx_creado (creado_en DESC)
+);
+
 -- ──
 -- 4. MÓDULO RRHH
 -- ──
-
-CREATE TABLE IF NOT EXISTS employees (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    apellido VARCHAR(100) NOT NULL,
-    puesto VARCHAR(150) NOT NULL,
-    departamento VARCHAR(100) NOT NULL,
-    email VARCHAR(150) NOT NULL,
-    telefono VARCHAR(50) NULL,
-    foto_path VARCHAR(255) NULL,
-    jerarquia INT DEFAULT 10,
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 CREATE TABLE IF NOT EXISTS vacancies (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -312,23 +340,6 @@ CREATE TABLE IF NOT EXISTS cotizacion_leads (
 -- usuario válido por la FK actualizado_por).
 -- ──
 
--- ──
--- Migración de empleados desde tabla legacy wp_empleados
--- Solo ejecutar si la tabla wp_empleados existe en esta misma BD.
--- Si la BD es nueva, omitir este bloque o importar wp_empleados.sql primero.
--- ──
-
--- INSERT IGNORE INTO employees (nombre, apellido, puesto, departamento, email, telefono, jerarquia)
--- SELECT nombre, apellido, posicion, departamento, COALESCE(email, ''), telefono, COALESCE(jerarquia, 10)
--- FROM wp_empleados;
-
--- =================================================================================
--- Nota: Para instalar empleados del directorio legacy, hay dos opciones:
---   A) Descomentar el INSERT IGNORE de arriba (si wp_empleados existe en esta BD)
---   B) Importar database/wp_empleados.sql primero y luego ejecutar la línea de arriba
---   C) Cargar los empleados manualmente desde el portal admin > RRHH > Empleados
--- =================================================================================
-
 -- ══════════════════════════════════════════════════════════════
 -- MIGRACIONES IDEMPOTENTES
 -- Se ejecutan DESPUÉS de todos los CREATE TABLE IF NOT EXISTS.
@@ -336,7 +347,7 @@ CREATE TABLE IF NOT EXISTS cotizacion_leads (
 -- En BD existente: agregan columnas/indices faltantes sin error.
 -- ══════════════════════════════════════════════════════════════
 
-CALL __AMA_migrate();
-DROP PROCEDURE IF EXISTS __AMA_migrate;
+CALL __ama_migrate();
+DROP PROCEDURE IF EXISTS __ama_migrate;
 
 SET FOREIGN_KEY_CHECKS = 1;

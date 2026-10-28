@@ -1,170 +1,139 @@
 <?php
 /**
  * AMA — contactos_model.php
- * Único origen de verdad del modelo del directorio de contactos.
+ * Configuración del directorio institucional por área de trabajo.
  *
- * Lo usan tanto la página pública (src/pages/contacto.php) como la API
- * (src/logic/api/contactos.php) para que el orden, los canales de área y
- * los referentes nunca se desincronicen entre sí.
+ * Directorio de áreas, no de personas: no hay datos de empleados acá.
+ * Único origen de verdad de los buzones e internos del sitio: lo consumen
+ * src/pages/contacto.php, src/pages/servicios.php y src/components/footer.php,
+ * para que una casilla se cambie en un solo lugar.
  */
+
+/**
+ * Línea principal de la agencia. Los internos del directorio son extensiones
+ * de este número: no son teléfonos propios.
+ */
+const AMA_TEL = '+541140000000';
+
+/**
+ * Pausa entre el número y el interno en un enlace tel:.
+ *
+ * Cada coma es una pausa de ~2 segundos antes de marcar el interno por tono,
+ * que es lo que entienden los discadores de iOS y Android. Dos comas (~4s) dan
+ * tiempo a que la central atienda antes de enviar la extensión. Si la central
+ * tarda más o menos en atender, se ajusta acá y cambia en todo el sitio.
+ */
+const AMA_TEL_PAUSA = ',,';
 
 if (!function_exists('contactos_orden_departamentos')) {
 
     /** Orden jerárquico institucional de los departamentos. */
     function contactos_orden_departamentos(): array {
         return [
-            'Gerencia General',
             'Recepcion',
-            'Finanzas',
-            'Operaciones',
             'Comercial',
+            'Operaciones',
             'Documentacion',
             'Equipment',
-        ];
-    }
-
-    /** Prioridad de los puestos dentro de cada departamento (1 = primero). */
-    function contactos_orden_puestos(): array {
-        return [
-            // Gerencia / Recepción (rol único)
-            'Gerente'                               => 1,
-            'Recepcion & Consultas Generales'       => 1,
-            // Finanzas: Gerente → RRHH → Contabilidad → Caja → Analista
-            'Gerente de Finanzas'                   => 1,
-            'Recursos Humanos'                      => 2,
-            'Contabilidad & Finanzas'               => 3,
-            'Caja & Finanzas'                       => 4,
-            'Administracion & Finanzas'             => 5,
-            // Operaciones: Port Captain → Operaciones
-            'Port Capitan - Senior'                 => 1,
-            'Port Capitan - Operaciones Portuarias' => 2,
-            'Operaciones'                           => 3,
-            // Comercial: agrupado por rubro
-            'Customer Service'                      => 1,
-            'Carga Proyecto'                        => 2,
-            'Contenedores - Impo'                   => 3,
-            'Contenedores - Expo'                   => 4,
-            // Documentación: Impo → Expo
-            'Documentacion Importacion'             => 1,
-            'Documentacion Exportacion'             => 2,
-            // Equipment & Claims
-            'Equipment & Claims'                    => 1,
+            'Finanzas',
         ];
     }
 
     /**
      * Canales directos (buzones funcionales) por área.
-     * Cada canal: ['label' => clave i18n, 'email' => casilla].
-     * Gerencia General no lleva canal (el contacto directo es el gerente).
-     * Comercial expone una casilla por tipo de carga.
+     * Cada canal: ['label' => clave i18n, 'email' => casilla, 'int' => interno].
+     *
+     * 'int' es opcional: Recepción y Customer Service atienden por la línea
+     * general, y RRHH no tiene interno publicado.
      */
     function contactos_canales_area(): array {
         return [
-            'Recepcion'     => [
-                ['label' => 'contact.ch_recepcion', 'email' => 'AMA@ama-demo.example'],
+            // Recepción absorbió a Gerencia General: ama@ es la casilla
+            // principal de entrada a la agencia, institucional incluido.
+            'Recepcion' => [
+                ['label' => 'contact.ch_recepcion', 'email' => 'info@atlantic-agency.example.com'],
             ],
-            'Finanzas'      => [
-                ['label' => 'departments.finanzas', 'email' => 'finance@ama-demo.example'],
+            'Comercial' => [
+                ['label' => 'contact.ch_cs',          'email' => 'customerserv@atlantic-agency.example.com'],
+                ['label' => 'contact.ch_contenedores', 'email' => 'containers@atlantic-agency.example.com', 'int' => ['500']],
+                ['label' => 'contact.ch_projects',     'email' => 'projects@atlantic-agency.example.com',   'int' => ['504']],
+                ['label' => 'contact.ch_autos',        'email' => 'cars.vans@atlantic-agency.example.com',  'int' => ['503']],
             ],
-            'Operaciones'   => [
-                ['label' => 'departments.operaciones', 'email' => 'oper@ama-demo.example'],
+            'Operaciones' => [
+                ['label' => 'contact.ch_operaciones', 'email' => 'oper@atlantic-agency.example.com', 'int' => ['600']],
             ],
-            'Comercial'     => [
-                ['label' => 'positions.customer_service', 'email' => 'customerserv@ama-demo.example'],
-                ['label' => 'contact.ch_autos',           'email' => 'cars.vans@ama-demo.example'],
-                ['label' => 'positions.carga_proyecto',   'email' => 'project@ama-demo.example'],
-                ['label' => 'contact.ch_contenedores',    'email' => 'containers@ama-demo.example'],
-            ],
+            // Documentación trabaja separada por sentido de la operación.
             'Documentacion' => [
-                ['label' => 'departments.documentacion', 'email' => 'doc@ama-demo.example'],
+                ['label' => 'contact.ch_doc_impo', 'email' => 'doc.impo@atlantic-agency.example.com', 'int' => ['700']],
+                ['label' => 'contact.ch_doc_expo', 'email' => 'doc.expo@atlantic-agency.example.com', 'int' => ['702']],
             ],
-            'Equipment'     => [
-                ['label' => 'departments.equipment', 'email' => 'equipment@ama-demo.example'],
+            // Equipment y Claims son dos casillas de un mismo equipo: comparten
+            // el interno 800.
+            'Equipment' => [
+                ['label' => 'contact.ch_equipment', 'email' => 'equipment@atlantic-agency.example.com', 'int' => ['800']],
+                ['label' => 'contact.ch_claims',    'email' => 'claims@atlantic-agency.example.com',    'int' => ['800']],
+            ],
+            // finance@ es la casilla paraguas del área; las otras tres son los
+            // buzones concretos en los que se trabaja el día a día.
+            'Finanzas' => [
+                ['label' => 'contact.ch_finanzas',    'email' => 'finance@atlantic-agency.example.com',     'int' => ['301', '302']],
+                ['label' => 'contact.ch_tesoreria',   'email' => 'tesoreria@atlantic-agency.example.com',   'int' => ['400']],
+                ['label' => 'contact.ch_proveedores', 'email' => 'proveedores@atlantic-agency.example.com', 'int' => ['300']],
+                ['label' => 'contact.ch_rrhh',        'email' => 'rrhh@atlantic-agency.example.com'],
             ],
         ];
     }
 
-    /** Puestos cuyos titulares (referentes) exponen su email PERSONAL. */
-    function contactos_puestos_email_personal(): array {
+    /**
+     * Descripción breve de qué resuelve cada área (fallback en español,
+     * antes de que cargue la traducción vía contact.dept_desc.<slug>).
+     */
+    function contactos_descripcion_area(): array {
         return [
-            'Gerente',                // Gerente General
-            'Gerente de Finanzas',
-            'Recursos Humanos',
-            'Port Capitan - Senior',
+            'Recepcion'     => 'Primer contacto con la agencia, consultas generales y vínculo institucional con Atlantic Maritime Group.',
+            'Comercial'     => 'Cotizaciones y atención comercial por tipo de carga: contenedores, carga proyecto y Ro-Ro.',
+            'Operaciones'   => 'Coordinación operativa y portuaria de los buques de la red.',
+            'Documentacion' => 'Gestión documental de las operaciones, con un buzón por sentido: importación y exportación.',
+            'Equipment'     => 'Control de contenedores y equipos, y gestión de reclamos. Ambos buzones los atiende el mismo equipo.',
+            'Finanzas'      => 'Facturación, gastos locales y transferencias por Tesorería; pagos a proveedores y servicios por Proveedores; recursos humanos por RRHH.',
         ];
+    }
+
+    /**
+     * Enlace tel: que marca la línea principal y después el interno por tono.
+     * Sin interno devuelve el número pelado.
+     */
+    function contactos_tel_href(?string $interno = null): string {
+        if ($interno === null || $interno === '') {
+            return 'tel:' . AMA_TEL;
+        }
+        return 'tel:' . AMA_TEL . AMA_TEL_PAUSA . preg_replace('/\D+/', '', $interno);
+    }
+
+    /** Número principal en formato legible. */
+    function contactos_tel_legible(): string {
+        return '+54 11 4000-0000';
+    }
+
+    /**
+     * Casilla principal de un área (la primera de su lista), para quien
+     * necesita un único destinatario y no el listado completo.
+     */
+    function contactos_casilla_principal(string $dept): string {
+        $canales = contactos_canales_area()[$dept] ?? [];
+        return $canales[0]['email'] ?? 'info@atlantic-agency.example.com';
     }
 
     /** Slug del departamento (clave i18n departments.<slug>). */
     function getDeptKey(string $dept): string {
         $map = [
-            'Gerencia General' => 'gerencia-general',
-            'Recepcion'        => 'recepcion',
-            'Finanzas'         => 'finanzas',
-            'Comercial'        => 'comercial',
-            'Operaciones'      => 'operaciones',
-            'Documentacion'    => 'documentacion',
-            'Equipment'        => 'equipment',
+            'Recepcion'     => 'recepcion',
+            'Comercial'     => 'comercial',
+            'Operaciones'   => 'operaciones',
+            'Documentacion' => 'documentacion',
+            'Equipment'     => 'equipment',
+            'Finanzas'      => 'finanzas',
         ];
         return $map[$dept] ?? strtolower(trim(preg_replace('/[^a-zA-Z0-9\-]+/', '-', $dept), '-'));
-    }
-
-    /** Slug del puesto (clave i18n positions.<slug>). */
-    function getPositionKey(string $puesto): string {
-        $map = [
-            'Gerente'                                => 'gerente',
-            'Recepcion & Consultas Generales'        => 'recepcion_consultas_generales',
-            'Gerente de Finanzas'                    => 'gerente_de_finanzas',
-            'Recursos Humanos'                       => 'recursos_humanos',
-            'Contabilidad & Finanzas'                => 'contabilidad_finanzas',
-            'Administracion & Finanzas'              => 'administracion_finanzas',
-            'Caja & Finanzas'                        => 'caja_finanzas',
-            'Customer Service'                       => 'customer_service',
-            'Carga Proyecto'                         => 'carga_proyecto',
-            'Contenedores - Expo'                    => 'contenedores_expo',
-            'Contenedores - Impo'                    => 'contenedores_impo',
-            'Port Capitan - Senior'                  => 'port_capitan_senior',
-            'Port Capitan - Operaciones Portuarias'  => 'port_capitan_operaciones_portuarias',
-            'Operaciones'                            => 'operaciones',
-            'Documentacion Importacion'              => 'documentacion_importacion',
-            'Documentacion Exportacion'              => 'documentacion_exportacion',
-            'Equipment & Claims'                     => 'equipment_claims',
-        ];
-        return $map[$puesto] ?? strtolower(trim(preg_replace('/[^a-zA-Z0-9_]+/', '_', $puesto), '_'));
-    }
-
-    /**
-     * Agrupa y ordena empleados por el modelo institucional.
-     * Devuelve un array asociativo [departamento => [empleados ordenados]],
-     * con los departamentos en orden jerárquico.
-     */
-    function contactos_agrupar_y_ordenar(array $rows): array {
-        $ordenDepartamentos = contactos_orden_departamentos();
-        $ordenPuestos       = contactos_orden_puestos();
-
-        $empleados = [];
-        foreach ($rows as $e) {
-            $dept = $e['departamento'] ?? 'General';
-            $empleados[$dept][] = $e;
-        }
-
-        foreach ($empleados as $dept => &$lista) {
-            usort($lista, function ($a, $b) use ($ordenPuestos) {
-                $pa = $ordenPuestos[$a['puesto'] ?? ''] ?? 99;
-                $pb = $ordenPuestos[$b['puesto'] ?? ''] ?? 99;
-                if ($pa !== $pb) return $pa - $pb;
-                return strcmp($a['apellido'] ?? '', $b['apellido'] ?? '');
-            });
-        }
-        unset($lista);
-
-        uksort($empleados, function ($a, $b) use ($ordenDepartamentos) {
-            $pa = array_search($a, $ordenDepartamentos, true);
-            $pb = array_search($b, $ordenDepartamentos, true);
-            $pa = $pa === false ? 99 : $pa;
-            $pb = $pb === false ? 99 : $pb;
-            return $pa - $pb;
-        });
-
-        return $empleados;
     }
 }

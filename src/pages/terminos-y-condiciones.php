@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>Términos y Condiciones | AMA Agencies Argentina</title>
+    <title>Términos y Condiciones | Atlantic Maritime Agency</title>
     <meta name="description"
-        content="Términos y condiciones de uso del sitio web institucional de AMA Agencies Argentina S.A.">
-    <meta name="author" content="AMA Agencies Argentina S.A.">
+        content="Términos y condiciones de uso del sitio web institucional de Atlantic Maritime Agency S.A.">
+    <meta name="author" content="Atlantic Maritime Agency S.A.">
     <meta name="robots" content="index, follow">
 
     <!-- Favicon -->
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="<?php echo ASSETS_URL; ?>/img/logo-mark.svg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://ama-demo.example/terminos-y-condiciones">
+    <link rel="canonical" href="https://atlantic-agency.example.com/terminos-y-condiciones">
 
     <!-- Specific CSS for Legal Pages -->
     <link rel="stylesheet" href="<?php echo assetUrl('css/legal.css'); ?>">
@@ -72,7 +72,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Términos y Condiciones de Uso</h1>
@@ -81,7 +81,7 @@
                             Última actualización: Junio 2026
                         </span>
 
-                        <p class="legal-intro">El presente documento establece los Términos y Condiciones de uso del sitio web institucional de <strong>AMA Agencies Argentina S.A.</strong> ("la Empresa"), con domicilio en 25 de Mayo 702, Primer Piso, Ciudad Autónoma de Buenos Aires, Argentina. El acceso y la utilización de este sitio implican la aceptación plena y sin reservas de los términos aquí expuestos. Si usted no está de acuerdo con ellos, le solicitamos que se abstenga de utilizar el sitio.</p>
+                        <p class="legal-intro">El presente documento establece los Términos y Condiciones de uso del sitio web institucional de <strong>Atlantic Maritime Agency S.A.</strong> ("la Empresa"), con domicilio en Av. Puerto Madero 450, Piso 8, Ciudad Autónoma de Buenos Aires, Argentina. El acceso y la utilización de este sitio implican la aceptación plena y sin reservas de los términos aquí expuestos. Si usted no está de acuerdo con ellos, le solicitamos que se abstenga de utilizar el sitio.</p>
 
                         <h2 id="terms-1-es">Objeto del Sitio</h2>
                         <p>Este sitio web tiene una finalidad primordialmente informativa y de contacto. Su objetivo es:</p>
@@ -110,10 +110,10 @@
                         <p>La Empresa no garantiza la disponibilidad ininterrumpida del sitio y no se responsabiliza por los daños directos o indirectos que pudieran derivarse de su uso, de interrupciones del servicio o de la presencia de errores en los contenidos.</p>
 
                         <h2 id="terms-4-es">Propiedad Intelectual</h2>
-                        <p>Todos los contenidos del sitio (textos, logotipos, marcas, diseños, imágenes, código fuente y documentación) son propiedad de AMA Agencies Argentina S.A. o del Grupo AMA, o se utilizan con la debida autorización. Queda prohibida su reproducción total o parcial, distribución, comunicación pública o modificación sin el consentimiento expreso y por escrito de su titular.</p>
+                        <p>Todos los contenidos del sitio (textos, logotipos, marcas, diseños, imágenes, código fuente y documentación) son propiedad de Atlantic Maritime Agency S.A. o de Atlantic Maritime Group, o se utilizan con la debida autorización. Queda prohibida su reproducción total o parcial, distribución, comunicación pública o modificación sin el consentimiento expreso y por escrito de su titular.</p>
 
                         <h2 id="terms-5-es">Enlaces a Sitios de Terceros</h2>
-                        <p>Este sitio puede contener enlaces a páginas web de terceros (por ejemplo, el sitio del Grupo AMA). La Empresa no controla dichos sitios ni se responsabiliza por sus contenidos, políticas o prácticas. La inclusión de un enlace no implica recomendación ni asociación alguna.</p>
+                        <p>Este sitio puede contener enlaces a páginas web de terceros (por ejemplo, el sitio de Atlantic Maritime Group). La Empresa no controla dichos sitios ni se responsabiliza por sus contenidos, políticas o prácticas. La inclusión de un enlace no implica recomendación ni asociación alguna.</p>
 
                         <h2 id="terms-6-es">Proceso de Cotización y Postulación</h2>
                         <ul>
@@ -131,7 +131,7 @@
                         <p>Los presentes Términos y Condiciones se rigen por las leyes de la República Argentina. Para la resolución de cualquier controversia derivada del acceso o uso del sitio, las partes se someten a la jurisdicción de los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -178,7 +178,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Terms and Conditions of Use</h1>
@@ -187,7 +187,7 @@
                             Last updated: June 2026
                         </span>
 
-                        <p class="legal-intro">This document establishes the Terms and Conditions of use for the institutional website of <strong>AMA Agencies Argentina S.A.</strong> ("the Company"), domiciled at 25 de Mayo 702, 1st Floor, Autonomous City of Buenos Aires, Argentina. Access to and use of this site implies full and unreserved acceptance of the terms set forth herein. If you do not agree with them, we ask that you refrain from using the site.</p>
+                        <p class="legal-intro">This document establishes the Terms and Conditions of use for the institutional website of <strong>Atlantic Maritime Agency S.A.</strong> ("the Company"), domiciled at Av. Puerto Madero 450, 8th Floor, Autonomous City of Buenos Aires, Argentina. Access to and use of this site implies full and unreserved acceptance of the terms set forth herein. If you do not agree with them, we ask that you refrain from using the site.</p>
 
                         <h2 id="terms-1-en">Purpose of the Site</h2>
                         <p>This website is primarily for informational and contact purposes. Its objective is to:</p>
@@ -216,10 +216,10 @@
                         <p>The Company does not guarantee uninterrupted availability of the site and is not responsible for direct or indirect damages that may arise from its use, from service interruptions or from the presence of errors in the contents.</p>
 
                         <h2 id="terms-4-en">Intellectual Property</h2>
-                        <p>All site content (texts, logos, trademarks, designs, images, source code and documentation) is the property of AMA Agencies Argentina S.A. or the AMA Group, or is used with due authorisation. Its total or partial reproduction, distribution, public communication or modification without the express written consent of its owner is prohibited.</p>
+                        <p>All site content (texts, logos, trademarks, designs, images, source code and documentation) is the property of Atlantic Maritime Agency S.A. or the Atlantic Maritime Group, or is used with due authorisation. Its total or partial reproduction, distribution, public communication or modification without the express written consent of its owner is prohibited.</p>
 
                         <h2 id="terms-5-en">Links to Third-Party Sites</h2>
-                        <p>This site may contain links to third-party websites (for example, the AMA Group website). The Company does not control such sites and is not responsible for their contents, policies or practices. The inclusion of a link does not imply any recommendation or association.</p>
+                        <p>This site may contain links to third-party websites (for example, the Atlantic Maritime Group website). The Company does not control such sites and is not responsible for their contents, policies or practices. The inclusion of a link does not imply any recommendation or association.</p>
 
                         <h2 id="terms-6-en">Quoting and Application Process</h2>
                         <ul>
@@ -237,7 +237,7 @@
                         <p>These Terms and Conditions are governed by the laws of the Argentine Republic. For the resolution of any dispute arising from access to or use of the site, the parties submit to the jurisdiction of the ordinary courts of the Autonomous City of Buenos Aires, expressly waiving any other jurisdiction that may correspond to them.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -284,7 +284,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Termini e Condizioni d'Uso</h1>
@@ -293,7 +293,7 @@
                             Ultimo aggiornamento: Giugno 2026
                         </span>
 
-                        <p class="legal-intro">Il presente documento stabilisce i Termini e Condizioni d'uso del sito web istituzionale di <strong>AMA Agencies Argentina S.A.</strong> ("la Società"), con domicilio in 25 de Mayo 702, 1° Piano, Città Autonoma di Buenos Aires, Argentina. L'accesso e l'utilizzo di questo sito implicano l'accettazione piena e senza riserve dei termini qui esposti. Se non sei d'accordo con essi, ti chiediamo di astenerti dall'utilizzare il sito.</p>
+                        <p class="legal-intro">Il presente documento stabilisce i Termini e Condizioni d'uso del sito web istituzionale di <strong>Atlantic Maritime Agency S.A.</strong> ("la Società"), con domicilio in Av. Puerto Madero 450, 8° Piano, Città Autonoma di Buenos Aires, Argentina. L'accesso e l'utilizzo di questo sito implicano l'accettazione piena e senza riserve dei termini qui esposti. Se non sei d'accordo con essi, ti chiediamo di astenerti dall'utilizzare il sito.</p>
 
                         <h2 id="terms-1-it">Oggetto del Sito</h2>
                         <p>Questo sito web ha uno scopo principalmente informativo e di contatto. Il suo obiettivo è:</p>
@@ -322,10 +322,10 @@
                         <p>La Società non garantisce la disponibilità ininterrotta del sito e non è responsabile per i danni diretti o indiretti che possano derivare dal suo utilizzo, da interruzioni del servizio o dalla presenza di errori nei contenuti.</p>
 
                         <h2 id="terms-4-it">Proprietà Intellettuale</h2>
-                        <p>Tutti i contenuti del sito (testi, loghi, marchi, design, immagini, codice sorgente e documentazione) sono di proprietà di AMA Agencies Argentina S.A. o del Gruppo AMA, oppure sono utilizzati con la dovuta autorizzazione. È vietata la loro riproduzione totale o parziale, distribuzione, comunicazione pubblica o modifica senza il consenso espresso e scritto del titolare.</p>
+                        <p>Tutti i contenuti del sito (testi, loghi, marchi, design, immagini, codice sorgente e documentazione) sono di proprietà di Atlantic Maritime Agency S.A. o del Atlantic Maritime Group, oppure sono utilizzati con la dovuta autorizzazione. È vietata la loro riproduzione totale o parziale, distribuzione, comunicazione pubblica o modifica senza il consenso espresso e scritto del titolare.</p>
 
                         <h2 id="terms-5-it">Link a Siti di Terze Parti</h2>
-                        <p>Questo sito può contenere link a pagine web di terze parti (ad esempio, il sito del Gruppo AMA). La Società non controlla tali siti e non è responsabile dei loro contenuti, politiche o pratiche. L'inclusione di un link non implica alcuna raccomandazione o associazione.</p>
+                        <p>Questo sito può contenere link a pagine web di terze parti (ad esempio, il sito del Atlantic Maritime Group). La Società non controlla tali siti e non è responsabile dei loro contenuti, politiche o pratiche. L'inclusione di un link non implica alcuna raccomandazione o associazione.</p>
 
                         <h2 id="terms-6-it">Processo di Preventivo e Candidatura</h2>
                         <ul>
@@ -343,7 +343,7 @@
                         <p>I presenti Termini e Condizioni sono regolati dalle leggi della Repubblica Argentina. Per la risoluzione di qualsiasi controversia derivante dall'accesso o dall'uso del sito, le parti si sottopongono alla giurisdizione dei tribunali ordinari della Città Autonoma di Buenos Aires, con rinuncia espressa a qualsiasi altro foro che potrebbe spettare loro.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>
@@ -390,7 +390,7 @@
 
                     <article class="contenedor-legal">
                         <div class="legal-header-banner">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="Atlantic Maritime Agency">
                         </div>
 
                         <h1>Termos e Condições de Uso</h1>
@@ -399,7 +399,7 @@
                             Última atualização: Junho 2026
                         </span>
 
-                        <p class="legal-intro">O presente documento estabelece os Termos e Condições de uso do site institucional da <strong>AMA Agencies Argentina S.A.</strong> ("a Empresa"), com domicílio em 25 de Mayo 702, 1.º Andar, Cidade Autónoma de Buenos Aires, Argentina. O acesso e a utilização deste site implicam a aceitação plena e sem reservas dos termos aqui expostos. Se não estiver de acordo com eles, solicitamos que se abstenha de utilizar o site.</p>
+                        <p class="legal-intro">O presente documento estabelece os Termos e Condições de uso do site institucional da <strong>Atlantic Maritime Agency S.A.</strong> ("a Empresa"), com domicílio em Av. Puerto Madero 450, 8.º Andar, Cidade Autónoma de Buenos Aires, Argentina. O acesso e a utilização deste site implicam a aceitação plena e sem reservas dos termos aqui expostos. Se não estiver de acordo com eles, solicitamos que se abstenha de utilizar o site.</p>
 
                         <h2 id="terms-1-pt">Objeto do Site</h2>
                         <p>Este site tem uma finalidade primordialmente informativa e de contacto. O seu objetivo é:</p>
@@ -428,10 +428,10 @@
                         <p>A Empresa não garante a disponibilidade ininterrupta do site e não se responsabiliza pelos danos diretos ou indiretos que possam derivar do seu uso, de interrupções do serviço ou da presença de erros nos conteúdos.</p>
 
                         <h2 id="terms-4-pt">Propriedade Intelectual</h2>
-                        <p>Todos os conteúdos do site (textos, logótipos, marcas, designs, imagens, código-fonte e documentação) são propriedade da AMA Agencies Argentina S.A. ou do Grupo AMA, ou são utilizados com a devida autorização. É proibida a sua reprodução total ou parcial, distribuição, comunicação pública ou modificação sem o consentimento expresso e por escrito do seu titular.</p>
+                        <p>Todos os conteúdos do site (textos, logótipos, marcas, designs, imagens, código-fonte e documentação) são propriedade da Atlantic Maritime Agency S.A. ou do Atlantic Maritime Group, ou são utilizados com a devida autorização. É proibida a sua reprodução total ou parcial, distribuição, comunicação pública ou modificação sem o consentimento expresso e por escrito do seu titular.</p>
 
                         <h2 id="terms-5-pt">Links para Sites de Terceiros</h2>
-                        <p>Este site pode conter links para páginas web de terceiros (por exemplo, o site do Grupo AMA). A Empresa não controla esses sites e não se responsabiliza pelos seus conteúdos, políticas ou práticas. A inclusão de um link não implica qualquer recomendação ou associação.</p>
+                        <p>Este site pode conter links para páginas web de terceiros (por exemplo, o site do Atlantic Maritime Group). A Empresa não controla esses sites e não se responsabiliza pelos seus conteúdos, políticas ou práticas. A inclusão de um link não implica qualquer recomendação ou associação.</p>
 
                         <h2 id="terms-6-pt">Processo de Cotação e Candidatura</h2>
                         <ul>
@@ -449,7 +449,7 @@
                         <p>Os presentes Termos e Condições regem-se pelas leis da República Argentina. Para a resolução de qualquer controvérsia derivada do acesso ou uso do site, as partes submetem-se à jurisdição dos tribunais ordinários da Cidade Autónoma de Buenos Aires, com renúncia expressa a qualquer outro foro que lhes pudesse corresponder.</p>
 
                         <div class="legal-footer-logo">
-                            <img src="<?php echo ASSETS_URL; ?>/img/logo-blue.svg" alt="AMA Agencies Argentina" loading="lazy">
+                            <img src="<?php echo ASSETS_URL; ?>/img/logo-mark.svg" alt="Atlantic Maritime Agency" loading="lazy">
                         </div>
                     </article>
                 </div>

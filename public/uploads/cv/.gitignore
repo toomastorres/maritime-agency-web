@@ -1,0 +1,5 @@
+# Los CV son datos personales de candidatos reales: nunca al repositorio.
+# Se versiona sólo la protección del directorio.
+*
+!.gitignore
+!.htaccess

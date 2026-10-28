@@ -47,7 +47,7 @@ $failedLoginDetails = [];
 try {
     $failedLogins24h = (int)$pdo->query("SELECT COUNT(*) FROM admin_audit_logs WHERE accion = 'login_fallido' AND creado_en > DATE_SUB(NOW(), INTERVAL 24 HOUR)")->fetchColumn();
     if ($failedLogins24h > 0) {
-        $stmt = $pdo->query("SELECT ip_address, detalles, creado_en FROM admin_audit_logs WHERE accion = 'login_fallido' AND creado_en > DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY creado_en DESC LIMIT 10");
+        $stmt = $pdo->query("SELECT ip_address, detalles, creado_en FROM admin_audit_logs WHERE accion = 'login_fallido' AND creado_en > DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY creado_en DESC LIMIT 5");
         $failedLoginDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } catch (\PDOException $e) { /* tabla puede no existir aún */ }
@@ -55,19 +55,18 @@ try {
 // ── 3. KPIs ─────────────────────────────────────────────────────
 $stats = [
     'usuarios'    => 0,
-    'empleados'   => 0,
     'vacantes'    => 0
 ];
 try {
     $stats['usuarios']    = (int)$pdo->query("SELECT COUNT(*) FROM usuarios_admin WHERE is_active = 1")->fetchColumn();
-    $stats['empleados']   = (int)$pdo->query("SELECT COUNT(*) FROM employees")->fetchColumn();
     $stats['vacantes']    = (int)$pdo->query("SELECT COUNT(*) FROM vacancies WHERE activo = 1")->fetchColumn();
+    $stats['postulantes'] = (int)$pdo->query("SELECT COUNT(*) FROM applicants WHERE estado = 'nuevo'")->fetchColumn();
 } catch (\PDOException $e) { /* silencioso */ }
 
 // ── 4. Actividad Reciente ───────────────────────────────────────
 $recentActivity = [];
 try {
-    $stmt = $pdo->query("SELECT a.*, u.nombre AS autor FROM admin_audit_logs a LEFT JOIN usuarios_admin u ON a.user_id = u.id ORDER BY a.creado_en DESC LIMIT 15");
+    $stmt = $pdo->query("SELECT a.*, u.nombre AS autor FROM admin_audit_logs a LEFT JOIN usuarios_admin u ON a.user_id = u.id ORDER BY a.creado_en DESC LIMIT 6");
     $recentActivity = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (\PDOException $e) { /* silencioso */ }
 
@@ -98,28 +97,28 @@ function homeBadgeClass($accion) {
 ?>
 
 <style>
-.status-indicator { display:flex; align-items:center; gap:0.75rem; padding:1rem; border-radius:8px; border:1px solid var(--admin-border-light); background:#fff; }
-.status-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
-.status-dot--green { background:#22c55e; box-shadow:0 0 6px rgba(34,197,94,0.4); }
-.status-dot--yellow { background:#f59e0b; box-shadow:0 0 6px rgba(245,158,11,0.4); }
-.status-dot--red { background:#ef4444; box-shadow:0 0 6px rgba(239,68,68,0.4); }
-.status-label { font-weight:600; font-size:0.9rem; color:var(--admin-text); }
-.status-detail { font-size:0.8rem; color:var(--admin-text-muted); }
-.home-log-viewer { background:#1e1e1e; color:#d4d4d4; font-family:'Consolas','Monaco',monospace; font-size:0.8rem; padding:0.75rem; border-radius:6px; max-height:200px; overflow-y:auto; white-space:pre-wrap; word-break:break-all; border:1px solid #333; }
+.status-indicator { display:flex; align-items:center; gap:14px; padding:22px 24px; border-radius:0; border:1px solid var(--admin-border-light); background:#fff; }
+.status-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.status-dot--green { background:#0069CC; box-shadow:none; }
+.status-dot--yellow { background:#8a5a00; box-shadow:none; }
+.status-dot--red { background:var(--admin-alert); box-shadow:none; }
+.status-label { font-weight:500; font-size:16px; color:var(--admin-text); }
+.status-detail { font-size:14px; color:var(--admin-text-muted); margin-top:2px; }
+.home-log-viewer { background:#1e1e1e; color:#d4d4d4; font-family:'Consolas','Monaco',monospace; font-size:0.8rem; padding:0.75rem; border-radius:0; max-height:200px; overflow-y:auto; white-space:pre-wrap; word-break:break-all; border:1px solid #333; }
 .home-log-line { display:block; margin-bottom:2px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:2px; }
 .home-log-error { color:#f87171; font-weight:bold; }
 .home-log-warning { color:#fbbf24; }
 </style>
 
-<div style="margin-bottom:1.5rem;">
-    <h1 style="margin:0; font-size:1.5rem; color:var(--admin-text);">Panel de Control</h1>
-    <p style="margin:0.2rem 0 0; color:var(--admin-text-muted); font-size:0.9rem;">
+<div style="margin-bottom:32px;">
+    <h1 class="admin-page-title">Panel de Control</h1>
+    <p style="margin:8px 0 0; color:var(--admin-text); font-size:16px;">
         Estado general del sitio, alertas y actividad reciente.
     </p>
 </div>
 
 <!-- Sección 1: Estado del Sistema -->
-<div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem; margin-bottom:1.5rem;">
+<div class="admin-status-grid">
     <!-- BD -->
     <div class="status-indicator">
         <div class="status-dot <?php echo $dbOk ? 'status-dot--green' : 'status-dot--red'; ?>"></div>
@@ -155,10 +154,10 @@ function homeBadgeClass($accion) {
 </div>
 
 <!-- Sección 2: Alertas de Seguridad -->
-<div class="admin-card" style="margin-bottom:1.5rem;">
+<div class="admin-card">
     <div class="admin-card-header">
         <span class="material-symbols-outlined">shield</span>
-        <h2 style="margin:0; font-size:1.1rem;">Alertas de Seguridad (24h)</h2>
+        <h2 class="admin-card-title">Alertas de Seguridad (24h)</h2>
         <?php if ($failedLogins24h > 0): ?>
             <span class="badge badge-red" style="margin-left:auto;"><?php echo $failedLogins24h; ?> intentos fallidos</span>
         <?php endif; ?>
@@ -170,7 +169,7 @@ function homeBadgeClass($accion) {
             Sin intentos de acceso sospechosos en las últimas 24 horas.
         </div>
     <?php else: ?>
-        <div class="admin-table-wrapper" style="max-height:200px; overflow-y:auto;">
+        <div class="admin-table-wrapper">
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -182,9 +181,9 @@ function homeBadgeClass($accion) {
                 <tbody>
                     <?php foreach ($failedLoginDetails as $fail): ?>
                     <tr>
-                        <td style="white-space:nowrap; font-size:0.85rem;"><?php echo date('d/m/Y H:i:s', strtotime($fail['creado_en'])); ?></td>
+                        <td class="is-sm is-nowrap"><?php echo date('d/m/Y H:i:s', strtotime($fail['creado_en'])); ?></td>
                         <td style="font-family:monospace; font-size:0.85rem;"><?php echo htmlspecialchars($fail['ip_address']); ?></td>
-                        <td style="font-size:0.85rem; color:var(--admin-text-muted);"><?php echo htmlspecialchars($fail['detalles'] ?? '—'); ?></td>
+                        <td class="admin-meta"><?php echo htmlspecialchars($fail['detalles'] ?? '—'); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -194,47 +193,48 @@ function homeBadgeClass($accion) {
 </div>
 
 <!-- Sección 3: KPIs Rápidos -->
-<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+<div class="admin-stats-grid">
     <div class="admin-stat-card">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="admin-stat-card__top">
             <div>
-                <p style="margin:0 0 0.5rem; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--admin-text-muted);">Usuarios Activos</p>
+                <p class="admin-stat-label">Usuarios activos</p>
                 <p class="admin-stat-value"><?php echo $stats['usuarios']; ?></p>
             </div>
             <div class="admin-stat-icon"><span class="material-symbols-outlined">group</span></div>
         </div>
-        <a href="?section=usuarios" style="font-size:0.82rem; color:var(--admin-gold); text-decoration:none; margin-top:0.75rem; display:block;">Gestionar Usuarios &rarr;</a>
+        <a href="?section=usuarios" class="admin-stat-link">Gestionar usuarios &rarr;</a>
     </div>
 
     <div class="admin-stat-card">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="admin-stat-card__top">
             <div>
-                <p style="margin:0 0 0.5rem; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--admin-text-muted);">Staff Registrado</p>
-                <p class="admin-stat-value"><?php echo $stats['empleados']; ?></p>
-            </div>
-            <div class="admin-stat-icon"><span class="material-symbols-outlined">badge</span></div>
-        </div>
-        <a href="?section=rrhh_empleados" style="font-size:0.82rem; color:var(--admin-gold); text-decoration:none; margin-top:0.75rem; display:block;">Ver Directorio &rarr;</a>
-    </div>
-
-    <div class="admin-stat-card">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div>
-                <p style="margin:0 0 0.5rem; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--admin-text-muted);">Vacantes Visibles</p>
+                <p class="admin-stat-label">Vacantes visibles</p>
                 <p class="admin-stat-value"><?php echo $stats['vacantes']; ?></p>
             </div>
             <div class="admin-stat-icon"><span class="material-symbols-outlined">work</span></div>
         </div>
-        <a href="?section=rrhh_vacantes" style="font-size:0.82rem; color:var(--admin-gold); text-decoration:none; margin-top:0.75rem; display:block;">Gestionar Vacantes &rarr;</a>
+        <a href="?section=rrhh_vacantes" class="admin-stat-link">Gestionar vacantes &rarr;</a>
+    </div>
+
+    <!-- Postulaciones sin revisar: es lo único del panel que se acumula solo,
+         sin que nadie del equipo haga nada, así que merece estar a la vista. -->
+    <div class="admin-stat-card">
+        <div class="admin-stat-card__top">
+            <div>
+                <p class="admin-stat-label">Postulaciones sin revisar</p>
+                <p class="admin-stat-value"><?php echo $stats['postulantes']; ?></p>
+            </div>
+            <div class="admin-stat-icon"><span class="material-symbols-outlined">contact_page</span></div>
+        </div>
+        <a href="?section=rrhh_postulantes" class="admin-stat-link">Ver postulaciones &rarr;</a>
     </div>
 </div>
 
 <!-- Acciones Rápidas -->
-<div class="admin-card" style="margin-bottom:1.5rem; padding:1rem 1.25rem;">
-    <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <a href="?section=rrhh_empleados_form" class="btn-admin-primary" style="text-decoration:none;">
-            <span class="material-symbols-outlined">add</span> Nuevo Empleado
-        </a>
+<!-- Fila suelta, no tarjeta: tres botones no son contenido y pesaban
+     visualmente lo mismo que un panel de datos. -->
+<div class="admin-quick-actions">
+    <div class="admin-quick-actions__inner">
         <a href="?section=rrhh_vacantes_form" class="btn-admin-gold" style="text-decoration:none;">
             <span class="material-symbols-outlined">add</span> Nueva Vacante
         </a>
@@ -248,16 +248,16 @@ function homeBadgeClass($accion) {
 </div>
 
 <!-- Sección 4: Actividad Reciente -->
-<div class="admin-card" style="margin-bottom:1.5rem;">
-    <div class="admin-card-header" style="justify-content:space-between;">
+<div class="admin-card">
+    <div class="admin-card-header">
         <div style="display:flex; align-items:center; gap:0.5rem;">
             <span class="material-symbols-outlined">history</span>
-            <h2 style="margin:0; font-size:1.1rem;">Actividad Reciente</h2>
+            <h2 class="admin-card-title">Actividad Reciente</h2>
         </div>
         <a href="?section=actividad" style="font-size:0.85rem; color:var(--admin-gold); text-decoration:none;">Ver historial completo &rarr;</a>
     </div>
 
-    <div class="admin-table-wrapper" style="max-height:350px; overflow-y:auto;">
+    <div class="admin-table-wrapper">
         <table class="admin-table">
             <thead>
                 <tr>
@@ -271,7 +271,7 @@ function homeBadgeClass($accion) {
             <tbody>
                 <?php foreach ($recentActivity as $log): ?>
                 <tr>
-                    <td style="white-space:nowrap; font-size:0.85rem;"><?php echo date('d/m/Y H:i', strtotime($log['creado_en'])); ?></td>
+                    <td class="is-sm is-nowrap"><?php echo date('d/m/Y H:i', strtotime($log['creado_en'])); ?></td>
                     <td>
                         <span class="badge <?php echo homeBadgeClass($log['accion']); ?>">
                             <?php echo htmlspecialchars($log['accion']); ?>
@@ -292,40 +292,26 @@ function homeBadgeClass($accion) {
     </div>
 </div>
 
-<!-- Sección 5: Errores del Servidor -->
+<!-- Sección 5: Errores del Servidor ─────────────────────────────
+     El volcado crudo del log (terminal negra con stack traces) vivía acá y
+     además en Salud del Sistema, duplicado. En el panel de inicio no es
+     accionable —a un operador no le dice qué hacer— y era lo más ruidoso de
+     la pantalla. Queda el aviso de que hay errores, con el enlace al detalle
+     en la sección donde corresponde. -->
 <?php if (!empty($appErrors) || !empty($recentErrors)): ?>
+<?php $totalErrores = count($appErrors ?? []) + count($recentErrors ?? []); ?>
 <div class="admin-card">
     <div class="admin-card-header">
         <span class="material-symbols-outlined">bug_report</span>
-        <h2 style="margin:0; font-size:1.1rem;">Errores Recientes del Servidor</h2>
+        <h2 class="admin-card-title">Errores recientes del servidor</h2>
     </div>
-
-    <?php if (!empty($appErrors)): ?>
-    <p style="font-size:0.8rem; font-weight:600; color:var(--admin-text-muted); margin:0 0 0.5rem; text-transform:uppercase;">App Log (últimas 10 líneas)</p>
-    <div class="home-log-viewer" style="margin-bottom:1rem;">
-        <?php foreach ($appErrors as $line):
-            $cls = 'home-log-line';
-            $low = strtolower($line);
-            if (strpos($low, 'error') !== false || strpos($low, 'exception') !== false) $cls .= ' home-log-error';
-            elseif (strpos($low, 'warning') !== false) $cls .= ' home-log-warning';
-        ?>
-        <span class="<?php echo $cls; ?>"><?php echo htmlspecialchars($line); ?></span>
-        <?php endforeach; ?>
+    <div class="admin-card-note admin-card-note--warn">
+        <span class="material-symbols-outlined">warning</span>
+        <span>
+            Hay <strong><?php echo $totalErrores; ?></strong> línea<?php echo $totalErrores === 1 ? '' : 's'; ?>
+            de error en los registros del servidor. El detalle completo está en
+            <a href="?section=mantenimiento" class="admin-link">Salud del Sistema</a>.
+        </span>
     </div>
-    <?php endif; ?>
-
-    <?php if (!empty($recentErrors)): ?>
-    <p style="font-size:0.8rem; font-weight:600; color:var(--admin-text-muted); margin:0 0 0.5rem; text-transform:uppercase;">PHP Error Log (últimas 10 líneas)</p>
-    <div class="home-log-viewer">
-        <?php foreach ($recentErrors as $line):
-            $cls = 'home-log-line';
-            $low = strtolower($line);
-            if (strpos($low, 'fatal') !== false || strpos($low, 'error') !== false) $cls .= ' home-log-error';
-            elseif (strpos($low, 'warning') !== false || strpos($low, 'notice') !== false) $cls .= ' home-log-warning';
-        ?>
-        <span class="<?php echo $cls; ?>"><?php echo htmlspecialchars($line); ?></span>
-        <?php endforeach; ?>
-    </div>
-    <?php endif; ?>
 </div>
 <?php endif; ?>

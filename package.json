@@ -1,17 +1,17 @@
 {
-    "name": "AMA-web-project",
-    "version": "1.0.0",
-    "description": "Web institucional de AMA Agencies Argentina",
+    "name": "maritime-agency-web",
+    "version": "2.0.0",
+    "description": "Web institucional de Atlantic Maritime Agency",
     "private": true,
     "scripts": {
-        "dev": "echo 'Servidor de desarrollo no configurado aun. Ver README.md'",
-        "lint": "echo 'Linter no configurado aun'"
+        "dev": "echo 'Usar docker compose up --build. Ver README.md'",
+        "lint": "echo 'Ver .github/workflows/ci.yml'"
     },
     "keywords": [
-        "AMA",
+        "ama",
         "shipping",
         "argentina"
     ],
-    "author": "AMA Agencies Argentina",
-    "license": "UNLICENSED"
+    "author": "Tomás Torres",
+    "license": "MIT"
 }

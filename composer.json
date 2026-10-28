@@ -1,11 +1,10 @@
 {
     "name": "ama/maritime-agency-web",
-    "description": "Bridge API para AMA Agencies Argentina — consulta READ-ONLY a la BD del hosting",
-    "version": "1.0.0",
+    "description": "Plataforma web corporativa, portal interno con Microsoft Entra ID (OIDC/PKCE + App Roles RBAC) y bot de correo Microsoft Graph para agencia marítima",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "phpmailer/phpmailer": "^6.9"
     },
     "autoload": {
@@ -17,6 +16,13 @@
         "optimize-autoloader": true
     },
     "scripts": {
-        "check": "php -l api-bridge/bridge.php"
+        "check": "php -l api-bridge/bridge.php",
+        "test": [
+            "@php tests/test_tc_mailbot.php",
+            "@php tests/test_entra_oidc.php",
+            "@php tests/test_entra_roles.php",
+            "@php tests/test_entra_state.php",
+            "@php tests/test_entra_ui.php"
+        ]
     }
 }

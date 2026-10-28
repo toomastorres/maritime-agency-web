@@ -1,0 +1,20 @@
+# ═══════════════════════════════════════════════════════════
+# CV de postulantes — sin acceso directo por URL
+# ═══════════════════════════════════════════════════════════
+# Son datos personales (nombre, teléfono, historia laboral) y estaban
+# servidos a cualquiera que tuviera la URL. El nombre de archivo lleva
+# bytes aleatorios, pero eso es oscuridad, no control de acceso.
+#
+# La única vía de descarga es el portal interno, que exige sesión, exige
+# rol de RRHH y deja registro de cada descarga:
+#   private/gestion-interna-agencia/descargar-cv.php?id=<postulante>
+#
+# Apache 2.4
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+# Apache 2.2
+<IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+</IfModule>

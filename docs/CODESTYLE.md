@@ -1,4 +1,4 @@
-# AMA Web Project — Code Style Guide
+# Maritime Agency Web — Code Style Guide
 
 Estándar de formateo y documentación para todos los archivos del proyecto. Seguir estas reglas al crear o modificar archivos para mantener consistencia.
 

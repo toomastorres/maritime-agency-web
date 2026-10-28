@@ -121,12 +121,12 @@ function validate_password_strength(string $password, ?string $username = null, 
         '/zxcvbn/',
         '/password/',
         '/contrase[ñn]a/',
-        '/AMA/',
+        '/ama/',
         '/admin/',
     ];
     foreach ($trivialPatterns as $pattern) {
         if (preg_match($pattern, $passwordLower)) {
-            $errors[] = 'La contraseña contiene una secuencia o palabra demasiado predecible (ej: 123456, qwerty, password, AMA). Elegí algo más original.';
+            $errors[] = 'La contraseña contiene una secuencia o palabra demasiado predecible (ej: 123456, qwerty, password, ama). Elegí algo más original.';
             break;
         }
     }
@@ -148,6 +148,6 @@ function validate_password_strength(string $password, ?string $username = null, 
 function password_policy_help_text(): string
 {
     return 'Mínimo ' . AMA_PASSWORD_MIN_LENGTH . ' caracteres. No puede contener tu usuario, tu correo, '
-         . 'palabras comunes (password, qwerty, 123456, AMA) ni caracteres repetidos. '
+         . 'palabras comunes (password, qwerty, 123456, ama) ni caracteres repetidos. '
          . 'Recomendamos una frase larga fácil de recordar (ej: "AyerLloviaEnElPuerto2026").';
 }

@@ -15,7 +15,7 @@ $mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dolar_valor'])) {
     $csrf = $_POST['csrf_token'] ?? '';
     if (!verify_csrf_token($csrf)) {
-        $mensaje = "<div style='color:red;'>Token de seguridad inválido.</div>";
+        $mensaje = "<div class='admin-alert admin-alert-error'>Token de seguridad inválido.</div>";
     } else {
         $nuevo_dolar = filter_input(INPUT_POST, 'dolar_valor', FILTER_VALIDATE_FLOAT);
         $nuevo_euro = filter_input(INPUT_POST, 'euro_valor', FILTER_VALIDATE_FLOAT);
@@ -69,15 +69,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dolar_valor'])) {
                     $logStmt->execute([$_SESSION['user_id'], 'caja_update', $detalle, $_SERVER['REMOTE_ADDR']]);
                 } catch (\PDOException $e) { /* audit no-crítico */ }
 
-                $mensaje = "<div style='color:green; padding: 10px; border: 1px solid green; border-radius: 4px; background: #e6ffe6;'>Cotización actualizada e impactada en la base de datos pública.</div>";
+                $mensaje = "<div class='admin-alert admin-alert-success'>Cotización actualizada e impactada en la base de datos pública.</div>";
 
             } catch (\PDOException $e) {
                 $pdo->rollBack();
                 error_log($e->getMessage());
-                $mensaje = "<div style='color:red;'>Error de base de datos al guardar la cotización.</div>";
+                $mensaje = "<div class='admin-alert admin-alert-error'>Error de base de datos al guardar la cotización.</div>";
             }
         } else {
-            $mensaje = "<div style='color:red;'>Valor ingresado inválido. (Use \".\" para decimales)</div>";
+            $mensaje = "<div class='admin-alert admin-alert-error'>Valor ingresado inválido. (Use \".\" para decimales)</div>";
         }
     }
 }
@@ -102,7 +102,7 @@ try {
     }
 
 } catch (\PDOException $e) {
-    $mensaje = "<div style='color:red;'>Advertencia: Las tablas de la base de datos no han sido creadas. Ejecute el <code>schema.sql</code>.</div>";
+    $mensaje = "<div class='admin-alert admin-alert-error'>Advertencia: Las tablas de la base de datos no han sido creadas. Ejecute el <code>schema.sql</code>.</div>";
 }
 
 // Paginador e Histórico
@@ -144,13 +144,20 @@ try {
 $total_pages = ceil($total_rows / $limit);
 ?>
 
+
+<div class="admin-page-head">
+    <div>
+        <h1 class="admin-page-title">Tipo de cambio</h1>
+        <p class="admin-page-sub">Cotización del día que publica el sitio, y el histórico de cargas.</p>
+    </div>
+</div>
 <div style="display:flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start;">
 
     <!-- Formulario Principal -->
     <div class="admin-card" style="flex: 1; min-width: 280px;">
         <div class="admin-card-header">
             <span class="material-symbols-outlined">currency_exchange</span>
-            <h2 style="margin:0; font-size:1.1rem;">Gestión de Tipo de Cambio</h2>
+            <h2 class="admin-card-title">Gestión de Tipo de Cambio</h2>
         </div>
         <p style="color:var(--admin-text-muted); margin:0 0 1rem; font-size:0.9rem;">Solo visible entre 09:00 y 17:00 hs (Lunes a Viernes) para el público.</p>
 
@@ -176,7 +183,7 @@ $total_pages = ceil($total_rows / $limit);
                 <textarea id="datos_bancarios" name="datos_bancarios" class="admin-textarea" rows="4" required><?php echo htmlspecialchars($data_actual['datos_bancarios']); ?></textarea>
             </div>
 
-            <button type="submit" class="btn-admin-primary" style="width:100%;">
+            <button type="submit" class="btn-admin-primary is-full" >
                 <span class="material-symbols-outlined">publish</span>
                 Publicar Cotización
             </button>
@@ -191,7 +198,7 @@ $total_pages = ceil($total_rows / $limit);
     <div class="admin-card" style="flex: 2; min-width: 320px;">
         <div class="admin-card-header">
             <span class="material-symbols-outlined">history</span>
-            <h3 style="margin:0; font-size:1rem;">Histórico de Cargas</h3>
+            <h3 class="admin-card-title">Histórico de Cargas</h3>
         </div>
 
         <form method="GET" action="dashboard.php" style="display:flex; gap:0.75rem; align-items:center; margin-bottom:1rem; flex-wrap:wrap;">
@@ -239,7 +246,7 @@ $total_pages = ceil($total_rows / $limit);
         <div style="margin-top:1rem; display:flex; gap:0.375rem; justify-content:center; flex-wrap:wrap;">
             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                 <a href="?section=caja&moneda=<?php echo $filtro_moneda; ?>&p=<?php echo $i; ?>"
-                   style="padding:0.3rem 0.65rem; background:<?php echo $i == $page ? 'var(--admin-blue)' : 'var(--admin-border-light)'; ?>; color:<?php echo $i == $page ? '#fff' : 'var(--admin-text)'; ?>; text-decoration:none; border-radius:6px; font-size:0.85rem; font-weight:500;">
+                   style="padding:0.4rem 0.75rem; background:<?php echo $i == $page ? 'var(--admin-blue)' : '#fff'; ?>; border:1px solid <?php echo $i == $page ? 'var(--admin-blue)' : 'var(--admin-border)'; ?>; color:<?php echo $i == $page ? '#fff' : 'var(--admin-text)'; ?>; text-decoration:none; border-radius:0; font-size:0.85rem; font-weight:500;">
                     <?php echo $i; ?>
                 </a>
             <?php endfor; ?>

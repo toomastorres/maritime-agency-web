@@ -1,318 +1,224 @@
 /* ═══════════════════════════════════════════════════════════════════ */
 /* AMA — header.css                                             */
-/* Barra de navegación corporativa — mobile-first                    */
-/* Tokens: var(--AMA-*) defined in variables.css                */
+/* Topbar Oltremare + barra de navegación — sistema Oltremare        */
+/* Tokens: var(--olt-*) en variables.css                             */
 /* ═══════════════════════════════════════════════════════════════════ */
 
-/* ─── 1. Header container ──────────────────────────────────────── */
+/* ─── 1. Topbar ─────────────────────────────────────────────────── */
 
-.AMA-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: var(--z-header);
-
-    /* Default: Navy glassmorphism translúcido y elegante */
-    background-color: rgba(0, 26, 61, 0.94);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
-    transition:
-        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        border-color     0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow       0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.olt-topbar {
+    background: var(--olt-blue);
+    color: #fff;
 }
 
-/* Scrolled state: added by JS via data-scrolled="true" */
-.AMA-header[data-scrolled="true"] {
-    background-color: rgba(0, 20, 48, 0.98);   /* Navy más oscuro */
-    border-bottom-color: rgba(197, 160, 89, 0.25);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* ─── 2. Inner layout ───────────────────────────────────────────── */
-
-.header-inner {
-    max-width: var(--container-max);
+.olt-topbar__inner {
+    max-width: var(--olt-container);
     margin: 0 auto;
-    padding: 0 var(--space-xl);
-    height: 76px; /* Inicial por spec */
+    padding: 0 var(--olt-gutter);
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-lg);
-    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 24px;
 }
 
-/* Scrolled inner height */
-.AMA-header[data-scrolled="true"] .header-inner {
-    height: 64px;
+.olt-topbar__company {
+    font-family: var(--font-olt-sans);
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, .82);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.olt-topbar__right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.olt-topbar__phone {
+    font-family: var(--font-olt-sans);
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, .82);
+    text-decoration: none;
+}
+
+.olt-topbar__phone:hover {
+    color: #fff;
+}
+
+/* Language dropdown — flattened to fit the topbar */
+.olt-lang {
+    position: relative;
+    border-left: 1px solid rgba(255, 255, 255, .3);
+    padding-left: 24px;
+}
+
+.olt-lang__trigger {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 2px;
+    color: #fff;
+    font-family: var(--font-olt-sans);
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 30px;
+}
+
+.olt-lang .chevron-icon {
+    flex-shrink: 0;
+    transition: transform .2s ease;
+}
+
+.olt-lang.open .chevron-icon {
+    transform: rotate(180deg);
+}
+
+.olt-lang .lang-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--olt-blue);
+    border: 1px solid rgba(255, 255, 255, .22);
+    list-style: none;
+    margin: 0;
+    padding: 4px;
+    min-width: 140px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: calc(var(--z-header) + 5);
+}
+
+.olt-lang.open .lang-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.olt-lang .lang-menu li {
+    list-style: none;
+}
+
+.olt-lang .lang-option {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 12px;
+    color: rgba(255, 255, 255, .75);
+    font-family: var(--font-olt-sans);
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    min-height: 40px;
+}
+
+.olt-lang .lang-option:hover {
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+}
+
+.olt-lang .lang-option.active {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ─── 2. Header container (barra de navegación) ─────────────────── */
+
+.ama-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background: #fff;
+    border-bottom: 1px solid var(--olt-rule);
+}
+
+.header-inner {
+    max-width: var(--olt-container);
+    margin: 0 auto;
+    padding: 0 var(--olt-gutter);
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
 }
 
 /* ─── 3. Logo ───────────────────────────────────────────────────── */
 
 .header-logo {
     flex-shrink: 0;
+    min-width: 0;
 }
 
 .header-logo a {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
+    display: block;
 }
 
-.header-logo-inner {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.header-logo-icon {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    background: var(--AMA-gold);
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--AMA-navy);
-    box-shadow: 0 4px 14px rgba(197, 160, 89, 0.4);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.header-logo a:hover .header-logo-icon {
-    transform: scale(1.07) rotate(-4deg);
-    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.55);
-}
-
-/* AMA flag brand mark inside the gold badge */
-.header-logo-icon img,
-.mobile-drawer-icon img {
-    width: 64%;
-    height: 64%;
+.header-logo-img {
+    height: 30px;
+    width: auto;
+    max-width: 280px;
     object-fit: contain;
-    filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.18));
-}
-
-.header-logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-    gap: 4px;
-}
-
-.header-logo-brand {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--AMA-white);
-    letter-spacing: -0.2px;
-    line-height: 1;
-    /* On scroll the text stays white either way — navy bg ensures it */
-    text-shadow: 0 1px 6px rgba(0,0,0,0.35);
-}
-
-.header-logo-country {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--AMA-gold);
-    line-height: 1;
+    object-position: left;
 }
 
 /* ─── 4. Desktop Navigation ─────────────────────────────────────── */
 
 .header-nav {
-    display: none;  /* hidden on mobile, shown at breakpoint */
+    display: none;  /* hidden until breakpoint */
     align-items: center;
-    gap: 0.125rem;
+    gap: 20px;
     flex: 1;
-    justify-content: center;
+    justify-content: flex-end;
+    min-width: 0;
 }
 
 .nav-link {
-    position: relative;
-    display: inline-block;
+    font-family: var(--font-olt-sans);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--olt-ink);
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.82);
-    font-size: 0.875rem;
-    font-weight: 600;
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius-md);
     white-space: nowrap;
-    transition: color var(--transition-fast);
-
-    /* Gold underline track */
-    --underline-width: 0%;
-}
-
-/* Animated underline */
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: var(--underline-width);
-    height: 2px;
-    background: var(--AMA-gold);
-    border-radius: 2px;
-    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 2px solid transparent;
+    padding-bottom: 5px;
+    line-height: 1.2;
+    transition: color .15s ease, border-color .15s ease;
 }
 
 .nav-link:hover {
-    color: var(--AMA-white);
-    --underline-width: 70%;
-}
-
-.nav-link:hover::after {
-    width: 70%;
+    color: var(--olt-blue);
 }
 
 .nav-link.active {
-    color: var(--AMA-gold);
-    --underline-width: 70%;
+    color: var(--olt-blue);
+    font-weight: 500;
+    border-bottom-color: var(--olt-blue);
 }
 
-.nav-link.active::after {
-    width: 70%;
-    background: var(--AMA-gold);
-}
-
-/* ─── 5. Right controls (lang + hamburger) ──────────────────────── */
+/* ─── 5. Right controls (hamburger) ─────────────────────────────── */
 
 .header-controls {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
     flex-shrink: 0;
 }
 
-/* ─── 6. Language Dropdown (Globe) ──────────────────────────────── */
-
-.lang-dropdown {
-    position: relative;
-}
-
-.lang-trigger {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    padding: 0.45rem 0.75rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.8rem;
-    font-weight: 600;
-    font-family: var(--font-primary);
-    letter-spacing: 0.03em;
-    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
-    min-height: 44px;
-    min-width: 44px;
-    white-space: nowrap;
-}
-
-.lang-trigger:hover {
-    background: rgba(197, 160, 89, 0.2);
-    border-color: rgba(197, 160, 89, 0.5);
-    color: var(--AMA-gold);
-}
-
-.lang-dropdown.open .lang-trigger {
-    background: rgba(197, 160, 89, 0.2);
-    border-color: rgba(197, 160, 89, 0.5);
-    color: var(--AMA-gold);
-}
-
-.globe-icon,
-.chevron-icon {
-    flex-shrink: 0;
-    transition: transform var(--transition-fast);
-}
-
-.lang-current {
-    font-size: 0.78rem;
-}
-
-.lang-dropdown.open .chevron-icon {
-    transform: rotate(180deg);
-}
-
-/* Dropdown menu */
-.lang-menu {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background: rgba(0, 26, 61, 0.97);
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-    border: 1px solid rgba(197, 160, 89, 0.25);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem;
-    min-width: 160px;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-8px) scale(0.96);
-    pointer-events: none;
-    transition:
-        opacity 0.22s ease,
-        transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
-    z-index: calc(var(--z-header) + 10);
-}
-
-.lang-dropdown.open .lang-menu {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
-}
-
-.lang-menu li {
-    list-style: none;
-}
-
-.lang-option {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    width: 100%;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.6rem 0.9rem;
-    border-radius: var(--radius-md);
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.875rem;
-    font-weight: 500;
-    font-family: var(--font-primary);
-    text-align: left;
-    transition: background-color var(--transition-fast), color var(--transition-fast);
-    min-height: 44px;
-}
-
-.lang-option:hover {
-    background-color: rgba(197, 160, 89, 0.12);
-    color: var(--AMA-white);
-}
-
-.lang-option.active {
-    color: var(--AMA-gold);
-    font-weight: 700;
-    background-color: rgba(197, 160, 89, 0.08);
-}
-
-.lang-flag {
-    font-size: 1.1rem;
-    line-height: 1;
-}
-
-/* ─── 7. Mobile Hamburger Button ────────────────────────────────── */
+/* ─── 6. Mobile Hamburger Button ─────────────────────────────────── */
 
 .nav-toggle {
     display: flex;
@@ -320,59 +226,39 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-md);
+    background: none;
+    border: 1px solid var(--olt-rule);
     cursor: pointer;
     width: 44px;
     height: 44px;
     padding: 0;
     flex-shrink: 0;
-    transition: background-color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.nav-toggle:hover {
-    background: rgba(197, 160, 89, 0.2);
-    border-color: rgba(197, 160, 89, 0.45);
 }
 
 .hamburger-line {
     display: block;
     width: 20px;
     height: 2px;
-    background-color: var(--AMA-white);
-    border-radius: 2px;
-    transition:
-        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity   0.25s ease,
-        width     0.25s ease;
+    background-color: var(--olt-ink);
+    transition: transform .3s ease, opacity .25s ease, width .25s ease;
     transform-origin: center;
 }
 
 /* Hamburger → X */
-.nav-toggle.active .hamburger-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-.nav-toggle.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-    width: 0;
-}
-.nav-toggle.active .hamburger-line:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-}
+.nav-toggle.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active .hamburger-line:nth-child(2) { opacity: 0; width: 0; }
+.nav-toggle.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ─── 8. Overlay ────────────────────────────────────────────────── */
+/* ─── 7. Overlay ────────────────────────────────────────────────── */
 
 .nav-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    background: rgba(26, 26, 28, .55);
     z-index: calc(var(--z-header) + 5);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity .3s ease;
 }
 
 .nav-overlay.active {
@@ -380,22 +266,19 @@
     pointer-events: auto;
 }
 
-/* ─── 9. Mobile Off-Canvas Drawer ───────────────────────────────── */
+/* ─── 8. Mobile Off-Canvas Drawer ───────────────────────────────── */
 
 .mobile-drawer {
     position: fixed;
     top: 0;
     right: 0;
     width: 280px;
-    height: 100dvh;              /* 100dvh handles mobile browser chrome */
+    height: 100dvh;
     max-height: 100vh;
-    background: var(--AMA-navy, #001a3d);
-    background: linear-gradient(160deg, #001a3d 0%, #002b5c 100%);
-    border-left: 1px solid rgba(197, 160, 89, 0.2);
-    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
+    background: var(--olt-blue);
     z-index: calc(var(--z-header) + 10);
     transform: translateX(100%);
-    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform .32s ease;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -406,81 +289,49 @@
     transform: translateX(0);
 }
 
-/* Drawer header */
 .mobile-drawer-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 1.25rem 1rem;
-    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, .22);
     flex-shrink: 0;
 }
 
-.mobile-drawer-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
+.mobile-drawer-logo-img {
+    height: 24px;
+    width: auto;
+    max-width: 190px;
+    object-fit: contain;
+    /* El logo azul se invierte a blanco sobre el fondo Oltremare del drawer */
+    filter: brightness(0) invert(1);
 }
 
-.mobile-drawer-icon {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    background: var(--AMA-gold);
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--AMA-navy, #001a3d);
-    box-shadow: 0 3px 10px rgba(197, 160, 89, 0.4);
-}
-
-.mobile-drawer-brand {
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: var(--AMA-white);
-    letter-spacing: -0.2px;
-    line-height: 1;
-}
-
-.mobile-drawer-country {
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--AMA-gold);
-    margin-top: 3px;
-}
-
-/* Close button */
 .drawer-close {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-md);
+    background: none;
+    border: 1px solid rgba(255, 255, 255, .3);
     cursor: pointer;
     width: 40px;
     height: 40px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, .8);
     flex-shrink: 0;
-    transition: background-color var(--transition-fast), color var(--transition-fast);
     min-width: 44px;
     min-height: 44px;
 }
 
 .drawer-close:hover {
-    background: rgba(197, 160, 89, 0.15);
-    color: var(--AMA-gold);
-    border-color: rgba(197, 160, 89, 0.35);
+    color: #fff;
+    border-color: rgba(255, 255, 255, .55);
 }
 
 /* Drawer nav list */
 .mobile-nav-list {
     list-style: none;
     margin: 0;
-    padding: 0.75rem 0;
+    padding: 12px 0;
     flex: 1;
 }
 
@@ -491,38 +342,33 @@
 .mobile-nav-link {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
+    gap: 14px;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding: 0.9rem 1.5rem;
+    color: rgba(255, 255, 255, .78);
+    font-family: var(--font-olt-sans);
+    font-size: 15px;
+    font-weight: 400;
+    padding: 14px 24px;
     border-left: 3px solid transparent;
-    transition:
-        color            var(--transition-fast),
-        background-color var(--transition-fast),
-        border-color     var(--transition-fast),
-        padding-left     var(--transition-fast);
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease;
     min-height: 52px;
 }
 
 .mobile-nav-link:hover {
-    color: var(--AMA-white);
-    background-color: rgba(255, 255, 255, 0.05);
-    border-left-color: rgba(197, 160, 89, 0.5);
-    padding-left: calc(1.5rem + 2px);
+    color: #fff;
+    background-color: rgba(255, 255, 255, .06);
 }
 
 .mobile-nav-link.active {
-    color: var(--AMA-gold);
-    background-color: rgba(197, 160, 89, 0.08);
-    border-left-color: var(--AMA-gold);
-    padding-left: calc(1.5rem + 2px);
+    color: #fff;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, .08);
+    border-left-color: #fff;
 }
 
 .mobile-nav-icon {
     flex-shrink: 0;
-    opacity: 0.7;
+    opacity: .7;
 }
 
 .mobile-nav-link:hover .mobile-nav-icon,
@@ -530,126 +376,116 @@
     opacity: 1;
 }
 
-/* Mobile language selector */
+/* Mobile phone + language selector */
 .mobile-lang-selector {
-    padding: 1rem 1.5rem 1.5rem;
-    border-top: 1px solid rgba(197, 160, 89, 0.15);
+    padding: 16px 24px 24px;
+    border-top: 1px solid rgba(255, 255, 255, .22);
     margin-top: auto;
     flex-shrink: 0;
 }
 
+.mobile-drawer-phone {
+    display: block;
+    color: #fff;
+    font-family: var(--font-olt-sans);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+
 .mobile-lang-label {
     display: block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-family: var(--font-olt-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .16em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    margin-bottom: 0.65rem;
+    color: rgba(255, 255, 255, .55);
+    margin-bottom: 10px;
 }
 
 .mobile-lang-buttons {
     display: flex;
-    gap: 0.5rem;
+    gap: 8px;
 }
 
 .mobile-lang-btn {
     flex: 1;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-md);
+    background: none;
+    border: 1px solid rgba(255, 255, 255, .3);
     cursor: pointer;
-    padding: 0.6rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    font-family: var(--font-primary);
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    transition: all var(--transition-fast);
+    padding: 10px;
+    font-family: var(--font-olt-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .7);
+    letter-spacing: .04em;
+    transition: all .15s ease;
     min-height: 44px;
 }
 
 .mobile-lang-btn:hover {
-    color: var(--AMA-white);
-    border-color: rgba(197, 160, 89, 0.4);
-    background: rgba(197, 160, 89, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, .55);
 }
 
 .mobile-lang-btn.active {
-    background: var(--AMA-gold);
-    border-color: var(--AMA-gold);
-    color: var(--AMA-navy, #001a3d);
-    box-shadow: 0 2px 10px rgba(197, 160, 89, 0.4);
+    background: #fff;
+    border-color: #fff;
+    color: var(--olt-blue);
 }
 
-/* ─── 10. Responsive Breakpoints ────────────────────────────────── */
+/* ─── 9. Responsive Breakpoints ─────────────────────────────────── */
 
-/* ≥ 768px: show desktop nav, hide hamburger */
-@media (min-width: 768px) {
+/* ≥ 1024px: show desktop nav, hide hamburger */
+@media (min-width: 1024px) {
     .header-nav {
         display: flex;
     }
 
-    .nav-toggle {
+    .header-controls .nav-toggle {
         display: none;
     }
 
-    /* Drawer & overlay not needed on desktop */
     .mobile-drawer,
     .nav-overlay {
         display: none !important;
     }
 }
 
-/* ≤ 767px: mobile-only tweaks */
-@media (max-width: 767px) {
+/* ≤ 1023px: mobile-only tweaks */
+@media (max-width: 1023px) {
     .header-inner {
-        padding: 0 1rem;
+        padding: 0 20px;
     }
 
-    .header-logo-brand {
-        font-size: 0.85rem;
+    .olt-topbar__inner {
+        padding: 0 20px;
     }
+}
 
-    /* Globe dropdown still accessible on mobile (in drawer) */
-    .lang-dropdown {
+@media (max-width: 640px) {
+    .olt-topbar__company {
         display: none;
     }
 
-    /* Ensure drawer is displayed on mobile */
-    .mobile-drawer {
-        display: flex;
+    .olt-lang {
+        display: none;
+    }
+
+    .olt-topbar__right {
+        gap: 0;
     }
 }
 
-/* ─── 11. Reduced-motion support ────────────────────────────────── */
+/* ─── 10. Reduced-motion support ────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-    .AMA-header,
     .mobile-drawer,
     .nav-overlay,
-    .lang-menu,
-    .nav-link::after,
-    .hamburger-line,
-    .lang-trigger,
-    .header-logo-icon {
+    .olt-lang .lang-menu,
+    .hamburger-line {
         transition: none !important;
-        animation: none !important;
-    }
-}
-
-/* ─── 12. Body offset so content starts below fixed header ─────── */
-/* Pages that have a hero with overlay should NOT use body-offset.  */
-/* Hero sections handle the offset themselves via min-height/padding.*/
-/* Add class .has-hero to <body> to disable this rule.              */
-
-body:not(.has-hero) {
-    padding-top: 72px;
-}
-
-@media (max-width: 767px) {
-    body:not(.has-hero) {
-        padding-top: 64px;
     }
 }

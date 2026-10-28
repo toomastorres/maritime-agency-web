@@ -30,7 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             try {
                 // Verificar si el usuario existe y está ACTIVO
-                $stmt = $pdo->prepare("SELECT id, nombre, email, is_active FROM usuarios_admin WHERE username = ?");
+                // Sólo la cuenta break-glass conserva recuperación por contraseña.
+                // Una cuenta federada que pudiera fijarse una clave local saltearía
+                // Entra ID, el MFA y las políticas de Acceso Condicional.
+                // Las demás caen al else y reciben el mensaje genérico de siempre,
+                // así no se filtra qué cuentas existen.
+                $stmt = $pdo->prepare("SELECT id, nombre, email, is_active FROM usuarios_admin WHERE username = ? AND is_break_glass = 1");
                 $stmt->execute([$username]);
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -54,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $subject = "🔒 Recuperación de Contraseña — AMA Portal";
                             $htmlBody = EmailService::buildHtmlTemplate("Recuperación de Acceso", "
                                 <p>Hola <strong>" . htmlspecialchars($user['nombre']) . "</strong>,</p>
-                                <p>Has solicitado restablecer la contraseña de tu cuenta en el Portal Interno de AMA Agencies.</p>
+                                <p>Has solicitado restablecer la contraseña de tu cuenta en el Portal Interno de Atlantic Maritime Agency.</p>
                                 <p>Para elegir una nueva contraseña, hacé clic en el siguiente enlace. Este enlace caducará en 1 hora por motivos de seguridad:</p>
                                 <p style='text-align: center; margin: 30px 0;'>
                                     <a href='{$resetLink}' style='background-color: #0033a0; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; font-family: Arial, sans-serif; display: inline-block;'>
@@ -112,33 +117,33 @@ $csrfToken = generate_csrf_token();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Contraseña - AMA Agencies</title>
+    <title>Recuperar Contraseña - Atlantic Maritime Agency</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <!-- Base CSS (Login uses its own local styles in index.php, we mirror the minimalist design here) -->
     <style>
         :root {
-            --brand-blue: #0033a0;
-            --brand-blue-hover: #002277;
-            --bg-color: #f8fafc;
+            --brand-blue: #0F396C;
+            --brand-blue-hover: #0069CC;
+            --bg-color: #F0F0F0;
             --surface: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --error-bg: #fef2f2;
-            --error-text: #991b1b;
-            --error-border: #f87171;
-            --success-bg: #f0fdf4;
-            --success-text: #166534;
-            --success-border: #4ade80;
+            --text-main: #1A1A1C;
+            --text-muted: #808083;
+            --border: rgba(128, 128, 131, .35);
+            --error-bg: #ffffff;
+            --error-text: #B3261E;
+            --error-border: #B3261E;
+            --success-bg: #ffffff;
+            --success-text: #0F396C;
+            --success-border: #0069CC;
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+            background-color: #0F396C;
             color: var(--text-main);
             display: flex;
             align-items: center;
@@ -154,9 +159,9 @@ $csrfToken = generate_csrf_token();
 
         .login-card {
             background: var(--surface);
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            padding: 40px 36px;
+            border-radius: 0;
+            box-shadow: none;
             border: 1px solid var(--border);
         }
 
@@ -171,11 +176,12 @@ $csrfToken = generate_csrf_token();
         }
 
         .login-title {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-family: 'DM Serif Display', 'Georgia', serif;
+            font-size: 28px;
+            font-weight: 400;
             text-align: center;
             margin: 0 0 0.5rem 0;
-            color: var(--text-main);
+            color: var(--brand-blue);
         }
 
         .login-subtitle {
@@ -188,10 +194,10 @@ $csrfToken = generate_csrf_token();
 
         .alert {
             padding: 1rem;
-            border-radius: 6px;
+            border-radius: 0;
             font-size: 0.875rem;
             margin-bottom: 1.5rem;
-            border-left: 4px solid;
+            border-left: 3px solid;
             line-height: 1.4;
         }
 
@@ -221,20 +227,20 @@ $csrfToken = generate_csrf_token();
 
         .form-control {
             width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
+            padding: 12px 14px;
+            font-size: 16px;
             font-family: inherit;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            border: 1px solid rgba(128, 128, 131, .5);
+            border-radius: 0;
             box-sizing: border-box;
-            background-color: var(--bg-color);
-            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: var(--surface);
+            transition: border-color 0.2s;
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--brand-blue);
-            box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
+            box-shadow: none;
             background-color: var(--surface);
         }
 
@@ -242,13 +248,13 @@ $csrfToken = generate_csrf_token();
             width: 100%;
             padding: 0.875rem;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 500;
             color: #ffffff;
             background-color: var(--brand-blue);
             border: none;
-            border-radius: 6px;
+            border-radius: 0;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: background-color 0.2s;
             font-family: inherit;
         }
 
@@ -282,7 +288,7 @@ $csrfToken = generate_csrf_token();
 <div class="login-wrapper">
     <div class="login-card">
         <div class="brand-logo">
-            <img src="../../public/assets/img/logo-blue.svg" alt="AMA Agencies Argentina">
+            <img src="../../public/assets/img/logo-mark.svg" alt="Atlantic Maritime Agency">
         </div>
         
         <h1 class="login-title">Recuperación de Contraseña</h1>

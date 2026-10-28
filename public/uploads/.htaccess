@@ -1,0 +1,35 @@
+# ═══════════════════════════════════════════════════════════
+# Protección de directorio de uploads
+# Bloquea ejecución de scripts subidos maliciosamente
+# ═══════════════════════════════════════════════════════════
+
+# Deshabilitar ejecución de PHP en uploads
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|php8|phps|pht|phar|shtml|cgi|pl|py|sh|bash|htaccess)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Si el modulo PHP igual estuviera activo, apagar el motor en esta carpeta.
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+# Forzar descarga de archivos (no ejecutar)
+<IfModule mod_headers.c>
+    Header set Content-Disposition "attachment"
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Deshabilitar listado de directorios
+Options -Indexes -ExecCGI
+
+# ── CV de postulantes ──
+# El bloqueo de esa subcarpeta vive en uploads/cv/.htaccess: son datos
+# personales y la única vía de descarga es el portal interno, que exige
+# sesión y rol de RRHH (private/gestion-interna-agencia/descargar-cv.php).
+# No se bloquea acá para no tocar los adjuntos públicos de novedades.

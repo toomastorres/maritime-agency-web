@@ -1,449 +1,299 @@
 /* ═══════════════════════════════════════════════════════════ */
-/* AMA — contacto.css                                   */
-/* Estilos de la página de contacto                          */
+/* AMA — contacto.css                                    */
+/* Directorio de contacto — sistema Oltremare                  */
 /* ═══════════════════════════════════════════════════════════ */
 
-        .filtro-sectores {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-            width: 100%;
-            margin-bottom: 3rem;
-            padding: 0;
-            background: none;
-            border: none;
-            box-shadow: none;
-        }
+/* ─── Filtro por sector ─── */
+.olt-contact-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--olt-rule);
+}
 
-        .filtro-btn {
-            background: var(--AMA-white);
-            border: 1px solid var(--AMA-border);
-            border-radius: var(--radius-full);
-            padding: 0.6rem 1.4rem;
-            font-family: var(--font-primary);
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--AMA-text-light);
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            box-shadow: var(--AMA-shadow-sm);
-        }
+.olt-contact-filters__btn {
+    padding: 10px 18px;
+    font-family: var(--font-olt-sans);
+    font-size: 14px;
+    font-weight: 500;
+    background: #fff;
+    color: var(--olt-ink);
+    border: 1px solid var(--olt-rule);
+    cursor: pointer;
+    transition: all .15s ease;
+}
 
-        .filtro-btn:hover {
-            border-color: var(--AMA-gold);
-            color: var(--AMA-blue);
-            transform: translateY(-1px);
-            box-shadow: var(--AMA-shadow-md);
-        }
+.olt-contact-filters__btn:hover {
+    border-color: var(--olt-blue);
+}
 
-        .filtro-btn.active {
-            background: var(--AMA-blue);
-            border-color: var(--AMA-blue);
-            color: var(--AMA-white);
-            box-shadow: 0 4px 12px rgba(0, 66, 122, 0.25);
-        }
+.olt-contact-filters__btn.active {
+    background: var(--olt-blue);
+    color: #fff;
+    border-color: var(--olt-blue);
+}
 
-        .sector-bloque {
-            margin-bottom: 3.5rem;
-            animation: softFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+/* ─── Grupos por departamento ─── */
+.olt-contact-group {
+    margin-bottom: 48px;
+}
 
-        .area-titulo {
-            font-size: 1.5rem;
-            color: var(--AMA-blue);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 0;
-            border-bottom: none;
-            letter-spacing: var(--letter-spacing-heading);
-        }
+/* ─── Tarjeta de área (directorio por área de trabajo, sin datos personales) ─── */
+.olt-area-card {
+    display: flex;
+    flex-direction: column;
+}
 
-        .area-titulo::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--AMA-gold);
-            border-radius: 9999px;
-            margin: 0.5rem auto 0;
-        }
+.olt-area-card__head {
+    padding: 26px 30px 22px;
+}
 
-        .dept-group {
-            margin-top: 2rem;
-        }
+.olt-area-card__title {
+    font-family: var(--font-olt-serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--olt-blue);
+    margin: 0 0 10px;
+}
 
-        /* Canales del área (buzones funcionales del sector) */
-        .area-canales {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 1.5rem auto 3rem;
-            max-width: 920px;
-        }
+.olt-area-card__desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--olt-ink);
+    margin: 0;
+}
 
-        .area-canales__label {
-            display: none; /* Hide generic label, button is self-explanatory */
-        }
+/* ─── Buzones del área ───
+   Cada buzón ofrece dos caminos: llamar al interno o escribir al mail. Antes
+   la fila entera era el enlace al correo y el interno quedaba como texto
+   muerto, aunque es una extensión real de la línea de la agencia. */
+.olt-channel-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--olt-rule-softest);
+}
 
-        .canal-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1.4rem;
-            border: none;
-            border-radius: var(--radius-full);
-            background: var(--AMA-blue);
-            font-size: 0.95rem;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0, 66, 122, 0.2);
-            transition: all var(--transition-normal);
-        }
+.olt-channel-list li + li {
+    border-top: 1px solid var(--olt-rule-softest);
+}
 
-        .canal-chip svg {
-            color: var(--AMA-gold);
-            flex-shrink: 0;
-            width: 18px;
-            height: 18px;
-        }
+.olt-channel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 30px 16px;
+}
 
-        .canal-chip__label {
-            font-weight: 700;
-            color: var(--AMA-white);
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-        }
+.olt-channel__label {
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--olt-ink);
+}
 
-        .canal-chip__email {
-            color: rgba(255, 255, 255, 0.85);
-            font-weight: 400;
-        }
+.olt-channel__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    align-items: center;
+}
 
-        .canal-chip:hover {
-            background: var(--AMA-blue-dark);
-            box-shadow: 0 6px 16px rgba(0, 66, 122, 0.35);
-            transform: translateY(-2px);
-        }
+/* Cada acción es un objetivo táctil propio, no una palabra dentro de una
+   línea de texto. */
+.olt-channel__act {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 11px;
+    min-height: 34px;
+    max-width: 100%;
+    font-size: 13.5px;
+    line-height: 1.3;
+    text-decoration: none;
+    border: 1px solid var(--olt-rule);
+    color: var(--olt-blue);
+    background: #fff;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
 
-        /* Distintivo de referente (contacto directo) */
-        .contact-card--directo {
-            border-top: 3px solid var(--AMA-gold);
-        }
+.olt-channel__act svg { flex-shrink: 0; opacity: .75; }
 
-        .card-badge {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            display: inline-block;
-            padding: 0.15rem 0.55rem;
-            border-radius: 9999px;
-            background: var(--AMA-gold);
-            color: var(--AMA-white, #fff);
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-        }
+.olt-channel__act-txt { overflow-wrap: anywhere; }
 
-        .contacto-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-        }
+.olt-channel__act:hover,
+.olt-channel__act:focus-visible {
+    background: var(--olt-paper);
+    border-color: var(--olt-blue);
+}
 
-        /* Para departamentos con 4 personas (ej. Comercial), usamos CSS Grid para la línea de 4 */
-        .contacto-grid.grid-simetrico-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            width: 100%;
-            justify-items: center;
-        }
+/* El interno se destaca: es la acción nueva y la más inmediata. */
+.olt-channel__act--tel {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    border-color: var(--olt-blue);
+    font-weight: 500;
+}
 
-        @media (max-width: 1280px) {
-            .contacto-grid.grid-simetrico-4 {
-                grid-template-columns: repeat(2, 1fr); /* En pantallas medianas pasa a 2x2 */
-            }
-        }
+.olt-channel__act--tel:hover,
+.olt-channel__act--tel:focus-visible {
+    background: var(--olt-blue);
+    border-color: var(--olt-blue);
+    color: #fff;
+}
 
-        @media (max-width: 600px) {
-            .contacto-grid.grid-simetrico-4 {
-                grid-template-columns: 1fr; /* En móviles pasa a 1 columna */
-            }
-        }
+.olt-channel__act--tel:hover svg,
+.olt-channel__act--tel:focus-visible svg { opacity: 1; }
 
-        /* Contact Cards */
-        .contact-card {
-            background: var(--AMA-white);
-            /* FIX: replaced hardcoded 16px → var(--radius-xl) */
-            border-radius: var(--radius-xl);
-            width: 100%;
-            max-width: 320px;
-            margin: 0;
-            padding: 1.75rem;
-            /* FIX: replaced raw rgba → var(--AMA-shadow-sm) */
-            box-shadow: var(--AMA-shadow-sm);
-            /* FIX: replaced hardcoded #e2e8f0 → var(--border-color) */
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
+.olt-channel__act--mail {
+    color: var(--olt-blue-mid);
+    min-width: 0;
+}
 
-        .contact-card:hover {
-            /* FIX: replaced raw rgba → var(--AMA-shadow-md) */
-            box-shadow: var(--AMA-shadow-md);
-            transform: translateY(-6px);
-        }
+/* Nota bajo el teléfono de la oficina. */
+.olt-contact-office__hint {
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--olt-grey);
+}
 
-        .contact-card .avatar-iniciales {
-            color: var(--AMA-blue);
-            margin-bottom: 1.25rem;
-            background: rgba(0, 66, 122, 0.08);
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all var(--transition-normal);
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            font-family: var(--font-primary, sans-serif);
-        }
+/* ─── Oficina + formulario ─── */
+.olt-contact-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    margin-top: 72px;
+    align-items: start;
+}
 
-        .contact-card:hover .avatar-iniciales {
-            background: var(--AMA-blue);
-            color: var(--AMA-white);
-            transform: scale(1.05);
-        }
+.olt-contact-office p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0 0 24px;
+}
 
-        .contact-card .nombre {
-            font-size: 1.05rem;
-            font-weight: 700;
-            /* FIX: replaced hardcoded #1e293b → var(--AMA-text) */
-            color: var(--AMA-text);
-            margin-bottom: 0.25rem;
-            letter-spacing: 0;
-            text-transform: uppercase;
-        }
+.olt-contact-office__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    border-top: 1px solid var(--olt-rule);
+    padding-top: 24px;
+}
 
-        .contact-card .posicion {
-            font-size: 0.8rem;
-            color: var(--AMA-gold);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
+.olt-contact-office__value {
+    font-size: 18px;
+}
 
-        .contact-card .email,
-        .contact-card .telefono {
-            font-size: 0.9rem;
-            color: var(--AMA-text);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            letter-spacing: var(--letter-spacing-base);
-        }
+.olt-contact-office__value a {
+    color: var(--olt-ink);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+}
 
-        .contact-card a {
-            color: inherit;
-            text-decoration: none;
-            transition: color var(--transition-fast);
-        }
+.olt-contact-form-box {
+    background: #fff;
+    border: 1px solid var(--olt-rule);
+    padding: 32px;
+}
 
-        .contact-card a:hover {
-            color: var(--AMA-blue);
-        }
+.olt-contact-form-box .olt-h3 { margin-bottom: 20px; }
 
-        .contact-card .logo {
-            width: 36px;
-            margin-top: 1rem;
-            opacity: 0.6;
-            transition: opacity var(--transition-fast);
-        }
+.olt-contact-form-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
 
-        .contact-card:hover .logo {
-            opacity: 0.9;
-        }
+/* .olt-field: primitiva compartida en components.css */
 
-        .linea-azul {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--AMA-blue) 0%, var(--AMA-blue-dark) 100%);
-        }
+/* ─── Responsive ─── */
 
-        .linea-azul2 {
-            position: absolute;
-            bottom: 1px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: rgba(0, 66, 122, 0.4);
-        }
+/* Desktop: dos columnas. Son 7 áreas de una línea cada una; en una sola
+   columna quedaban ~1000px de scroll con medio ancho de pantalla vacío. */
+@media (min-width: 1024px) {
+    /* Columnas tipo mampostería, no grilla.
+       Las áreas tienen entre uno y cuatro buzones, así que las tarjetas miden
+       entre 190px y 500px. Con `display:grid` las filas se alinean por la más
+       alta y quedaban huecos de hasta 260px debajo de las cortas; igualando
+       alturas, el hueco pasaba adentro de la tarjeta. Con columnas CSS cada
+       tarjeta conserva su alto natural y la siguiente arranca pegada, sin
+       aire muerto en ninguna de las dos columnas. */
+    #gme-contactos-contenido {
+        column-count: 2;
+        column-gap: 32px;
+    }
 
-        /* card-body: inner container for name/position/contact details */
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+    #gme-contactos-contenido .olt-contact-group {
+        /* Una tarjeta no se parte entre columnas. */
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin: 0 0 28px;
+        /* inline-block evita que Chrome corte la última línea del borde al
+           repartir las columnas. */
+        display: inline-block;
+        width: 100%;
+    }
 
-        /* Horizontal layout for Gerencia General and Recepcion */
-        .gerente,
-        .recepcion {
-            flex-direction: row;
-            text-align: left;
-            padding: 1.75rem 2rem;
-            max-width: 640px;
-            width: 100%;
-            justify-content: flex-start;
-            gap: 1.5rem;
-            align-items: center;
-        }
+    /* El filtro por sector oculta tarjetas: sin esto, las columnas se
+       rebalancean y queda una sola tarjeta muy alta en la izquierda. */
+    #gme-contactos-contenido.is-filtrado {
+        column-count: 1;
+        max-width: 640px;
+    }
+}
 
-        .gerente .avatar-iniciales,
-        .recepcion .avatar-iniciales {
-            margin-bottom: 0;
-            flex-shrink: 0;
-        }
+@media (max-width: 1023px) {
+    .olt-contact-bottom { grid-template-columns: 1fr; gap: 40px; }
+}
 
-        .gerente .card-body,
-        .recepcion .card-body {
-            align-items: flex-start;
-            flex: 1;
-        }
+@media (max-width: 767px) {
+    /* Los 7 chips envolvían en 7 filas y se comían ~340px antes de la
+       primera tarjeta. Pasan a una fila con scroll horizontal. */
+    .olt-contact-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
 
-        .gerente .email,
-        .gerente .telefono,
-        .recepcion .email,
-        .recepcion .telefono {
-            justify-content: flex-start;
-        }
+    .olt-contact-filters::-webkit-scrollbar {
+        display: none;
+    }
 
-        @media (max-width: 600px) {
-            .gerente,
-            .recepcion {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
+    .olt-contact-filters__btn {
+        flex: 0 0 auto;
+        min-height: 44px;
+    }
 
-            .gerente .card-body,
-            .recepcion .card-body {
-                align-items: center;
-            }
+    .olt-channel {
+        gap: 8px;
+        padding: 14px 22px;
+    }
 
-            .gerente .email,
-            .gerente .telefono,
-            .recepcion .email,
-            .recepcion .telefono {
-                justify-content: center;
-            }
-        }
+    /* 42px de alto: en un teléfono estos dos botones son el objetivo real de
+       la página y a 34px quedaban por debajo del mínimo cómodo para el pulgar. */
+    .olt-channel__act {
+        min-height: 42px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
 
-        /* ─── Contact Info Grid Section ─── */
-        .contacto-info-grid-section {
-            background: var(--AMA-white);
-            /* FIX: replaced hardcoded #e2e8f0 → var(--border-color) */
-            border-bottom: 1px solid var(--border-color);
-            padding: 3rem 0;
-        }
+    /* El mail ocupa la línea entera: una dirección larga junto al interno
+       dejaba dos botones muy angostos. */
+    .olt-channel__act--mail { width: 100%; }
 
-        .contacto-info-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-        }
+    .olt-area-card__head { padding: 22px 22px 18px; }
 
-        .contacto-info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1rem;
-        }
+    .olt-contact-channels__chip {
+        min-height: 44px;
+    }
+}
 
-        .contacto-info-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 9999px;
-            background: rgba(0, 66, 122, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--AMA-blue);
-        }
-
-        .contacto-info-icon svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        .contacto-info-item h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--AMA-blue);
-            margin-bottom: 0.375rem;
-            line-height: 1.3;
-        }
-
-        .contacto-info-item p {
-            font-size: 0.875rem;
-            color: var(--AMA-text-light);
-            line-height: 1.5;
-            margin-bottom: 0;
-        }
-
-        .contacto-info-item a {
-            color: var(--AMA-text-light);
-            text-decoration: none;
-            font-weight: 400;
-            transition: color var(--transition-fast);
-        }
-
-        .contacto-info-item a:hover {
-            color: var(--AMA-blue);
-        }
-
-        @media (max-width: 1024px) {
-            .contacto-info-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .contacto-info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ─── Directory Header ─── */
-        .directorio-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .directorio-header p {
-            color: var(--AMA-text-light);
-            max-width: 600px;
-            margin: 0.75rem auto 0;
-            font-size: 1rem;
-        }
+@media (max-width: 640px) {
+    .olt-area-card { padding: 22px 20px; }
+    .olt-contact-office__grid { grid-template-columns: 1fr; }
+    .olt-contact-form-box { padding: 20px; }
+}

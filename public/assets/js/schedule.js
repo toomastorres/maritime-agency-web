@@ -25,7 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let scheduleData = null;
 
     // ── Mensajes con estilo (el proyecto no carga FontAwesome → iconos SVG inline) ──
-    const tr = (key, fallback) => (typeof AMAI18n !== 'undefined') ? AMAI18n.t(key) : fallback;
+    const tr = (key, fallback) => {
+        const val = (typeof AmaI18n !== 'undefined') ? AmaI18n.t(key) : null;
+        return (val && val !== key) ? val : fallback;
+    };
     const SVG_INFO  = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v2h-2zm0 4h2v6h-2z"/></svg>';
     const SVG_ERROR = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>';
 
@@ -74,22 +77,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
             scheduleData = data;
 
-            if (lastUpdate) lastUpdate.innerText = data.ultima_actualizacion || '--';
+            const titleEl = document.getElementById('schedule-title');
+            const noteBar = document.getElementById('schedule-note-bar');
+            if (titleEl && data.service_name) {
+                titleEl.removeAttribute('data-i18n');
+                titleEl.textContent = data.service_name;
+            }
+            if (noteBar) noteBar.style.display = 'flex';
+
+            renderFreshness(data);
             if (weekLabel && data.week_number) weekLabel.innerText = data.week_number;
 
             populateFilters(data);
 
             if (loading)        loading.style.display        = 'none';
-            if (controlsUI)     controlsUI.style.display     = 'flex';
+            if (controlsUI)     controlsUI.style.display     = 'grid';
             if (exportBar)      exportBar.style.display      = 'flex';
 
             renderMatrixTables();
             setupInteractions();
-            if (typeof AMAI18n !== 'undefined') AMAI18n.updateDOM();
+            if (typeof AmaI18n !== 'undefined') AmaI18n.updateDOM();
         })
         .catch(() => {
             showScheduleStatus('error', tr('schedule.error_loading', 'Error al cargar la tabla de schedules. Por favor intente nuevamente.'));
         });
+
+    // ── Frescura del schedule ────────────────────────────────────────────
+    // El archivo que publica CS es semanal, así que si la última carga tiene
+    // más de 7 días quiere decir que la semana en curso todavía no se subió.
+    // Eso cambia cómo hay que leer la tabla y hasta ahora no se decía en
+    // ningún lado: la fecha de carga vivía en un recuadro del pie.
+    const DIAS_SCHEDULE_VIEJO = 7;
+
+    function parseDdMmYyyy(str) {
+        if (!str || typeof str !== 'string') return null;
+        const m = str.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+        if (!m) return null;
+        const d = new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]));
+        return isNaN(d.getTime()) ? null : d;
+    }
+
+    function renderFreshness(data) {
+        if (lastUpdate) lastUpdate.innerText = data.ultima_actualizacion || '--';
+
+        const ageEl = document.getElementById('last-update-age');
+        const fecha = parseDdMmYyyy(data.ultima_actualizacion);
+        if (!ageEl || !fecha) return;
+
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+        const dias = Math.round((hoy - fecha) / 86400000);
+        if (dias < 0) return;
+
+        ageEl.textContent = dias === 0
+            ? ` · ${tr('schedule.updated_today', 'hoy')}`
+            : ` · ${tr('schedule.updated_days_ago', 'hace {n} días').replace('{n}', dias)}`;
+
+        if (dias > DIAS_SCHEDULE_VIEJO) {
+            ageEl.classList.add('is-stale');
+            showStaleNote(dias);
+        }
+    }
+
+    function showStaleNote(dias) {
+        const anchor = document.getElementById('export-bar');
+        if (!anchor || document.getElementById('schedule-stale-note')) return;
+        const note = document.createElement('div');
+        note.id = 'schedule-stale-note';
+        note.className = 'olt-note-bar olt-note-bar--warn';
+        note.innerHTML =
+            '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">'
+            + '<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM13 17h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
+            + '<div class="olt-note-bar__text">'
+            + `<span data-i18n="schedule.stale_note">${tr('schedule.stale_note', 'Este es el último schedule publicado y tiene más de una semana. Antes de operar, confirmá las fechas con Customer Service.')}</span> `
+            + '<a href="mailto:customerserv@atlantic-agency.example.com">customerserv@atlantic-agency.example.com</a>'
+            + '</div>';
+        anchor.parentNode.insertBefore(note, anchor);
+    }
 
     // ── Populate filter dropdowns ──────────────────────────────────────────────
     function populateFilters(data) {
@@ -183,17 +247,20 @@ document.addEventListener('DOMContentLoaded', () => {
             renderRouteSearch();
         });
 
-        if (btnReset) {
-            btnReset.addEventListener('click', () => {
-                vesselSelect.value = '';
-                polSelect.value = '';
-                podSelect.value = '';
-                [vesselSelect, polSelect, podSelect].forEach(updateClass);
-                rebuildPortSelects();
-                renderMatrixTables();
-                renderRouteSearch();
-            });
-        }
+        // El botón del estado vacío hace lo mismo que el de la barra: cuando
+        // un filtro no devuelve nada, la salida está ahí y no 600px más arriba.
+        const resetAll = () => {
+            vesselSelect.value = '';
+            polSelect.value = '';
+            podSelect.value = '';
+            [vesselSelect, polSelect, podSelect].forEach(updateClass);
+            rebuildPortSelects();
+            renderMatrixTables();
+            renderRouteSearch();
+        };
+        [btnReset, document.getElementById('btn-reset-filters-empty')].forEach(btn => {
+            if (btn) btn.addEventListener('click', resetAll);
+        });
     }
 
     // ── Route Search: Find departure/arrival dates ─────────────────────────────
@@ -275,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><span data-i18n="schedule_dynamic.no_route">No se encontró ruta directa</span> <span data-i18n="schedule_dynamic.from">de</span> <strong>${escHtml(polValue)}</strong> <span data-i18n="schedule_dynamic.to">a</span> <strong>${escHtml(podValue)}</strong> <span data-i18n="schedule_dynamic.in_trips">en los viajes disponibles.</span></p>
                 </div>`;
             routePanel.style.display = 'block';
-            if (typeof AMAI18n !== 'undefined') AMAI18n.updateDOM();
+            if (typeof AmaI18n !== 'undefined') AmaI18n.updateDOM();
             return;
         }
 
@@ -315,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         html += `</div>`;
         routePanel.innerHTML = html;
         routePanel.style.display = 'block';
-        if (typeof AMAI18n !== 'undefined') AMAI18n.updateDOM();
+        if (typeof AmaI18n !== 'undefined') AmaI18n.updateDOM();
     }
 
     // ── Matrix Table Filter Logic ──────────────────────────────────────────────
@@ -391,6 +458,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Render Matrix Table ────────────────────────────────────────────────────
+    // Vista mobile: una tarjeta por buque con solo sus escalas reales.
+    // La matriz sirve para comparar buques entre sí; en un ancho de teléfono
+    // eso no entra, y lo que el visitante busca es "cuándo llega este buque".
+    function renderVesselCards(routes, portEntries) {
+        const cards = document.getElementById('schedule-cards');
+        if (!cards) return;
+
+        const etaLabel = tr('schedule_dynamic.eta', 'ETA');
+        const etsLabel = tr('schedule_dynamic.ets', 'ETS');
+
+        cards.innerHTML = routes.map(ruta => {
+            const calls = portEntries.map(portInfo => {
+                const visit = ruta.viajes.find(v => {
+                    const pname = v.puerto || v.POL || v.puerto_origen || v.POD || v.puerto_destino;
+                    return pname === portInfo.port && (v.leg || 'outbound') === portInfo.leg;
+                });
+                if (!visit) return '';
+
+                const isZarate = portInfo.port.toLowerCase().includes('zarate');
+                const isReturn = portInfo.leg === 'return';
+                const eta = visit.is_feeder
+                    ? `<span class="feeder-label">${escHtml(tr('schedule_dynamic.feeder', 'feeder'))}</span>`
+                    : escHtml(visit.eta || visit.ETA || '—');
+                const ets = (visit.is_feeder && visit.feeder_code)
+                    ? `<span class="feeder-code">${escHtml(visit.feeder_code)}</span>`
+                    : escHtml(visit.ets || visit.ETD || visit.ETS || '—');
+
+                const cls = ['olt-sched-call'];
+                if (isZarate) cls.push('is-zarate');
+                if (isReturn) cls.push('is-return');
+
+                return `
+                    <li class="${cls.join(' ')}">
+                        <span class="olt-sched-call__port">${escHtml(portInfo.port)}${isReturn ? ` <span class="port-return-indicator">↩</span>` : ''}</span>
+                        <span class="olt-sched-call__dates">
+                            <span class="olt-sched-call__date"><em>${escHtml(etaLabel)}</em>${eta}</span>
+                            <span class="olt-sched-call__date"><em>${escHtml(etsLabel)}</em>${ets}</span>
+                        </span>
+                    </li>`;
+            }).join('');
+
+            return `
+                <article class="olt-sched-card">
+                    <header class="olt-sched-card__head">
+                        <span class="olt-sched-card__vessel">${escHtml(ruta.nombre)}</span>
+                        ${ruta.voyage_code ? `<span class="olt-sched-card__voyage">V. ${escHtml(ruta.voyage_code)}</span>` : ''}
+                    </header>
+                    <ul class="olt-sched-card__calls">${calls}</ul>
+                </article>`;
+        }).join('');
+    }
+
     function renderMatrixTables() {
         if (!scheduleData) return;
 
@@ -439,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniquePortEntries = Array.from(portOrderMap.values()).sort((a, b) => a.order - b.order);
 
         // 3. Render Header (Two levels: Vessel name -> ETA|ETS)
-        let headerHTML1 = `<tr><th rowspan="2" class="matrix-port-header">PORT</th>`;
+        let headerHTML1 = `<tr><th rowspan="2" class="matrix-port-header" data-i18n="schedule_dynamic.port">${escHtml(tr('schedule_dynamic.port', 'Puerto'))}</th>`;
         let headerHTML2 = `<tr>`;
 
         filteredRoutes.forEach(ruta => {
@@ -494,6 +613,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         tbody.innerHTML = bodyHTML;
 
+        renderVesselCards(filteredRoutes, uniquePortEntries);
+
         // Adjust sticky second header row position based on actual first row height
         requestAnimationFrame(() => {
             const firstHeaderRow = thead.querySelector('tr:first-child');
@@ -505,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
-        if (typeof AMAI18n !== 'undefined') AMAI18n.updateDOM();
+        if (typeof AmaI18n !== 'undefined') AmaI18n.updateDOM();
     }
 
     // ── Export: PDF via jsPDF & AutoTable ─────────────────────────────────────────
@@ -518,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const btn = this;
             const originalText = btn.innerHTML;
-            btn.innerHTML = `<svg class="svg-spin" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="vertical-align:sub;margin-right:.4rem;"><path d="M12 3a9 9 0 1 0 9 9" stroke-linecap="round"/></svg> ${typeof AMAI18n !== 'undefined' ? AMAI18n.t('exchange.generating_pdf') : 'Generando PDF...'}`;
+            btn.innerHTML = `<svg class="svg-spin" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" style="vertical-align:sub;margin-right:.4rem;"><path d="M12 3a9 9 0 1 0 9 9" stroke-linecap="round"/></svg> ${typeof AmaI18n !== 'undefined' ? AmaI18n.t('exchange.generating_pdf') : 'Generando PDF...'}`;
             btn.disabled = true;
 
             const { jsPDF } = window.jspdf;
@@ -530,19 +651,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const M = 32;
 
             // Institutional brand palette
-            const NAVY = [0, 26, 61], BLUE = [0, 66, 122], GOLD = [197, 160, 89];
-            const NAVY2 = [0, 40, 77], INK = [51, 65, 85], MUTE = [120, 130, 145];
-            const ZEBRA = [240, 245, 251], TINT = [234, 240, 248], GOLDTINT = [247, 239, 217];
+            const NAVY = [15, 57, 108], BLUE = [0, 105, 204], GOLD = [0, 105, 204];
+            const NAVY2 = [0, 105, 204], INK = [51, 65, 85], MUTE = [120, 130, 145];
+            const ZEBRA = [240, 245, 251], TINT = [234, 240, 248], GOLDTINT = [222, 234, 246];
             const RETTINT = [226, 232, 240], BORDER = [216, 222, 230];
 
             // Locale + labels
             const localeMap = { 'es': 'es-AR', 'en': 'en-US', 'it': 'it-IT', 'pt': 'pt-BR' };
-            const currentLang = (typeof AMAI18n !== 'undefined') ? AMAI18n.getCurrentLang() : 'es';
+            const currentLang = (typeof AmaI18n !== 'undefined') ? AmaI18n.getCurrentLang() : 'es';
             const regionalLocale = localeMap[currentLang] || 'es-AR';
             const weekStr = weekLabel ? weekLabel.innerText : 'actual';
-            const weekLabelStr = typeof AMAI18n !== 'undefined' ? AMAI18n.t('schedule.pdf_week_label') : 'Semana Nro';
-            const exportedStr = typeof AMAI18n !== 'undefined' ? AMAI18n.t('schedule.pdf_exported_label') : 'Exportado';
-            const fullTitle = typeof AMAI18n !== 'undefined' ? AMAI18n.t('schedule.pdf_title') : 'VESSEL SCHEDULE - SOUTH AMERICA EXPRESS SERVICE';
+            const weekLabelStr = typeof AmaI18n !== 'undefined' ? AmaI18n.t('schedule.pdf_week_label') : 'Semana Nro';
+            const exportedStr = typeof AmaI18n !== 'undefined' ? AmaI18n.t('schedule.pdf_exported_label') : 'Exportado';
+            const fullTitle = typeof AmaI18n !== 'undefined' ? AmaI18n.t('schedule.pdf_title') : 'VESSEL SCHEDULE - SOUTH AMERICA EXPRESS SERVICE';
             // Split "VESSEL SCHEDULE - SOUTH AMERICA EXPRESS SERVICE" → main title + service subtitle
             const titleParts = fullTitle.split(/\s[-–]\s/);
             const mainTitle = titleParts.length > 1 ? titleParts[0].trim() : 'VESSEL SCHEDULE';
@@ -552,7 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Load stacked logo (correct aspect, no distortion) + flag watermark (Rule #5)
             const logoImg = new Image();
-            logoImg.src = '/public/assets/img/GGroupFlat-Blu.png';
+            logoImg.src = '/public/assets/img/logo-mark.svg';
             const wmImg = new Image();
             wmImg.src = '/public/assets/img/pdf/watermark-flag.png';
 
@@ -588,9 +709,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const y = PH - 22;
                     doc.setDrawColor(...GOLD); doc.setLineWidth(0.8); doc.line(M, y, PW - M, y);
                     doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.setTextColor(...NAVY);
-                    doc.text('AMA AGENCIES ARGENTINA S.A.', M, y + 11);
+                    doc.text('ATLANTIC MARITIME AGENCY S.A.', M, y + 11);
                     doc.setFont('helvetica', 'normal'); doc.setTextColor(...MUTE);
-                    doc.text('25 de Mayo 702, 1er Piso, CABA, Argentina  ·  www.ama-demo.example', PW - M, y + 11, { align: 'right' });
+                    doc.text('Av. Puerto Madero 450, Piso 8, CABA, Argentina  ·  www.atlantic-agency.example.com', PW - M, y + 11, { align: 'right' });
                 };
 
                 const watermark = () => {
@@ -699,17 +820,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Localised labels
             const localeMap = { 'es': 'es-AR', 'en': 'en-US', 'it': 'it-IT', 'pt': 'pt-BR' };
-            const currentLang = (typeof AMAI18n !== 'undefined') ? AMAI18n.getCurrentLang() : 'es';
+            const currentLang = (typeof AmaI18n !== 'undefined') ? AmaI18n.getCurrentLang() : 'es';
             const regionalLocale = localeMap[currentLang] || 'es-AR';
-            const subtitle = (typeof AMAI18n !== 'undefined') ? AMAI18n.t('schedule.pdf_title') : 'VESSEL SCHEDULE - SOUTH AMERICA EXPRESS SERVICE';
-            const weekLabelStr = (typeof AMAI18n !== 'undefined') ? AMAI18n.t('schedule.pdf_week_label') : 'Week Number';
-            const exportedStr = (typeof AMAI18n !== 'undefined') ? AMAI18n.t('schedule.pdf_exported_label') : 'Exported';
+            const subtitle = (typeof AmaI18n !== 'undefined') ? AmaI18n.t('schedule.pdf_title') : 'VESSEL SCHEDULE - SOUTH AMERICA EXPRESS SERVICE';
+            const weekLabelStr = (typeof AmaI18n !== 'undefined') ? AmaI18n.t('schedule.pdf_week_label') : 'Week Number';
+            const exportedStr = (typeof AmaI18n !== 'undefined') ? AmaI18n.t('schedule.pdf_exported_label') : 'Exported';
             const weekStr = weekLabel ? weekLabel.innerText : '';
             const metaLine = `${weekLabelStr}: ${weekStr}  |  ${exportedStr}: ${new Date().toLocaleString(regionalLocale)}`;
 
             // Institutional header rows above the table data
             const headerRows = [
-                ['AMA AGENCIES ARGENTINA S.A.'],
+                ['ATLANTIC MARITIME AGENCY S.A.'],
                 [subtitle],
                 [metaLine],
                 []

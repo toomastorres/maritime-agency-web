@@ -1,7 +1,7 @@
-# Frontend Audit Report — AMA Agencies Argentina
+# Frontend Audit Report — Atlantic Maritime Agency
 
 **Fecha:** 14 de abril de 2026
-**Alcance:** ama-demo.example (8 URLs públicas)
+**Alcance:** atlantic-agency.example.com (8 URLs públicas)
 **Metodología:** Auditoría remota por HTTP + inspección del código fuente local. Los hallazgos incluyen ruta a `archivo:línea` para que el desarrollador pueda llegar al punto exacto de cambio sin búsquedas adicionales.
 
 > **Nota metodológica:** algunos comentarios típicos de un audit de Lighthouse/Wave (ej: "falta `lang` en `<html>`", "falta viewport") **NO aplican** a este sitio — verifiqué contra el código fuente que todas las páginas declaran `<html lang="es" dir="ltr">`, `<meta charset>`, `<meta viewport>`, OG tags, canonical y favicon. No los reporto. Solo se listan issues **reales y reproducibles**.
@@ -150,9 +150,9 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
                     <p class="directorio-card__desc" data-i18n="documentation.contact_doc_impo_desc">
                         Consultas o envíos sobre documentación de importación.
                     </p>
-                    <a href="mailto:doc.import@ama-demo.example" class="directorio-card__cta">
+                    <a href="mailto:doc.import@atlantic-agency.example.com" class="directorio-card__cta">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        doc.import@ama-demo.example
+                        doc.import@atlantic-agency.example.com
                     </a>
                 </div>
             </article>
@@ -168,9 +168,9 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
                     <p class="directorio-card__desc" data-i18n="documentation.contact_doc_expo_desc">
                         Consultas o envíos sobre documentación de exportación.
                     </p>
-                    <a href="mailto:doc.export@ama-demo.example" class="directorio-card__cta">
+                    <a href="mailto:doc.export@atlantic-agency.example.com" class="directorio-card__cta">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        doc.export@ama-demo.example
+                        doc.export@atlantic-agency.example.com
                     </a>
                 </div>
             </article>
@@ -186,9 +186,9 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
                     <p class="directorio-card__desc" data-i18n="documentation.contact_finance_desc">
                         Solicitud de gastos locales y consultas sobre pagos.
                     </p>
-                    <a href="mailto:finance@ama-demo.example" class="directorio-card__cta">
+                    <a href="mailto:finance@atlantic-agency.example.com" class="directorio-card__cta">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        finance@ama-demo.example
+                        finance@atlantic-agency.example.com
                     </a>
                 </div>
             </article>
@@ -204,9 +204,9 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
                     <p class="directorio-card__desc" data-i18n="documentation.contact_equipment_desc">
                         Inspecciones previas al retiro y reclamos por daños.
                     </p>
-                    <a href="mailto:claims@ama-demo.example" class="directorio-card__cta">
+                    <a href="mailto:claims@atlantic-agency.example.com" class="directorio-card__cta">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        claims@ama-demo.example
+                        claims@atlantic-agency.example.com
                     </a>
                 </div>
             </article>
@@ -228,10 +228,10 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
 }
 
 .directorio-card {
-    background: var(--AMA-white);
+    background: var(--ama-white);
     border-radius: var(--radius-xl);
-    box-shadow: var(--AMA-shadow);
-    border: 1px solid var(--AMA-border);
+    box-shadow: var(--ama-shadow);
+    border: 1px solid var(--ama-border);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -240,12 +240,12 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
 
 .directorio-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--AMA-shadow-lg);
+    box-shadow: var(--ama-shadow-lg);
 }
 
 .directorio-card__header {
-    background: var(--AMA-blue);
-    color: var(--AMA-white);
+    background: var(--ama-blue);
+    color: var(--ama-white);
     padding: 0.9rem 1.25rem;
     display: flex;
     align-items: center;
@@ -257,7 +257,7 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
 }
 
 .directorio-card__header svg {
-    color: var(--AMA-gold);
+    color: var(--ama-gold);
     flex-shrink: 0;
 }
 
@@ -271,14 +271,14 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
 
 .directorio-card__title {
     margin: 0;
-    color: var(--AMA-dark);
+    color: var(--ama-dark);
     font-size: 1.05rem;
     font-weight: 700;
 }
 
 .directorio-card__desc {
     margin: 0;
-    color: var(--AMA-text-light);
+    color: var(--ama-text-light);
     font-size: 0.9rem;
     line-height: 1.55;
     flex: 1;
@@ -290,7 +290,7 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
     gap: 0.5rem;
     padding: 0.65rem 0.9rem;
     background: rgba(0, 66, 122, 0.06);
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     border: 1px solid rgba(0, 66, 122, 0.12);
     border-radius: var(--radius-md);
     font-size: 0.85rem;
@@ -301,12 +301,12 @@ Adoptar el mismo lenguaje que `.doc-card` y `.team-card` del resto del sitio: ta
 }
 
 .directorio-card__cta:hover {
-    background: var(--AMA-blue);
-    color: var(--AMA-white);
+    background: var(--ama-blue);
+    color: var(--ama-white);
 }
 
 .directorio-card__cta:hover svg {
-    fill: var(--AMA-white);
+    fill: var(--ama-white);
 }
 
 @media (max-width: 480px) {
@@ -362,9 +362,9 @@ Dos cambios complementarios:
                 <span class="team-v2-card__service team-v2-card__service--roro">Carga Rodante (Ro-Ro)</span>
                 <h3 class="team-v2-card__name">Romi Vergara</h3>
                 <p class="team-v2-card__role">Customer Service</p>
-                <a href="mailto:cars.vans@ama-demo.example?subject=Consulta%20Ro-Ro" class="team-v2-card__cta">
+                <a href="mailto:cars.vans@atlantic-agency.example.com?subject=Consulta%20Ro-Ro" class="team-v2-card__cta">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    cars.vans@ama-demo.example
+                    cars.vans@atlantic-agency.example.com
                 </a>
                 <span class="team-v2-card__ext" title="Interno telefónico">Int. 227</span>
             </article>
@@ -374,9 +374,9 @@ Dos cambios complementarios:
                 <span class="team-v2-card__service team-v2-card__service--project">Carga de Proyecto</span>
                 <h3 class="team-v2-card__name">Trevor Jacobs</h3>
                 <p class="team-v2-card__role">Project Cargo</p>
-                <a href="mailto:project@ama-demo.example?subject=Consulta%20Project%20Cargo" class="team-v2-card__cta">
+                <a href="mailto:project@atlantic-agency.example.com?subject=Consulta%20Project%20Cargo" class="team-v2-card__cta">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    project@ama-demo.example
+                    project@atlantic-agency.example.com
                 </a>
                 <span class="team-v2-card__ext">Int. 230</span>
             </article>
@@ -386,9 +386,9 @@ Dos cambios complementarios:
                 <span class="team-v2-card__service team-v2-card__service--ctr-exp">Containers · Exportación</span>
                 <h3 class="team-v2-card__name">Marcelo Lemos</h3>
                 <p class="team-v2-card__role">Referente Exportación</p>
-                <a href="mailto:containers@ama-demo.example?subject=Export%20-%20Marcelo%20Lemos" class="team-v2-card__cta">
+                <a href="mailto:containers@atlantic-agency.example.com?subject=Export%20-%20Marcelo%20Lemos" class="team-v2-card__cta">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    containers@ama-demo.example
+                    containers@atlantic-agency.example.com
                 </a>
                 <span class="team-v2-card__ext">Int. 228</span>
             </article>
@@ -398,9 +398,9 @@ Dos cambios complementarios:
                 <span class="team-v2-card__service team-v2-card__service--ctr-exp">Containers · Exportación</span>
                 <h3 class="team-v2-card__name">Jean Paul Gibaut</h3>
                 <p class="team-v2-card__role">Referente Exportación</p>
-                <a href="mailto:containers@ama-demo.example?subject=Export%20-%20Jean%20Paul%20Gibaut" class="team-v2-card__cta">
+                <a href="mailto:containers@atlantic-agency.example.com?subject=Export%20-%20Jean%20Paul%20Gibaut" class="team-v2-card__cta">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    containers@ama-demo.example
+                    containers@atlantic-agency.example.com
                 </a>
                 <span class="team-v2-card__ext">Int. 229</span>
             </article>
@@ -410,9 +410,9 @@ Dos cambios complementarios:
                 <span class="team-v2-card__service team-v2-card__service--ctr-imp">Containers · Importación</span>
                 <h3 class="team-v2-card__name">Victoria Montero</h3>
                 <p class="team-v2-card__role">Referente Importación</p>
-                <a href="mailto:containers@ama-demo.example?subject=Import%20-%20Victoria%20Montero" class="team-v2-card__cta">
+                <a href="mailto:containers@atlantic-agency.example.com?subject=Import%20-%20Victoria%20Montero" class="team-v2-card__cta">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    containers@ama-demo.example
+                    containers@atlantic-agency.example.com
                 </a>
                 <span class="team-v2-card__ext">Int. 237</span>
             </article>
@@ -441,10 +441,10 @@ Dos cambios complementarios:
 
 .team-v2-card {
     position: relative;
-    background: var(--AMA-white);
+    background: var(--ama-white);
     border-radius: var(--radius-xl);
-    box-shadow: var(--AMA-shadow);
-    border: 1px solid var(--AMA-border);
+    box-shadow: var(--ama-shadow);
+    border: 1px solid var(--ama-border);
     padding: 1.5rem 1.25rem 1.25rem;
     display: flex;
     flex-direction: column;
@@ -454,7 +454,7 @@ Dos cambios complementarios:
 
 .team-v2-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--AMA-shadow-lg);
+    box-shadow: var(--ama-shadow-lg);
 }
 
 .team-v2-card::before {
@@ -463,7 +463,7 @@ Dos cambios complementarios:
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 4px;
-    background: var(--AMA-gold);
+    background: var(--ama-gold);
     border-top-left-radius: var(--radius-xl);
     border-top-right-radius: var(--radius-xl);
 }
@@ -480,7 +480,7 @@ Dos cambios complementarios:
     margin-top: 0.25rem;
 }
 
-.team-v2-card__service--roro     { background: rgba(0, 66, 122, 0.08); color: var(--AMA-blue); }
+.team-v2-card__service--roro     { background: rgba(0, 66, 122, 0.08); color: var(--ama-blue); }
 .team-v2-card__service--project  { background: rgba(200, 161, 69, 0.14); color: #8a6a10; }
 .team-v2-card__service--ctr-exp  { background: rgba(34, 197, 94, 0.12);  color: #15803d; }
 .team-v2-card__service--ctr-imp  { background: rgba(59, 130, 246, 0.12); color: #1d4ed8; }
@@ -489,14 +489,14 @@ Dos cambios complementarios:
     margin: 0.25rem 0 0;
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--AMA-dark);
+    color: var(--ama-dark);
     line-height: 1.2;
 }
 
 .team-v2-card__role {
     margin: 0;
     font-size: 0.85rem;
-    color: var(--AMA-text-light);
+    color: var(--ama-text-light);
 }
 
 .team-v2-card__cta {
@@ -505,7 +505,7 @@ Dos cambios complementarios:
     gap: 0.5rem;
     padding: 0.55rem 0.75rem;
     background: rgba(0, 66, 122, 0.06);
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     border: 1px solid rgba(0, 66, 122, 0.12);
     border-radius: var(--radius-md);
     font-size: 0.8rem;
@@ -517,18 +517,18 @@ Dos cambios complementarios:
 }
 
 .team-v2-card__cta:hover {
-    background: var(--AMA-blue);
-    color: var(--AMA-white);
+    background: var(--ama-blue);
+    color: var(--ama-white);
 }
 
-.team-v2-card__cta:hover svg { fill: var(--AMA-white); }
+.team-v2-card__cta:hover svg { fill: var(--ama-white); }
 
 .team-v2-card__ext {
     position: absolute;
     top: 1rem; right: 1rem;
     font-size: 0.7rem;
     font-weight: 700;
-    color: var(--AMA-blue);
+    color: var(--ama-blue);
     background: rgba(0, 66, 122, 0.08);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
@@ -664,7 +664,7 @@ Verificar globalmente en `public/assets/css/main.css` (o el reset) que no haya `
 
 ```css
 *:focus-visible {
-    outline: 2px solid var(--AMA-gold);
+    outline: 2px solid var(--ama-gold);
     outline-offset: 2px;
 }
 ```

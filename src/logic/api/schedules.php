@@ -125,6 +125,7 @@ try {
             'status'               => count($rutas_map) > 0 ? 'ok' : 'sin_datos',
             'ultima_actualizacion' => date('d/m/Y', strtotime($lote['creado_en'])),
             'week_number'          => (int)$lote['week_number'],
+            'service_name'         => $lote['service_name'] ?? null,
             'total'                => count($pcs),
             'rutas'                => array_values($rutas_map),
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

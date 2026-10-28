@@ -52,21 +52,24 @@ if (file_exists(__DIR__ . '/.maintenance')) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sitio en Mantenimiento | AMA Agencies</title>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+        <title>Sitio en Mantenimiento | Atlantic Maritime Agency</title>
         <style>
-            body { font-family: "Inter", sans-serif; background: #f8fafc; color: #1e293b; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
-            .box { max-width: 500px; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-            h1 { color: #020617; font-size: 1.5rem; margin-top: 0; }
-            p { color: #475569; line-height: 1.5; }
-            .brand { color: #0033a0; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; display: block; }
+            body { font-family: "DM Sans", Verdana, Geneva, Arial, sans-serif; background: #F0F0F0; color: #1A1A1C; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 24px; box-sizing: border-box; }
+            .olt-maint-card { max-width: 480px; width: 100%; background: #fff; border: 1px solid rgba(128, 128, 131, .35); padding: 48px 40px; text-align: center; box-sizing: border-box; }
+            .olt-maint-card img { height: 32px; max-width: 100%; width: auto; margin-bottom: 28px; }
+            .olt-maint-kicker { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #808083; margin-bottom: 16px; }
+            h1 { font-family: Georgia, "DM Serif Display", serif; font-weight: 400; color: #0F396C; font-size: 26px; margin: 0 0 16px; line-height: 1.2; }
+            p { color: #1A1A1C; line-height: 1.7; font-size: 15px; margin: 0 0 8px; }
+            .olt-maint-en { color: #808083; font-size: 14px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(128, 128, 131, .25); }
         </style>
     </head>
     <body>
-        <div class="box">
-            <span class="brand">AMA Agencies Argentina</span>
-            <h1>Sitio en Mantenimiento</h1>
+        <div class="olt-maint-card">
+            <img src="' . ASSETS_URL . '/img/logo-blue.svg" alt="Atlantic Maritime Agency">
+            <div class="olt-maint-kicker">Atlantic Maritime Agency S.A.</div>
+            <h1>Sitio en mantenimiento</h1>
             <p>Estamos realizando mejoras temporales en nuestra plataforma para brindarle un mejor servicio. Por favor, vuelva a intentarlo en unos minutos.</p>
+            <p class="olt-maint-en">We are temporarily improving our platform to serve you better. Please try again shortly.</p>
         </div>
     </body>
     </html>';

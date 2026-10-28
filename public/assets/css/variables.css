@@ -5,57 +5,57 @@
 
 :root {
     /* ─── Brand Colors ─── */
-    --AMA-blue: #00427A;
-    --AMA-blue-dark: #002f5e;
-    --AMA-blue-darker: #003366;
-    --AMA-navy: #001a3d;
-    --AMA-blue-light: #e0e7f1;
-    --AMA-blue-subtle: #f0f5fb;
+    --ama-blue: #00427A;
+    --ama-blue-dark: #002f5e;
+    --ama-blue-darker: #003366;
+    --ama-navy: #001a3d;
+    --ama-blue-light: #e0e7f1;
+    --ama-blue-subtle: #f0f5fb;
 
     /* ─── Brand Accents ─── */
-    --AMA-gold: #C5A059;
-    --AMA-gold-dark: #a8844a;
-    --AMA-yellow: #C5A059;
-    --AMA-accent: #C5A059;
+    --ama-gold: #C5A059;
+    --ama-gold-dark: #a8844a;
+    --ama-yellow: #C5A059;
+    --ama-accent: #C5A059;
 
     /* ─── Neutrals ─── */
-    --AMA-white: #ffffff;
-    --AMA-gray-light: #f9f9f9;
-    --AMA-gray: #ededed;
-    --AMA-gray-mid: #cccccc;
-    --AMA-border: #dddddd;
+    --ama-white: #ffffff;
+    --ama-gray-light: #f9f9f9;
+    --ama-gray: #ededed;
+    --ama-gray-mid: #cccccc;
+    --ama-border: #dddddd;
 
     /* ─── Semantic Aliases ─── */
-    --AMA-dark: #1a1a2e;
-    --AMA-light-gray: #f5f7fa;
-    --AMA-light-blue: #c8ddf0;
+    --ama-dark: #1a1a2e;
+    --ama-light-gray: #f5f7fa;
+    --ama-light-blue: #c8ddf0;
     --border-color: #dde3ea;
-    --error-color: var(--AMA-error);
+    --error-color: var(--ama-error);
 
     /* ─── Text ─── */
-    --AMA-text: #1e293b;
-    --AMA-text-light: #475569;
-    --AMA-text-muted: #94a3b8;
+    --ama-text: #1e293b;
+    --ama-text-light: #475569;
+    --ama-text-muted: #94a3b8;
 
     /* ─── Semantic Colors ─── */
-    --AMA-success: #155724;
-    --AMA-success-bg: #d4edda;
-    --AMA-error: #721c24;
-    --AMA-error-bg: #f8d7da;
-    --AMA-warning: #856404;
-    --AMA-warning-bg: #fff3cd;
+    --ama-success: #155724;
+    --ama-success-bg: #d4edda;
+    --ama-error: #721c24;
+    --ama-error-bg: #f8d7da;
+    --ama-warning: #856404;
+    --ama-warning-bg: #fff3cd;
 
     /* ─── State Colors ─── */
     --status-active: #16a34a;
     --status-inactive: #dc2626;
 
     /* ─── Elevation ─── */
-    --AMA-shadow-sm: 0 2px 8px rgba(0, 66, 122, 0.06);
-    --AMA-shadow: 0 8px 24px rgba(0, 66, 122, 0.10);
-    --AMA-shadow-md: 0 12px 32px rgba(0, 66, 122, 0.12);
-    --AMA-shadow-lg: 0 16px 48px rgba(0, 66, 122, 0.15);
-    --AMA-shadow-xl: 0 24px 64px rgba(0, 66, 122, 0.20);
-    --AMA-shadow-inset: inset 0 0 0 3px rgba(0, 66, 122, 0.12);
+    --ama-shadow-sm: 0 2px 8px rgba(0, 66, 122, 0.06);
+    --ama-shadow: 0 8px 24px rgba(0, 66, 122, 0.10);
+    --ama-shadow-md: 0 12px 32px rgba(0, 66, 122, 0.12);
+    --ama-shadow-lg: 0 16px 48px rgba(0, 66, 122, 0.15);
+    --ama-shadow-xl: 0 24px 64px rgba(0, 66, 122, 0.20);
+    --ama-shadow-inset: inset 0 0 0 3px rgba(0, 66, 122, 0.12);
 
     /* ─── Typography ─── */
     --font-primary: 'Inter', 'Verdana', 'Geneva', 'Arial', sans-serif;
@@ -104,7 +104,7 @@
     --hero-height-page: clamp(340px, 50vh, 520px);
     --hero-badge-bg: rgba(197, 160, 89, 0.2);
     --hero-badge-border: rgba(197, 160, 89, 0.4);
-    --hero-badge-color: var(--AMA-gold);
+    --hero-badge-color: var(--ama-gold);
 
     /* ─── Breakpoints (for reference in JS / doc) ─── */
     --bp-xs: 360px;
@@ -120,4 +120,29 @@
 
     /* ─── Mobile touch targets ─── */
     --touch-target: 44px;
+
+    /* ─── Rediseño 2026 — sistema Oltremare (Brand Book Atlantic Maritime Group) ───
+       Tokens nuevos, aditivos. Usados por header/footer y las vistas ya
+       migradas al rediseño (Home, mapa de red). El resto del sitio sigue
+       con los tokens --ama-* de arriba hasta que se migre. */
+    --olt-blue: #0F396C;
+    --olt-blue-mid: #0069CC;
+    --olt-alert: #B3261E;
+    --olt-ink: #1A1A1C;
+    --olt-grey: #808083;
+    --olt-paper: #F0F0F0;
+    --olt-rule: rgba(128, 128, 131, .35);
+    --olt-rule-soft: rgba(128, 128, 131, .2);
+    --olt-rule-softer: rgba(128, 128, 131, .18);
+    --olt-rule-softest: rgba(128, 128, 131, .25);
+
+    /* Alto de la barra pegajosa. Lo necesita cualquier elemento con
+       position:sticky para no quedar debajo del header. */
+    --olt-header-h: 89px;
+
+    --font-olt-sans: 'DM Sans', 'Verdana', 'Geneva', 'Arial', sans-serif;
+    --font-olt-serif: 'DM Serif Display', 'Georgia', serif;
+
+    --olt-container: 1160px;
+    --olt-gutter: 40px;
 }
